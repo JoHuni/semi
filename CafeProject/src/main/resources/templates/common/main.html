@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
+<link rel="stylesheet" href="/css/main-css.css">
+
 <body>
     <main>
         <th:block th:replace="~{common/header}"></th:block>
         <th:block th:replace="~{board/write}"></th:block>
     </main>
+
+    <th:block th:replace="~{board/write}"></th:block>
+    
     <th:block th:replace="~{common/footer}"></th:block>
 </body>
 
