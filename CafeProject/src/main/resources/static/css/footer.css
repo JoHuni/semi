@@ -1,0 +1,37 @@
+#footer {
+    width: 70%;
+    display: flex;         
+    justify-content: space-between; 
+    align-items: center;    
+    margin: auto;
+}
+
+#left-group {
+    display: flex;        
+    align-items: center;
+}
+
+#cafe_name {
+    display: inline-block;
+    font-size: 17px;   
+    margin-right: 10px;    
+}
+
+#verticalBar {
+    font-size: 15px;      
+    margin-right: 10px;    
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none; 
+    color: black;       
+}
+
+a:hover {
+    text-decoration: underline; 
+}
+
+#kh_academy {
+    white-space: nowrap; 
+}
