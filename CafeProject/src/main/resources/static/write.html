@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글쓰기</title>
+</head>
+
+<link rel="stylesheet" href="../css/write.css">
+
+<body>
+    <div class="container">
+
+
+        <div class="writeHeader">
+            <h2>카페 글쓰기</h2>
+
+            <div class="btnArea">
+                <button id="photoAddBtn" class="btn">사진첨부</button>
+                <button id="submitBtn" class="btn">등록</button>
+            </div>
+
+        </div>
+
+
+        <hr>
+
+
+
+        <div class="writeContent">
+
+            <div class="writeWrap">
+
+                <div class="titleArea">
+                    <input type="text" placeholder="제목을 입력해 주세요." id="boardTitle" name="boardTitle">
+                </div>
+
+
+                <div class="contentArea">
+                    <textarea name="boardContent" id="boardContent" cols="50" rows="100"
+                        placeholder="내용을 입력해주세요"></textarea>
+
+                </div>
+
+            </div>
+
+            <div class="checkSide">
+                <p>공개 설정</p>
+
+                <div class="checkArea">
+                    <div>
+                        <input type="checkbox" name="checkPublic" id="checkPublic"> 전체 공개
+                    </div>
+
+                    <div>
+                        <input type="checkbox" name="checkAnnouncement" id="checkAnnouncement"> 공지 사항
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+</body>
+
+</html>
