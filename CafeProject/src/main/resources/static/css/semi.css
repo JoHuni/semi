@@ -1,0 +1,58 @@
+#parentContainer{
+    display: flex;
+    flex-direction: column;
+    height:900px;
+    width: 100%;
+    border : 1px solid black;
+    
+}
+#container{
+    margin:auto;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    width : 500px;
+    border: 1px solid lightgrey;
+    border-radius : 10px;
+    padding-top : 20px;
+    margin-bottom: 250px;
+    background-color: white;
+}
+#container > input{
+    height:50px;
+    width : 70%;
+    margin:10px;
+    padding-right : 20px;
+    border : 1px solid lightgray;
+    padding-left:20px;
+    border-radius: 10px;
+}
+#container > input:hover{
+    cursor:pointer;
+}
+#heading{
+    margin:auto;
+    height:80px;
+    width:900px;
+    border: 3px solid white;
+    border-bottom : 5px solid lightgray;
+
+}
+
+#registerBtn{
+    height:50px;
+    width : 75%;
+    border-radius:10px;
+    border: 1px solid rgb(93, 164, 187);
+    background-color: rgb(93, 164, 187);
+    color:white;
+    margin-top:30px;
+    margin-bottom:20px;
+}
+
+#registerBtn:hover{
+    cursor: pointer;
+    background-color: rgb(73, 166, 197);
+}
