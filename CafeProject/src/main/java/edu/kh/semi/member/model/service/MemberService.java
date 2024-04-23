@@ -1,6 +1,6 @@
 package edu.kh.semi.member.model.service;
 
-import edu.kh.semi.member.dto.Member;
+import edu.kh.semi.member.model.dto.Member;
 
 public interface MemberService {
 

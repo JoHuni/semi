@@ -2,8 +2,7 @@ package edu.kh.semi.member.model.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import edu.kh.semi.member.dto.Member;
-import lombok.RequiredArgsConstructor;
+import edu.kh.semi.member.model.dto.Member;
 
 @Mapper
 
