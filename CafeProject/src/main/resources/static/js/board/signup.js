@@ -16,7 +16,5 @@ inputEmail.addEventListener("input", () => {
     emailAlert.innerText = "유효한 이메일 형식입니다";   
     emailAlert.classList.add("success");
     emailAlert.classList.remove("fail");
-    
-    
 });
     

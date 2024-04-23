@@ -10,4 +10,6 @@ public interface MemberService {
 	 */
 	Member login(Member inputMember);
 
+	int signup(String memberEmail, String memberNickname, String memberPw, String memberTel);
+
 }

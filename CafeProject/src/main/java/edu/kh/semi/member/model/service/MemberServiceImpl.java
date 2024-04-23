@@ -24,4 +24,14 @@ public class MemberServiceImpl implements MemberService{
 		Member loginMember = mapper.login(inputMember.getMemberEmail());
 		return null;
 	}
+
+
+	@Override
+	public int signup(String memberEmail, String memberNickname, String memberPw, String memberTel) {
+		Member member = new Member();
+		member.setMemberEmail(memberEmail);
+		member.setMemberNickname(memberNickname);
+		member.setMemberPw(memberPw);
+		return mapper.signup(member);
+	}
 }
