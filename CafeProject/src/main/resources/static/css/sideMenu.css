@@ -1,4 +1,4 @@
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -10,67 +10,115 @@
     height: 750px;
 }
 
-#sideMenu>div{
+#sideMenu > div {
     margin: 10px;
     padding: 5px;
 }
 
-.menuBtnArea{
+.menuBtnArea {
     display: flex;
     justify-content: space-around;
 }
 
-.menuBtnArea>button{
-    border: none;
+.menuBtnArea > button {
     background-color: white;
     font-weight: bold;
-    padding: 3px;
-    margin: 3px;
+    padding: 3px 10px;
     cursor: pointer;
+    border: none;
 }
 
-.profileArea{
+
+.profileArea {
     display: flex;
+    align-items: center;
 }
 
-.imgArea{
-    display: flex;
-    width: 30%;
-    height: auto;
+.imgArea {
+    flex-basis: 30%;
+    margin-right: 30px;
 }
 
-.imgArea>img{
+.imgArea > img {
     width: 100%;
     height: auto;
+    display: block;
 }
 
-.imfoArea{
-    width: 70%;
+.infoArea {
+    flex-basis: 60%;
     padding: 10px;
 }
-.imfoArea>p{
-    width: 100%;
-    font-size: 8px;
+
+.infoArea > h5 {
+    margin-bottom: 5px;
+}
+
+.infoArea > p {
+    font-size: 12px;
     color: #666;
 }
 
-.btnClass{
-    display: flex;
-    flex-direction: column;
+.btnClass {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center;
 }
 
-.btnClass>button{
-    margin: 5px;
-    border: none;
-    height: 30px;
+.btnClass > button {
+    width: 100%;
+    margin-bottom: 10px;
     border-radius: 5px;
+    border: none;
+}
+
+.btnClass > button:first-child {
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    color: #fff;
+    border-radius: 6px;
+    background-color: #5a5a5a;
     font-weight: bold;
+    line-height: 38px;
+}
+.btnClass > button:hover{
     cursor: pointer;
-}
-
-.btnClass>button:hover{
-    background-color: #C8DADF;
+    text-decoration: underline;
 }
 
 
+.btnClass > button:last-child {
+    height: 38px;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 38px;
+    text-align: center;
+    font-weight: bold;
+}
+.memberCountArea,
+.btnClass {
+    text-align: center;
+}
 
+
+.menuList > ul {
+    list-style: none;
+}
+
+.menuList > ul > li {
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.menuList > ul > li:hover {
+    background-color: #f0f0f0;
+}
+
+hr {
+    border: 0;
+    height: 2px;
+    background-color: #6CABDD;
+}
