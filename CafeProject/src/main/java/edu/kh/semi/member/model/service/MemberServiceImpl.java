@@ -35,9 +35,22 @@ public class MemberServiceImpl implements MemberService{
 
 		return loginMember;
 	}
+
+
+
+	@Override
+	public int signup(Member member) {
+		String encPw = bcrypt.encode(member.getMemberPw());
+		member.setMemberEmail(member.getMemberEmail());
+		member.setMemberNickname(member.getMemberNickname());
+		member.setMemberPw(encPw);
+		member.setMemberTel(member.getMemberTel());
+		return mapper.signup(member);
+
 	
 	@Override
 	public int countMember() {
 		return mapper.countMember();
+
 	}
 }
