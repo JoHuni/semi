@@ -8,19 +8,13 @@ inputEmail.addEventListener("input", () => {
         emailAlert.innerText = "이메일 형식이 맞지 않습니다";   
         emailAlert.classList.add("fail");
         emailAlert.classList.remove("success");
-        return;
-       
+        return;  
     }
-    fetch("/checkEmail?inputEmail=" + inputEmail.value)
-    .then(response => response.text())
-    .then(count => {
-        if (count == 1){
-            emailAlert.innerText = "이미 존재하는 이메일 입니다";
-            emailAlert.classList.add("fail");
-            emailAlert.classList.remove("success");
-            return;
-        }
-    })
+
+    emailAlert.innerText = "유효한 이메일 형식입니다";   
+    emailAlert.classList.add("success");
+    emailAlert.classList.remove("fail");
+    
     
 });
     
