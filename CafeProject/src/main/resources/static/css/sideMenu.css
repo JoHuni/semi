@@ -2,13 +2,11 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 #sideMenu{
     display: block;
-    width: 15%;
-    margin: 0 15%;
     height: 750px;
 }
 
@@ -54,6 +52,24 @@
     width: 100%;
     font-size: 8px;
     color: #666;
+}
+
+.btnClass{
+    display: flex;
+    flex-direction: column;
+}
+
+.btnClass>button{
+    margin: 5px;
+    border: none;
+    height: 30px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btnClass>button:hover{
+    background-color: #C8DADF;
 }
 
 

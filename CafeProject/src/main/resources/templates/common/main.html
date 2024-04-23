@@ -13,14 +13,23 @@
     <main>
         <th:block th:replace="~{common/header}"></th:block>
 
+
         <div class="mainArea">
 
             <div class="mainClass">
-                
+
                 <div class="ImgBtnArea">
-                    <img src="/images/img2.jpg" alt="">
-                    <img src="/images/img3.jpg" alt="">
+                    <a href="https://www.instagram.com/mancity/">
+                        <img src="/images/imgBtn.jpg" alt="이미지버튼1">
+                    </a>
+
+                    <a
+                        href="https://www.google.com/search?sca_esv=369bb2d90aa2509e&sca_upv=1&sxsrf=ACQVn0_kCO2r0-dLfVKXzkhgC-2EpKMV7g:1713791559579&q=%EB%A7%A8%EC%B2%B4%EC%8A%A4%ED%84%B0+%EC%8B%9C%ED%8B%B0+%EA%B2%BD%EA%B8%B0+%EC%9D%BC%EC%A0%95&spell=1&sa=X&ved=2ahUKEwjxsoKJ89WFAxX4sVYBHaBLD54QBSgAegQICRAC&biw=1280&bih=665&dpr=1.5#sie=t;/m/01634x;2;/m/02_tc;st;fp;1;;;">
+                        <img src="/images/imgBtn2.jpg" alt="이미지버튼2">
+                    </a>
+
                 </div>
+
 
                 <div id="mainImg">
                     <img src="/images/mainImg1.jpg" alt="메인이미지">
@@ -29,10 +38,12 @@
             </div>
 
 
+            <th:block th:replace="~{common/sideMenu}" id="sideMenu"></th:block>
         </div>
-    </main>
 
-    <th:block th:replace="~{common/sideMenu}"></th:block>
+
+
+    </main>
 
     <th:block th:replace="~{common/footer}"></th:block>
 </body>
