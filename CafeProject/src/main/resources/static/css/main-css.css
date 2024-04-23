@@ -8,6 +8,7 @@
 
 .mainArea{
     width: 70%;
+    min-height: 700px;
     height: 750px;
     display: flex;
     margin: auto;
