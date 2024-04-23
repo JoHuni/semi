@@ -1,4 +1,4 @@
-package edu.kh.semi.member.dto;
+package edu.kh.semi.member.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
