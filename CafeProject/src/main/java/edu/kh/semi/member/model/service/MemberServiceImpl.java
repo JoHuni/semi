@@ -38,11 +38,12 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public int signup(String memberEmail, String memberNickname, String memberPw, String memberTel) {
-		Member member = new Member();
-		member.setMemberEmail(memberEmail);
-		member.setMemberNickname(memberNickname);
-		member.setMemberPw(memberPw);
+	public int signup(Member member) {
+		String encPw = bcrypt.encode(member.getMemberPw());
+		member.setMemberEmail(member.getMemberEmail());
+		member.setMemberNickname(member.getMemberNickname());
+		member.setMemberPw(encPw);
+		member.setMemberTel(member.getMemberTel());
 		return mapper.signup(member);
 	}
 }

@@ -14,4 +14,6 @@ public interface MemberMapper {
 	 */
 	Member login(String memberEmail);
 
+	int signup(Member member);
+
 }

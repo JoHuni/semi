@@ -14,5 +14,11 @@
 		SELECT COUNT(*) FROM "MEMBER"
 		WHERE MEMBER_EMAIL = #{inputEmail}
 	</select>
+	
+	<insert id="signup">
+		INSERT INTO "MEMBER"
+		VALUES(MEMBER_NO_SEQ.NEXTVAL, #{memberEmail}, #{memberPw}, #{memberTel},  #{memberNickname},
+		NULL, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
 
 </mapper>

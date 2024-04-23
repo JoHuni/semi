@@ -65,7 +65,11 @@
 }
 
 .btn{
+    color:white;
     border-radius:10px;
     border: 1px solid rgb(93, 164, 187);
     background-color: rgb(93, 164, 187);
+}
+.btn:hover{
+    cursor:pointer;
 }

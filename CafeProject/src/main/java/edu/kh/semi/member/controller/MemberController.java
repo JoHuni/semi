@@ -32,15 +32,22 @@ public class MemberController {
 	
 	@PostMapping("register")
 	public String signup( 
-			@RequestParam("inputEmail") String memberEmail,
-			@RequestParam("memberNickname") String memberNickname,
-			@RequestParam("inputPass") String memberPw,
-			@RequestParam("inputTel") String memberTel
+			Member member,
+			RedirectAttributes ra
 			) {
 		
-		int member = service.signup(memberEmail, memberNickname, memberPw, memberTel);
+		int result = service.signup(member);
 		
-		return null;
+		String message = null;
+		if(result > 0) {
+			message = "가입 성공!";
+			ra.addFlashAttribute("message", message);
+			return "redirect:/";
+		}else {
+			message = "가입 실패";
+			return "board/signup";
+		}
+		
 	}
 
 	@PostMapping("login")
