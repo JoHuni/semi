@@ -3,7 +3,7 @@ package edu.kh.semi.member.model.service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import edu.kh.semi.member.dto.Member;
+import edu.kh.semi.member.model.dto.Member;
 import edu.kh.semi.member.model.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 
@@ -22,7 +22,18 @@ public class MemberServiceImpl implements MemberService{
 		String bcryptPassword = bcrypt.encode(inputMember.getMemberPw());
 		
 		Member loginMember = mapper.login(inputMember.getMemberEmail());
-		return null;
+		
+		if(loginMember == null) {
+			return null;
+		}
+		
+		if(!bcrypt.matches(inputMember.getMemberPw(), loginMember.getMemberPw())) {
+			return null;
+		}
+		
+		loginMember.setMemberPw(null);
+
+		return loginMember;
 	}
 
 
