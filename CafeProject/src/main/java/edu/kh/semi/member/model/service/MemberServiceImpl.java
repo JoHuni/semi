@@ -35,4 +35,9 @@ public class MemberServiceImpl implements MemberService{
 
 		return loginMember;
 	}
+	
+	@Override
+	public int countMember() {
+		return mapper.countMember();
+	}
 }

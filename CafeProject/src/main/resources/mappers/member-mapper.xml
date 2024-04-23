@@ -10,9 +10,13 @@
 		and MEMBER_DEL_FL = 'N'
 	</select>
   
-  <select id="getEmail">
+  	<select id="getEmail">
 		SELECT COUNT(*) FROM "MEMBER"
 		WHERE MEMBER_EMAIL = #{inputEmail}
 	</select>
 
+	<select id="countMember" resultType="_int">
+		SELECT COUNT(*)
+		FROM "MEMBER"
+	</select>
 </mapper>

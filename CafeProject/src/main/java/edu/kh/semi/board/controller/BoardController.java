@@ -33,4 +33,5 @@ public class BoardController {
 	public String boardDetail() {
 		return "board/boardDetail";
 	}
+	
 }
