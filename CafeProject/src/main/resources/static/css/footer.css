@@ -1,4 +1,4 @@
-#footer {
+#footerAtricle {
     width: 70%;
     display: flex;         
     justify-content: space-between; 
@@ -34,4 +34,11 @@ a:hover {
 
 #kh_academy {
     white-space: nowrap; 
+}
+
+footer {
+    display: block;
+    width: 100%;
+    height: 200px;
+    margin-top: 30px;
 }
