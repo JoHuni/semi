@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import edu.kh.semi.member.dto.Member;
+import edu.kh.semi.member.model.dto.Member;
 import edu.kh.semi.member.model.service.MemberService;
 import lombok.RequiredArgsConstructor;
 
@@ -27,6 +27,7 @@ public class MemberController {
 	@GetMapping("signup")
 	public String register() {
 		return "board/signup";
+  }
 
 	@PostMapping("login")
 	public String login(
@@ -35,7 +36,16 @@ public class MemberController {
 			Model model) {
 		
 		Member loginMember = service.login(inputMember); 
-		return null;
 
+		if(loginMember == null) {
+			ra.addFlashAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다");
+		}
+		
+		
+		if(loginMember != null) {
+			model.addAttribute("loginMember", loginMember);
+			ra.addFlashAttribute("message", "로그인 성공");
+		}
+		return "redirect:/";
 	}
 }
