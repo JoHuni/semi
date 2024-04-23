@@ -14,4 +14,11 @@ public interface MemberMapper {
 	 */
 	Member login(String memberEmail);
 
+	/** 사이드 메뉴에 나타나는 회원 수
+	 * @return 
+	 */
+	int countMember();
+	
+	
+
 }
