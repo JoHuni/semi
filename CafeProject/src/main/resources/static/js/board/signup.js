@@ -10,7 +10,9 @@ inputEmail.addEventListener("input", () => {
         emailAlert.classList.remove("success");
         return;  
     }
-
+    const otpBtn = document.createElement("button");
+    otpBtn.classList.add("btn");
+    emailAlert.append(otpBtn);
     emailAlert.innerText = "유효한 이메일 형식입니다";   
     emailAlert.classList.add("success");
     emailAlert.classList.remove("fail");
