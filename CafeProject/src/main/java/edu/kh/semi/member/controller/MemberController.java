@@ -23,6 +23,12 @@ public class MemberController {
 		return "board/Login";
 	}
 	
+
+	@GetMapping("signup")
+	public String register() {
+		return "board/signup";
+  }
+
 	@PostMapping("login")
 	public String login(
 			Member inputMember,

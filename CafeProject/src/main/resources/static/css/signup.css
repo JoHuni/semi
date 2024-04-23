@@ -56,3 +56,16 @@
     cursor: pointer;
     background-color: rgb(73, 166, 197);
 }
+
+.success{
+    color:green;
+}
+.fail{
+    color : red;
+}
+
+.btn{
+    border-radius:10px;
+    border: 1px solid rgb(93, 164, 187);
+    background-color: rgb(93, 164, 187);
+}
