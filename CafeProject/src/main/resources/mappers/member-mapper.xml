@@ -3,7 +3,7 @@
 <mapper namespace="edu.kh.semi.member.model.mapper.MemberMapper">
 	<select id="login" resultType="Member">
 		SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_PW, MEMBER_TEL,
-		MEMBER_NICKNAME, PROFILE_IMG, TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') ENROLL_DATE,
+		MEMBER_NICKNAME, PROFILE_IMG, TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') ENROLL_DATE
 		FROM "MEMBER"
 		WHERE MEMBER_EMAIL = #{memberEmail}
 		and MEMBER_DEL_FL = 'N'
