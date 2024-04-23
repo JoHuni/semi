@@ -22,7 +22,7 @@ public class BoardController {
 	 */
 	@GetMapping("writeBoard")
 	public String writeBoard() {
-		return "board/write";
+		return "board/boardWrite";
 	}
 	
 	
