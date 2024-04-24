@@ -32,6 +32,19 @@
 
 
 .container-header {
+    width: 900px;
     text-align: left; /* 텍스트를 왼쪽으로 정렬 */
     padding: 20px; /* 적당한 여백을 추가 */
+}
+
+.profile-circle {
+    width: 100px;        /* 원의 너비 */
+    height: 100px;       /* 원의 높이 */
+    border-radius: 50%;  /* 원 모양 만들기 */
+    background-color: #ccc; /* 배경색 설정, 이미지가 없을 경우를 대비 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;    /* 이미지가 원 밖으로 나가지 않도록 처리 */
+    background-size: cover; /* 배경 이미지 크기가 원을 꽉 채우도록 설정 */
 }
