@@ -9,6 +9,8 @@
 </head>
 
 <body>
+    <th:block th:replace="~{common/header}"></th:block>
+
     <div class="container">
         <div class="container-header">
             <h2>프로필 수정</h2>
@@ -20,8 +22,20 @@
                 <div class="row-left">
                     <p>프로필 사진</p>
                 </div>
-                <div>gd2</div>
+                <div>
+                    <span class="profile-circle">
+                        <th:block th:if="${session.loginMember.profileImg == null}">
+                            <img th:with="user=#{user.default.image}" 
+                            th:src="${session.loginMember.profileImg ?: user }"
+                            style="width: 100%; height: 100%; object-fit: cover;">
+                        </th:block>
+                    </span>
+                    <button type="button" id="uploadBtn">파일 선택</button>
+                    <input type="file" id="fileInput" style="display: none;" accept="image/*">
+                    <button>삭제</button>
+                </div>
             </div>
+            
             <div class="row">
                 <div class="row-left">
                     <p>별명</p>
@@ -30,6 +44,9 @@
             </div>
         </div>
     </div>
+    
+    <th:block th:replace="~{common/footer}"></th:block>
+    <script src = "/js/board/myPage.js"></script>
 </body>
 
 </html>
