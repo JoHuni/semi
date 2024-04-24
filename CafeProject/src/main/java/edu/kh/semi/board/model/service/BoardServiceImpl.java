@@ -17,21 +17,25 @@ public class BoardServiceImpl implements BoardService{
 	
 	private final BoardMapper mapper;
 	
+	
 	@Override
-	public Board selectBoard(String boardTitle, String boardContent, int memberNo) {
-		
+	public int insertBoard(String boardTitle, String boardContent, int memberNo) {
+	
 		Board board = new Board();
 		board.setBoardTitle(boardTitle);
 		board.setBoardContent(boardContent);
 		board.setMemberNo(memberNo);
 		
 		int result = mapper.insertBoard(board);
+		log.debug("result : " + result );
+		
 		
 		if(result>0) {
-	
-			log.debug("result "+ result);
+			
+			return result;
 		}
-	return null;
+	
+		return 0;
 	}
 }
 

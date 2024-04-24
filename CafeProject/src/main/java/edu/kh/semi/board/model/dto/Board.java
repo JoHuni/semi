@@ -24,6 +24,9 @@ public class Board {
 	private String boardCheckPublic;
 	private int memberNo;
 	
+	private String memberNickname;
+	
+	
 	
 
 }
