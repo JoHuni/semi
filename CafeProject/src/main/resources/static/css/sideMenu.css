@@ -64,12 +64,10 @@
 .btnClass {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
 }
 
 .btnClass form {
-    width: 100%;  /* 폼의 너비를 100%로 설정 */
+    width: 100%;
 }
 
 .btnClass button {
