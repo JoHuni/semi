@@ -5,6 +5,7 @@ const emailAlert = document.querySelector("#alertMessage1");
 
 
 const checkPass = document.querySelector("#checkPass");
+const checkPassAlert =  document.querySelector("alertMessage6");
 
 const inputPw = document.querySelector("#memberPw");
 const pwAlert = document.querySelector("#alertMessage4");
@@ -108,7 +109,9 @@ inputPw.addEventListener("input",()=>{
 //비밀번호 인증 기능 구현
 checkPass.addEventListener("input", () => {
     if(checkPass.value.trim().length === 0){
-        obj.checkPass = false;
+        checkPassAlert.innerText = "비밀번호를 재입력 해야합니다";
+        checkPass.value = "";
+        return;
     }
 
     obj.checkPass = true;
@@ -246,6 +249,8 @@ otpBtn.addEventListener("click" , () => {
         }else{
             console.log("인증 번호 발송 실패");
         }
+        
+        
     })
     
 
@@ -259,16 +264,11 @@ otpBtn.addEventListener("click" , () => {
 
     alert("인증 번호가 발송되었습니다.")
 
-    // setInterval(함수, 지연시간(ms))
-    // - 지연시간 (ms)만큼 시간이 지날 떄 마다 함수 수행
-    //clearInterval(Interval 이 저장된 변수)
-    //- 매개변수로 전달 받은 interval 을 멈춤
-
-    //인증 시간 출력(1초 마다 동작)
+   
     authTimer = setInterval(() =>{
         authKeyMessage.innerText = `${addZero(min)}:${addZero(sec)}`;
 
-        //0분 0초인 경우(00:00초 출력 후)
+       
         if(min == 0 && sec == 0){
             obj.checkEmail = false; // 인증 못함
             clearInterval(authTimer); //interval 멈춤
@@ -276,7 +276,7 @@ otpBtn.addEventListener("click" , () => {
             authKeyMessage.classList.remove("success");
             return;
         }
-        // 0초인 경우(0초를 출력한 후)
+       
         if(sec == 0){
             sec = 60;
             min--;

@@ -3,6 +3,7 @@ package edu.kh.semi.email.model.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -26,13 +27,17 @@ public class EmailServiceImpl implements EmailService {
 	
 	//타임리프 (템플릿 엔진) 을 이용해서 html 코드 -> java로 변환
 	private final SpringTemplateEngine templateEngine;
+	
+	
+	
+	
 	@Override
 	public String sendEmail(String htmlName, String email) {
 		String authKey = createAuthKey();
 		try {
 			String subject = null;
 			switch(htmlName) {
-				case "signup": subject = "[boardProject] 회원가입 인증번호 입니다";
+				case "signup": subject = "[boardProject] 회원가입 인증번호 입니다";break;
 			}
 			
 			//인증 메일 보내기
@@ -46,6 +51,11 @@ public class EmailServiceImpl implements EmailService {
 			helper.setTo(email); // 받는 사람 이메일 지정
 			helper.setSubject(subject); // 이메일 제목 지정
 			helper.setText( loadHtml(authKey, htmlName),true );
+			
+			helper.addInline("logo",  
+					new ClassPathResource("static/images/logo.jpg"));
+			
+			mailSender.send(mimeMessage);
 			
 			
 		}catch(Exception e) {
