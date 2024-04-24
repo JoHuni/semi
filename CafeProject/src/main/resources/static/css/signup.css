@@ -73,3 +73,11 @@
 .btn:hover{
     cursor:pointer;
 }
+
+#checkEmail {
+    display : none;
+}
+
+#checkBtn{
+    display:none;
+}
