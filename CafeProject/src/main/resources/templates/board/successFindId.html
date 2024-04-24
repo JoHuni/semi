@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/signup.css">
+</head>
+<body>
+    
+    <div id="parentContainer">
+        <div id = "heading"><h1>아이디 찾기</h1></div>
+        <form action="/member/login" method="GET">
+            <div id="container">
+                <h1>인증된 번호로 가입된 아이디</h1>
+                <p th:text="${memberId}"></p>
+                <button id="registerBtn"><b>로그인 하러 가기</b></button>
+            </div>
+        </form>
+    </div>
+    <script th:inline="javascript">
+        const message =  /*[[${message}]]*/ "전달 받은 message";
+      
+        if(message != null) alert(message);
+    </script>
+</body>
+</html>

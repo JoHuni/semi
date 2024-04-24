@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="edu.kh.semi.member.model.mapper.MemberMapper">
 	<select id="login" resultType="Member">
 		SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_PW, MEMBER_TEL,
@@ -7,5 +8,27 @@
 		FROM "MEMBER"
 		WHERE MEMBER_EMAIL = #{memberEmail}
 		and MEMBER_DEL_FL = 'N'
+	</select>
+  
+  	<select id="getEmail">
+		SELECT COUNT(*) FROM "MEMBER"
+		WHERE MEMBER_EMAIL = #{inputEmail}
+	</select>
+	
+	<insert id="signup">
+		INSERT INTO "MEMBER"
+		VALUES(MEMBER_NO_SEQ.NEXTVAL, #{memberEmail}, #{memberPw}, #{memberTel},  #{memberNickname},
+		NULL, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+
+	<select id="countMember" resultType="_int">
+		SELECT COUNT(*)
+		FROM "MEMBER"
+	</select>
+	
+	<select id="findId" resultType="String">
+		SELECT "MEMBER_EMAIL"
+		FROM "MEMBER"
+		WHERE MEMBER_TEL = #{memberTel}
 	</select>
 </mapper>

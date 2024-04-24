@@ -14,7 +14,7 @@ import edu.kh.semi.member.model.dto.Member;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/board")
+@RequestMapping("board")
 @RequiredArgsConstructor
 public class BoardController {
 	
@@ -51,4 +51,10 @@ public class BoardController {
 		
 		return "board/boardDetail";
 	}
+	
+	@GetMapping("findId")
+	public String findId() {
+		return "board/findId";
+	}
+	
 }

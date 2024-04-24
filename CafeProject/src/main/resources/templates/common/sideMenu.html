@@ -31,12 +31,29 @@
 
     <hr>
 
-    <div class="btnClass">
-        <button id="joinBtn">가입하기</button>
-        <form action="member/login" method="GET">
-            <button id="loginBtn">로그인</button>
-        </form>
-    </div>
+    <!-- 로그인 안 되어있을 때 -->
+    <th:block th:if="${session.loginMember == null}">
+        <div class="btnClass">
+            <form action = "member/signup">
+                <button id="joinBtn">가입하기</button>
+            </form>
+            <form action="member/login" method="GET">
+                <button id="loginBtn">로그인</button>
+            </form>
+        </div>
+    </th:block>
+
+    <!-- 로그인 되었을 때 -->
+    <th:block th:if="${session.loginMember != null}">
+        <div class="btnClass">
+            <form action = "board/writeBoard">
+                <button id="joinBtn">글쓰기</button>
+            </form>
+            <form action="member/logout" method="POST">
+                <button id="loginBtn">로그아웃</button>
+            </form>
+        </div>
+    </th:block>
     <hr>
 
     <div class="menuList">
