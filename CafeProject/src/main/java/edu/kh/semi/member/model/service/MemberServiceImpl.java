@@ -46,6 +46,7 @@ public class MemberServiceImpl implements MemberService{
 		member.setMemberPw(encPw);
 		member.setMemberTel(member.getMemberTel());
 		return mapper.signup(member);
+	}
 
 	
 	@Override
