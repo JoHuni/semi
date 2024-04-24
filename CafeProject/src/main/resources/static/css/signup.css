@@ -2,9 +2,7 @@
     display: flex;
     flex-direction: column;
     height:900px;
-    width: 100%;
-    border : 1px solid black;
-    
+    width: 100%;    
 }
 #container{
     margin:auto;
@@ -74,6 +72,7 @@
     cursor:pointer;
 }
 
+
 #checkEmail {
     display : none;
 }
@@ -81,3 +80,34 @@
 #checkBtn{
     display:none;
 }
+
+.findIdPw{
+    width : 75%;
+    display: flex;
+    align-items: row;
+    justify-content: space-between;
+}
+
+.findIdPw > form{
+    text-align: left;
+    width: 50%;
+}
+.findIdPw > form:nth-child(2){
+    text-align: right;
+}
+
+.findIdPw > form > button{
+    width: 95%;
+    height:50px;
+    border-radius:10px;
+    border: 1px solid rgb(93, 164, 187);
+    background-color: rgb(93, 164, 187);
+    color:white;
+
+}
+
+.findIdPw > form > button:hover{
+    cursor: pointer;
+}
+
+

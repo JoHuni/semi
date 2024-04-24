@@ -20,7 +20,16 @@ public interface MemberService {
 	int countMember();
 
 
+<<<<<<< HEAD
 
+=======
+
+	/** 아이디 찾기
+	 * @param memberTel
+	 * @return
+	 */
+	String findId(String memberTel);
+>>>>>>> b8a5929e1e6d9f6daca596f779bedcd540a9da3c
 
 
 }

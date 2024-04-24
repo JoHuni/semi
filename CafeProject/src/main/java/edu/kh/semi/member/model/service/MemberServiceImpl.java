@@ -19,8 +19,6 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public Member login(Member inputMember) {
 		
-		String bcryptPassword = bcrypt.encode(inputMember.getMemberPw());
-		
 		Member loginMember = mapper.login(inputMember.getMemberEmail());
 		
 		if(loginMember == null) {
@@ -45,6 +43,7 @@ public class MemberServiceImpl implements MemberService{
 		member.setMemberNickname(member.getMemberNickname());
 		member.setMemberPw(encPw);
 		member.setMemberTel(member.getMemberTel());
+		
 		return mapper.signup(member);
 	}
 
@@ -54,8 +53,17 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.countMember();
 
 	}
+<<<<<<< HEAD
 
 
 
 	
+=======
+	
+	@Override
+	public String findId(String memberTel) {
+		
+		return mapper.findId(memberTel);
+	}
+>>>>>>> b8a5929e1e6d9f6daca596f779bedcd540a9da3c
 }
