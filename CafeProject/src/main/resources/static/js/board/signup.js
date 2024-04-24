@@ -5,7 +5,7 @@ const emailAlert = document.querySelector("#alertMessage1");
 
 
 const checkPass = document.querySelector("#checkPass");
-const checkPassAlert =  document.querySelector("alertMessage6");
+const checkPassAlert =  document.querySelector("#alertMessage6");
 
 const inputPw = document.querySelector("#memberPw");
 const pwAlert = document.querySelector("#alertMessage4");
@@ -27,13 +27,13 @@ const authKeyMessage =document.querySelector("#authKeyMessage");
 const obj = {
     "memberEmail" : false,
     "checkEmail"  : false,
-    "memberPassword" : false,
+    "memberPw" : false,
     "checkPass" : false,
     "memberNickname" : false, 
     "memberTel" : false
 };
 
-const alertss = {"alertMessage1":false, "alertMessage3":false, "alertMessage4":false, "alertMessage7":false};
+//----------------------------------------이메일 유효성 검사------------------------------------------------------
 
 //이메일 유효성 검사
 inputEmail.addEventListener("input", () => {
@@ -42,14 +42,14 @@ inputEmail.addEventListener("input", () => {
         emailAlert.classList.add("fail");
         emailAlert.classList.remove("success");
         obj.memberEmail = false;
-        alertss.alertMessage1=false;
+       
         return;  
     }
     emailAlert.innerText = "유효한 이메일 형식입니다";   
     emailAlert.classList.add("success");
     emailAlert.classList.remove("fail");
     obj.memberEmail = true;
-    alertss.alertMessage1=true;
+ 
 
     
 
@@ -67,6 +67,8 @@ otpBtn.addEventListener("click", () => {
     checkBtn.style.display = "block";
 })
 
+//----------------------------------------------------------이메일 인증 기능 구현-------------------------------------
+
 //이메일 인증 기능 구현
 checkEmail.addEventListener("input", () => {
     if(checkEmail.value.trim().length === 0){
@@ -76,7 +78,7 @@ checkEmail.addEventListener("input", () => {
     obj.checkEmail = true;
 });
 
-
+//----------------------------------------------------------비밀번호 유효성 검사-----------------------------------------
 //비밀번호 유효성 검사
 inputPw.addEventListener("input",()=>{
     
@@ -95,7 +97,7 @@ inputPw.addEventListener("input",()=>{
         pwAlert.classList.add("fail");
         emailAlert.classList.remove("success");
         obj.memberPw = false;
-        alertss.alertMessage4=false;
+       
         return;
     }
 
@@ -103,9 +105,10 @@ inputPw.addEventListener("input",()=>{
     pwAlert.classList.add("success");
     pwAlert.classList.remove("fail");
     obj.memberPw = true;
-    alertss.alertMessage4=true;
+
 });
 
+//-----------------------------------------------------------------비밀번호 인증 기능 구현-----------------------------------
 //비밀번호 인증 기능 구현
 checkPass.addEventListener("input", () => {
     if(checkPass.value.trim().length === 0){
@@ -113,10 +116,20 @@ checkPass.addEventListener("input", () => {
         checkPass.value = "";
         return;
     }
-
+    if(checkPass.value != inputPw.value){
+        checkPassAlert.innerText = "비밀번호가 일치하지 않습니다";
+        checkPassAlert.classList.add("fail");
+        checkPassAlert.classList.remove("success");
+        obj.checkPass = false;
+        return;
+    }
+    checkPassAlert.innerText = "일치하는 비밀번호 입니다";
+    checkPassAlert.classList.add("success");
+    checkPassAlert.classList.remove("fail");
     obj.checkPass = true;
 });
 
+//--------------------------------------------------닉네임 유효성 검사---------------------------------------------
 //닉네임 유효성 검사
 memberNickname.addEventListener("input", () => {
 
@@ -133,17 +146,16 @@ memberNickname.addEventListener("input", () => {
         nickAlert.classList.add("fail");
         nickAlert.classList.remove("success");
         obj.memberNickname = false;
-        alertss.alertMessage3=false;
+       
         return;
     }
     nickAlert.innerText = "유효한 닉네임 형식입니다";
     nickAlert.classList.add("success");
     nickAlert.classList.remove("fail");
     obj.memberNickname = true;
-    alertss.alertMessage3=false;
 });
 
-
+//--------------------------------------------------------------전화번호 유효성 검사------------------------------------------
 //전화번호 유효성 검사
 inputTel.addEventListener("input", () => {
     if(inputTel.value.trim().length === 0){
@@ -159,14 +171,12 @@ inputTel.addEventListener("input", () => {
         telAlert.classList.add("fail");
         telAlert.classList.remove("success");
         obj.memberTel = false;
-        alertss.alertMessage7=false;
         return;
     }
     telAlert.innerText = "유효한 전화번호 형식입니다";
     telAlert.classList.add("success");
     telAlert.classList.remove("fail");
     obj.memberTel = true;
-    alertss.alertMessage7=true;
 });
 
 const signUpForm = document.querySelector("#signUpForm");
@@ -188,11 +198,7 @@ signUpForm.addEventListener("submit", e => {
             alert(str);
             document.getElementById(key).focus();
             document.getElementById(key).style.border = "1px solid red";
-            for(let message in alertss){
-                if(!alertss[message])
-                document.getElementById(message).innerText = str;
-                document.getElementById(message).style.border = "1px solid red";
-            }
+           
             e.preventDefault();
             return;
         }
@@ -202,6 +208,8 @@ signUpForm.addEventListener("submit", e => {
 
 });
 
+
+//-------------------------------------------------------이메일 인증 번호 발송------------------------------------------------------
 //이메일 인증
 let authTimer; // 타이머 역할을 할 setInterval을 저장할 변수
 
@@ -292,6 +300,52 @@ function addZero(number){
     else              return number;
 }
 
+checkEmail.addEventListener("input",() => {
+    if(checkEmail.value.trim().length === 0){
+        authKeyMessage.innerText = "인증번호를 입력해주세요"
+        authKeyMessage.classList.add("fail");
+        authKeyMessage.classList.remove("success");
+        checkEmail.value = "";
+        return;
+    }
+  
+});
+
+checkAuthKeyBtn.addEventListener("click",() => {
+    if(min === 0 && sec === 0){
+        alert("시간을 초과하였습니다");
+        return;
+    }
+    if(checkEmail.value.length < 6){
+        alert("인증번호를 정확히 입력해주세요");
+    }
+
+    const obj = {
+        "email":inputEmail.value,
+        "authKey": checkEmail.value
+    }
+
+    fetch("/email/checkAuthKey",{
+        method : "POST",
+        headers : {"Content-Type" : "application/json"},
+        body : JSON.stringify(obj)
+    })
+    .then(response => response.text())
+    .then(result => {
+        if(result == 0){
+            alert("인증번호가 일치하지 않습니다");
+            obj.checkEmail;
+            return;
+        }
+
+        clearInterval(authTimer);
+
+        authKeyMessage.innerText = "인증 되었습니다";
+        authKeyMessage.classList.add("success");
+        authKeyMessage.classList.remove("fail");
+        obj.checkEmail = true;
+    })
+});
 
 
 

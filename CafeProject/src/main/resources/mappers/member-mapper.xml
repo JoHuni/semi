@@ -25,4 +25,10 @@
 		SELECT COUNT(*)
 		FROM "MEMBER"
 	</select>
+	
+	<select id="getEncryptedPw">
+		SELECT MEMBER_PW 
+		FROM "MEMBER"
+		WHERE MEMBER_EMAIL = #{memberEmail}
+	</select>
 </mapper>

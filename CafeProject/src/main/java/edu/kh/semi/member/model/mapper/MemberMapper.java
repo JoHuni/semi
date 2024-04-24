@@ -21,5 +21,9 @@ public interface MemberMapper {
 	 */
 	int countMember();
 
+	String getEncryptedPass(String memberEmail);
+
+	int checkPassRedundancy(Member member);
+
 
 }

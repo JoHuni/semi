@@ -109,7 +109,7 @@ public class EmailServiceImpl implements EmailService {
 	public int checkAuthKey(Map<String, Object> map) {
 		return mapper.checkAuthKey(map);
 	}
-	
+
 	
 
 }

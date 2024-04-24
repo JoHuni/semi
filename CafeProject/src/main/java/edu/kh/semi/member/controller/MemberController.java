@@ -79,4 +79,6 @@ public class MemberController {
 	public int countMember() {
 		return service.countMember();
 	}
+	
+	
 }
