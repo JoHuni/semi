@@ -25,4 +25,10 @@
 		SELECT COUNT(*)
 		FROM "MEMBER"
 	</select>
+	
+	<select id="findId" resultType="String">
+		SELECT "MEMBER_EMAIL"
+		FROM "MEMBER"
+		WHERE MEMBER_TEL = #{memberTel}
+	</select>
 </mapper>

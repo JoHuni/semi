@@ -9,7 +9,7 @@ import edu.kh.semi.board.model.service.BoardService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/board")
+@RequestMapping("board")
 @RequiredArgsConstructor
 public class BoardController {
 	
@@ -32,6 +32,11 @@ public class BoardController {
 	@PostMapping("boardDetail")
 	public String boardDetail() {
 		return "board/boardDetail";
+	}
+	
+	@GetMapping("findId")
+	public String findId() {
+		return "board/findId";
 	}
 	
 }

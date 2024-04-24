@@ -21,5 +21,11 @@ public interface MemberMapper {
 	 */
 	int countMember();
 
+	/** 아이디 찾기
+	 * @param memberTel
+	 * @return
+	 */
+	String findId(String memberTel);
+
 
 }

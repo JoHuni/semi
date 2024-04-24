@@ -53,4 +53,10 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.countMember();
 
 	}
+	
+	@Override
+	public String findId(String memberTel) {
+		
+		return mapper.findId(memberTel);
+	}
 }
