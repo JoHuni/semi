@@ -4,7 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.kh.semi.board.model.dto.Board;
 import edu.kh.semi.board.model.service.BoardService;
 import lombok.RequiredArgsConstructor;
 
@@ -30,7 +32,19 @@ public class BoardController {
 	 * @return
 	 */
 	@PostMapping("boardDetail")
-	public String boardDetail() {
+	public String boardDetail(
+			@RequestParam("boardTitle") String boardTitle,
+			@RequestParam("boardContent") String boardContent) {
+		
+		
+		Board board = new Board();
+		board.setBoardTitle(boardTitle);
+		board.setBoardContent(boardContent);
+
+		 int result = service.insertBoard(board);
+		
+		
+		
 		return "board/boardDetail";
 	}
 }
