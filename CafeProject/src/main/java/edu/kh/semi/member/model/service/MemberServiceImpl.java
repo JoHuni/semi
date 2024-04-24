@@ -19,8 +19,6 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public Member login(Member inputMember) {
 		
-		String bcryptPassword = bcrypt.encode(inputMember.getMemberPw());
-		
 		Member loginMember = mapper.login(inputMember.getMemberEmail());
 		
 		if(loginMember == null) {
