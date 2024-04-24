@@ -19,7 +19,7 @@
     justify-content: space-around;
 }
 
-.menuBtnArea > button {
+.menuBtnArea > form > button {
     background-color: white;
     font-weight: bold;
     padding: 3px 10px;
