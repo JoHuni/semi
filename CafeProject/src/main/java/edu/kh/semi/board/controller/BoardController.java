@@ -1,13 +1,16 @@
 package edu.kh.semi.board.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.semi.board.model.dto.Board;
 import edu.kh.semi.board.model.service.BoardService;
+import edu.kh.semi.member.model.dto.Member;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -34,14 +37,15 @@ public class BoardController {
 	@PostMapping("boardDetail")
 	public String boardDetail(
 			@RequestParam("boardTitle") String boardTitle,
-			@RequestParam("boardContent") String boardContent) {
+			@RequestParam("boardContent") String boardContent,
+			@SessionAttribute (value="loginMember", required=false ) Member loginMember,
+			Model model) {
 		
 		
-		Board board = new Board();
-		board.setBoardTitle(boardTitle);
-		board.setBoardContent(boardContent);
+		int memberNo= loginMember.getMemberNo();
+		
+		Board board =service.selectBoard(boardTitle,boardContent,memberNo);
 
-		 int result = service.insertBoard(board);
 		
 		
 		
