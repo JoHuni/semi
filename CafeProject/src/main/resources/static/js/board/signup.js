@@ -21,6 +21,8 @@ const checkEmail =  document.querySelector("#checkEmail"); // 이메일 인증�
 const checkAuthKeyBtn = document.querySelector("#checkBtn");
 const authKeyMessage =document.querySelector("#authKeyMessage");
 
+const signUpBtn = document.querySelector("signUpBtn");
+
 
 
 
@@ -394,6 +396,8 @@ checkAuthKeyBtn.addEventListener("click",() => {
         obj.checkEmail = true;
     })
 });
+
+
 
 
 

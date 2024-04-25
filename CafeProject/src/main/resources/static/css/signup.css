@@ -1,32 +1,103 @@
+/* body{
+    background-image: url(/images/sports.png);
+    background-repeat: no-repeat;
+} */
+#mainContainer{
+    display:flex;
+    position : relative;
+    margin:auto;
+    width:50%;
+   
+}
 #parentContainer{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     height:900px;
     width: 100%;    
+    /* border : 1px solid black; */
+
+    
+}
+#parentContainer2{
+    display:flex;
+    margin:auto;
+    margin-top : 200px;
+    height : 62%;
+    width: 30%;
+    border :1px solid rgb(93, 164, 187);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color :rgb(93, 164, 187);
+    background-image : url(/images/sports.png);
+    background-size: 850px;
+    background-position: center;
+    position: relative;
+}
+#parentContainer2::after{
+    content : '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(80, 81, 158, 0.8);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+}
+#signUpBtn{
+    z-index : 1;
+    position:relative;
+    margin:auto;
+    height:50px;
+    width : 200px;  
+    background: transparent;   
+    border:  1px solid white; 
+    color: white;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+
+}
+
+#signUpBtn:hover{
+    cursor: pointer;
+    transition-duration: 0.5s;
+    background-color: rgb(170, 74, 74);
 }
 #container{
     margin:auto;
+    margin-top : 200px;
     display:flex;
+    flex:1;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 400px;
-    width : 500px;
-    border: 1px solid lightgrey;
-    border-radius : 10px;
+    border: 1px solid lightgray;
+    height: 60%;
+    width : 30%;
+    background-color: white;
+
+    border-top-left-radius : 10px;
+    border-bottom-left-radius : 10px;
     padding-top : 20px;
     margin-bottom: 250px;
-    background-color: white;
+   
+    
 }
+
 #container > input{
     height:50px;
     width : 70%;
     margin:10px;
     padding-right : 20px;
-    border : 1px solid lightgray;
+    border: 1px solid lightgray;
     padding-left:20px;
     border-radius: 10px;
+    
+      
 }
+
+
 #container > input:hover{
     cursor:pointer;
 }
@@ -34,8 +105,8 @@
     margin:auto;
     height:80px;
     width:900px;
-    border: 3px solid white;
-    border-bottom : 5px solid lightgray;
+    color:rgb(39, 4, 71);
+    position:absolute;
 
 }
 
@@ -48,11 +119,13 @@
     color:white;
     margin-top:30px;
     margin-bottom:20px;
+    background-color: rgba(80, 81, 158);
+    border : 1px solid rgba(80, 81, 158);
 }
 
 #registerBtn:hover{
     cursor: pointer;
-    background-color: rgb(73, 166, 197);
+    background-color: rgb(62, 64, 156);
 }
 
 .success{
