@@ -5,13 +5,13 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => response.text())
         .then(result => {
             console.log(result);
-            memberCount.innerHTML = result + "명";
+            memberCount.innerHTML = "회원 수 : "  + result + "명";
         })
     }
     updateMemberCount();
 
 
-    setInterval(updateMemberCount, 300000);
+    setInterval(updateMemberCount, 30000);
 });
 
  
