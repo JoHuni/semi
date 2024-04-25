@@ -1,0 +1,111 @@
+* button{
+    cursor: pointer;
+}
+
+.container {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+}
+
+.row {
+    display: flex;
+    width: 900px;
+    margin-bottom: 0px; 
+}
+
+.row-left {
+    display: flex;
+    width: 20%;
+    align-items: center;
+    justify-content: center;
+    background-color: lightgrey;
+    margin-right: 30px;
+}
+
+.container-body {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    width: 70%;
+}
+
+.container-header {
+    width: 70%;
+    text-align: left; 
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 70px;
+}
+
+.container-header > h2{
+    margin-bottom: 15px;
+}
+
+#profile{
+    margin: 100px;
+}
+
+.profile-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-size: cover;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.btn-area > button{
+    width: 100px;
+    background-color: white;
+    border: 1px solid black;
+    margin: 5px;
+}
+
+.nickname-area{
+    display: flex; 
+    align-items: center;
+}
+
+.nickname-area > input{
+    margin-left: 10px;
+}
+
+.submit-area{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px; 
+}
+
+.row1 {
+    flex-direction: row;
+}
+
+.row2 {
+    height: 70px;
+    margin-top: 0px; 
+}
+.submit-area > button{
+    width: 80px;
+    height: 40px;
+    background-color: #2FED28;
+    border: 1px solid lightgrey;
+    margin: 5px;
+}
+
+
+#cancelBtn{
+    width: 80px;
+    height: 40px;
+    background-color: white;
+    border: 1px solid lightgrey;
+    margin: 5px;
+}

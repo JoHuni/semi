@@ -72,6 +72,15 @@
     cursor:pointer;
 }
 
+
+#checkEmail {
+    display : none;
+}
+
+#checkBtn{
+    display:none;
+}
+
 .findIdPw{
     width : 75%;
     display: flex;
@@ -100,4 +109,5 @@
 .findIdPw > form > button:hover{
     cursor: pointer;
 }
+
 

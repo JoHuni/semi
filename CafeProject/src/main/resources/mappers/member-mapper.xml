@@ -31,4 +31,12 @@
 		FROM "MEMBER"
 		WHERE MEMBER_TEL = #{memberTel}
 	</select>
+	
+	<update id="profile">
+		UPDATE "MEMBER"
+		SET
+		PROFILE_IMG = #{profileImg},
+		MEMBER_NICKNAME = #{memberNickname}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
 </mapper>

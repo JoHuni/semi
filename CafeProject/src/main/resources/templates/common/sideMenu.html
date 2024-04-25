@@ -3,9 +3,16 @@
 <section id="sideMenu">
 
     <div class="menuBtnArea">
-        <button>카페활동</button>
+        <th:block th:if="${session.loginMember != null}">
+            <form action="member/myPage">
+                <button>내 정보</button>
+            </form>
+        </th:block>
+        <th:block th:if="${session.loginMember == null}">
+            <form><button>하이</button></form>
+        </th:block>
         |
-        <button>나의활동</button>
+        <form><button>나의활동</button></form>
     </div>
 
     <div class="profileArea">

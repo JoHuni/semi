@@ -73,9 +73,6 @@ public class BoardController {
 		return "redirect:"+ path;
 	}
 	
-	
-	
-	
 	@GetMapping("boardDetail/{boardNo:[0-9]+}")
 	public String boarDetail(
 			@PathVariable("boardNo") int boardNo,
@@ -101,19 +98,5 @@ public class BoardController {
 		
 		return "/board/boardDetail";
 	}
-	
-	
-	
-	
-	
-
-
-	
-	
-	
-	@GetMapping("findId")
-	public String findId() {
-		return "board/findId";
-	}
-	
+  
 }
