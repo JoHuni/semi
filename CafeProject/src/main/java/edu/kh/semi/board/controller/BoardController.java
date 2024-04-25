@@ -34,9 +34,13 @@ public class BoardController {
 		return "board/boardDetail";
 	}
 	
+	/** 프로필 이미지 변경
+	 * @return
+	 */
 	@GetMapping("findId")
 	public String findId() {
 		return "board/findId";
 	}
+	
 	
 }

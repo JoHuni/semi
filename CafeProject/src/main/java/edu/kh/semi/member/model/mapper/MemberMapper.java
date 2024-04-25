@@ -5,7 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 import edu.kh.semi.member.model.dto.Member;
 
 @Mapper
-
 public interface MemberMapper {
 
 	/** 입력한 회원 정보 조회
@@ -26,6 +25,12 @@ public interface MemberMapper {
 	 * @return
 	 */
 	String findId(String memberTel);
+
+	/** 프로필 이미지 변경
+	 * @param mem
+	 * @return
+	 */
+	int profile(Member mem);
 
 
 }
