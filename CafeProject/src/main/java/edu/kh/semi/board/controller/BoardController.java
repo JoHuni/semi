@@ -1,8 +1,11 @@
 package edu.kh.semi.board.controller;
 
+
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
+
+import java.util.HashMap;
+
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -29,11 +32,7 @@ public class BoardController {
 	
 	private final BoardService service;
 	
-	
-	
-	/** 글쓰기 페이지로 이동
-	 * @return
-	 */
+	/** 글쓰기 페이지로 이동 */
 	@GetMapping("writeBoard")
 	public String writeBoard() {
 		return "board/boardWrite";
@@ -86,23 +85,22 @@ public class BoardController {
 	 * @param loginMember
 	 * @return
 	 */
+
+	
 	@GetMapping("boardDetail/{boardNo:[0-9]+}")
 	public String boardDetail(
 			@PathVariable("boardNo") int boardNo,
 			Model model,
-			@SessionAttribute(value="loginMember", required=false) Member loginMember
-			) {
+			@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
 		
 		Map<String, Integer> map = new HashMap<>();
 		map.put("boardNo", boardNo);
-		
-		if(loginMember!=null) { // 로그인된 상태
+		if (loginMember != null) {
+
 			map.put("memberNo", loginMember.getMemberNo());
 		}
 		
 		Board board = service.selectOne(map);
-		
-		
 		if(board!=null) { 
 			model.addAttribute("board", board);
 		}
@@ -157,15 +155,5 @@ public class BoardController {
 	    return "board/boardList";
 	}
 	
-	
 
-
-	
-	
-	
-	@GetMapping("findId")
-	public String findId() {
-		return "board/findId";
-	}
-	
 }

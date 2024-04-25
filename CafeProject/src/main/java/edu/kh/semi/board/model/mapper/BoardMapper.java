@@ -1,6 +1,8 @@
 package edu.kh.semi.board.model.mapper;
 
+
 import java.util.List;
+
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -31,5 +33,6 @@ public interface BoardMapper {
 	 * @return
 	 */
 	int getListCount(String boardType);
+
 
 }
