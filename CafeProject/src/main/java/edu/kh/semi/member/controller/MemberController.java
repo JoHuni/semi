@@ -110,6 +110,10 @@ public class MemberController {
 		return "board/findId";
 	}
 	
+	@GetMapping("myPage")
+	public String myPage() {
+		return "member/myPage";
+	}
 	@PostMapping("findId")
 	public String findId(
 	        @RequestParam("memberTel") String memberTel,

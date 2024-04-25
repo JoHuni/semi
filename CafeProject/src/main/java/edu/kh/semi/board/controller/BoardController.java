@@ -27,112 +27,55 @@ public class BoardController {
 	
 	private final BoardService service;
 	
-	
-	
-	/** 글쓰기 페이지로 이동
-	 * @return
-	 */
+	/** 글쓰기 페이지로 이동 */
 	@GetMapping("writeBoard")
 	public String writeBoard() {
 		return "board/boardWrite";
 	}
 	
-	
-	/** 글씨기 작성 후 상세조회 페이지로 이동
-	 * @return
-	 */
-	@GetMapping("insertBoard")
+	/** 글쓰기 작성 후 상세조회 페이지로 이동 */
+	@PostMapping("insertBoard")
 	public String insertBoard(
 			@RequestParam("boardTitle") String boardTitle,
 			@RequestParam("boardContent") String boardContent,
-			@SessionAttribute (value="loginMember", required=false ) Member loginMember,
+			@SessionAttribute(value = "loginMember", required = false) Member loginMember,
 			RedirectAttributes ra,
 			Model model) {
 		
+		int memberNo = loginMember.getMemberNo();
+		int result = service.insertBoard(boardTitle, boardContent, memberNo);
 		
-		int memberNo= loginMember.getMemberNo();
-		
+		String path;
+		String message;
 
-		int result= service.insertBoard(boardTitle, boardContent,memberNo);
-
-		int boardNo= service.insertBoard(boardTitle, boardContent,memberNo);
-
-		
-		String path = null;
-		String message=null;
-		
-
-		
-		
-
-		if(result>0) {
-			path="/board/boardDetail" ;
-
-		if(boardNo>0) {
-			path="/board/boardDetail/" + boardNo ;
-
-			message="글쓰기 성공";
+		if (result > 0) {
+			message = "글쓰기 성공";
+			path = "/board/boardDetail/" + result; // result is assumed to be boardNo
+		} else {
+			message = "글쓰기 실패";
+			path = "/";
 		}
-		else {
-			path="/";
-			message="글쓰기 실패";
-		}
-		
+
 		ra.addFlashAttribute("message", message);
-		return "redirect:"+ path;
+		return "redirect:" + path;
 	}
-	
-	
-	@GetMapping("boardDetail")
-	public String boarDetail() {
-		
-		
-		return "/board/boardDetail";
-	}
-	
-	
-	
-	
-	
 
-
-	
-	
-	
-	@GetMapping("findId")
-	public String findId() {
-		return "board/findId";
-	}
-	
-	
-	
-
-	}
-	
 	@GetMapping("boardDetail/{boardNo:[0-9]+}")
-	public String boarDetail(
+	public String boardDetail(
 			@PathVariable("boardNo") int boardNo,
 			Model model,
-			@SessionAttribute(value="loginMember", required=false) Member loginMember
-			) {
+			@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
 		
 		Map<String, Integer> map = new HashMap<>();
 		map.put("boardNo", boardNo);
-		
-		if(loginMember!=null) { // 로그인된 상태
+		if (loginMember != null) {
 			map.put("memberNo", loginMember.getMemberNo());
 		}
 		
 		Board board = service.selectOne(map);
-		
-		
-		if(board!=null) { 
+		if (board != null) {
 			model.addAttribute("board", board);
 		}
-
-		
-		
 		return "/board/boardDetail";
 	}
-  
 }
