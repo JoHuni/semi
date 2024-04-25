@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="../css/board/boardWrite.css">
 
 <body>
+
+    <th:block th:replace="~{common/header}"></th:block>
     <div class="container">
 
 
@@ -97,31 +99,22 @@
 
                     <div class="checkArea">
                         <div>
-                            <input type="checkbox" name="boardCheckPublic" id="boardCheckPublic"> 전체 공개
+
+                            <input type="checkbox" name="boardCheckPublic" id="boardCheckPublic" value="Y"> 전체 공개
                         </div>
 
                         <div>
-                            <input type="checkbox" name="boardCheckNotice" id="boardCheckNotice"> 공지 사항
-                        </div>
-
-                        <div class="checkArea">
-                            <div>
-                                <input type="checkbox" name="boardCheckPublic" id="boardCheckPublic"> 전체 공개
-                            </div>
-
-                            <div>
-                                <input type="checkbox" name="boardCheckNotice" id="boardCheckNotice"> 공지 사항
-                            </div>
-
+                            <input type="checkbox" name="boardCheckNotice" id="boardCheckNotice" value="Y"> 공지 사항
 
                         </div>
+
+                        </div>
+                      
                     </div>
 
                 </div>
             </form>
         </div>
-
-    </div>
 
 
     <th:block th:replace="~{common/footer}"></th:block>

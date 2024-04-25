@@ -16,8 +16,8 @@
 		NULL,
 		DEFAULT,
 		DEFAULT,
-		DEFAULT,
-		DEFAULT,
+		#{boardCheckNotice},
+		#{boardCheckPublic},
 		#{memberNo})
 	</insert>
 	
@@ -31,5 +31,54 @@
 		JOIN "MEMBER" USING(MEMBER_NO)
 		WHERE BOARD_NO = #{boardNo}
 		AND BOARD_DEL_FL='N'
+	</select>
+	
+	
+	<select id="selectBoard">
+		SELECT BOARD_NO,BOARD_TITLE, MEMBER_NICKNAME, READ_COUNT,BOARD_WRITE_DATE
+		FROM BOARD
+		JOIN "MEMBER" USING(MEMBER_NO)
+		WHERE BOARD_DEL_FL='N'
+		<choose>
+			<when test='boardType=="member"'>
+			AND BOARD_CHECK_NOTICE='N'
+			AND BOARD_CHECK_PUBLIC='N'
+			</when>
+			
+			<when test='boardType=="public"'>
+			AND BOARD_CHECK_NOTICE='N'
+			AND BOARD_CHECK_PUBLIC='Y'
+			</when>
+			
+			<when test='boardType=="notice"'>
+			AND BOARD_CHECK_NOTICE='Y'
+			</when>
+		</choose>
+		ORDER BY BOARD_NO DESC
+	</select>
+	
+	
+	
+		<!-- 게시물 수 세기 -->
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*)
+		JOIN "MEMBER" USING(MEMBER_NO)
+		WHERE BOARD_DEL_FL='N'
+		<choose>
+			<when test='boardType=="member"'>
+			AND BOARD_CHECK_NOTICE='N'
+			AND BOARD_CHECK_PUBLIC='N'
+			</when>
+			
+			<when test='boardType=="public"'>
+			AND BOARD_CHECK_NOTICE='N'
+			AND BOARD_CHECK_PUBLIC='Y'
+			</when>
+			
+			<when test='boardType=="notice"'>
+			AND BOARD_CHECK_NOTICE='Y'
+			</when>
+		</choose>
+		
 	</select>
 </mapper>
