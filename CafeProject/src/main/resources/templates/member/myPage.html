@@ -10,7 +10,13 @@
 
 <body>
     <th:block th:replace="~{common/header}"></th:block>
+ 
+    <div class="wrapper-conatiner">
 
+        
+  
+    <th:block th:replace="~{member/sideBar}"></th:block>
+    
     <form action="profile" method="POST" id="profile" enctype="multipart/form-data">
     <div class="container">
         <div class="container-header">
@@ -19,7 +25,7 @@
         </div>
         
         <div class="container-body">
-                <div class="row row1">
+                <div class="row">
                     <div class="row-left">
                         <p>프로필 사진</p>
                     </div>
@@ -51,10 +57,11 @@
         <div class="submit-area">
             <button>적용</button>
         </form>
-            <form action="/" class="cancelForm">
-                <button id="cancelBtn">취소</button>
-            </form>
-        </div>
+        <form action="/" class="cancelForm">
+            <button id="cancelBtn">취소</button>
+        </form>
+    </div>
+</div>
 
 
     
