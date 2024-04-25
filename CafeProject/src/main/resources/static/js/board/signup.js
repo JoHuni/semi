@@ -45,17 +45,48 @@ inputEmail.addEventListener("input", () => {
        
         return;  
     }
-    emailAlert.innerText = "유효한 이메일 형식입니다";   
-    emailAlert.classList.add("success");
-    emailAlert.classList.remove("fail");
-    obj.memberEmail = true;
+    
  
-
     
 
-    otpBtn.textContent = "인증요청 보내기";
-    otpBtn.classList.add("btn");
-    emailAlert.append(otpBtn);
+    const memberEmailVal = inputEmail.value
+   
+
+    fetch("/member/checkEmailRedundancy",{
+        method  : "POST",
+        headers : {"Content-Type":"application/json"},
+        body    : memberEmailVal
+    })
+    .then(resp => resp.text())
+    .then(result => {
+
+        
+        if(result == 0){
+            emailAlert.innerText = "사용가능한 이메일 입니다";
+            emailAlert.classList.add("success");
+            emailAlert.classList.remove("fail");
+            obj.memberEmail = true;
+
+            emailAlert.innerText = "유효한 이메일 형식입니다";   
+            emailAlert.classList.add("success");
+            emailAlert.classList.remove("fail");
+            obj.memberEmail = true;
+
+            otpBtn.textContent = "인증요청 보내기";
+            otpBtn.classList.add("btn");
+            emailAlert.append(otpBtn);
+            return;
+        }
+
+        emailAlert.innerText = "이미 존재하는 이메일 입니다";
+        emailAlert.classList.add("fail");
+        emailAlert.classList.remove("success");
+        obj.memberEmail = false;
+
+    })
+
+    
+    
 
     
 
@@ -100,7 +131,7 @@ inputPw.addEventListener("input",()=>{
        
         return;
     }
-
+    
     pwAlert.innerText = "유효한 비밀번호 형식 입니다";
     pwAlert.classList.add("success");
     pwAlert.classList.remove("fail");
@@ -149,10 +180,27 @@ memberNickname.addEventListener("input", () => {
        
         return;
     }
-    nickAlert.innerText = "유효한 닉네임 형식입니다";
-    nickAlert.classList.add("success");
-    nickAlert.classList.remove("fail");
-    obj.memberNickname = true;
+
+    fetch("/member/checkNicknameRedundancy",{
+        method : "POST",
+        headers : {"Content-Type" : "application/json"},
+        body : memberNickname.value
+    })
+    .then(resp => resp.text())
+    .then(result => {
+        if(result != 0){
+            nickAlert.innerText = "이미 존재하는 닉네임 입니다"
+            nickAlert.classList.add("fail");
+            nickAlert.classList.remove("sucess");
+            obj.memberNickname = false;
+            return;
+        }
+        nickAlert.innerText = "유효한 닉네임 형식입니다";
+        nickAlert.classList.add("success");
+        nickAlert.classList.remove("fail");
+        obj.memberNickname = true;
+    });
+    
 });
 
 //--------------------------------------------------------------전화번호 유효성 검사------------------------------------------
@@ -334,7 +382,7 @@ checkAuthKeyBtn.addEventListener("click",() => {
     .then(result => {
         if(result == 0){
             alert("인증번호가 일치하지 않습니다");
-            obj.checkEmail;
+            obj.checkEmail=false;
             return;
         }
 
@@ -346,6 +394,8 @@ checkAuthKeyBtn.addEventListener("click",() => {
         obj.checkEmail = true;
     })
 });
+
+
 
 
 

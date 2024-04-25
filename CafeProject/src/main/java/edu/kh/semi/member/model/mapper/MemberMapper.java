@@ -32,6 +32,12 @@ public interface MemberMapper {
 
 	int checkPassRedundancy(Member member);
 
+	int emailRedundancy(String memberEmail);
+
+	int nickNameRedundancy(String memberNickname);
+
+
+
 
 
 

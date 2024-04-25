@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -118,6 +119,21 @@ public class MemberController {
 	    	model.addAttribute("memberId", memberId);
 	    	return "board/successFindId";
 	    }
+	}
+	
+	@ResponseBody
+	@PostMapping("checkEmailRedundancy")
+	public int emailRedundancy(@RequestBody String memberEmail) {
+		int emailCheck =  service.emailRedundancy(memberEmail);
+		
+		return emailCheck;
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("checkNicknameRedundancy")
+	public int nickNameRedundancy(@RequestBody String memberNickname) {
+		return service.nickNameRedundancy(memberNickname);
 	}
 
 }

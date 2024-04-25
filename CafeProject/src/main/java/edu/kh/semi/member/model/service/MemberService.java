@@ -1,5 +1,7 @@
 package edu.kh.semi.member.model.service;
 
+import java.util.Map;
+
 import edu.kh.semi.member.model.dto.Member;
 
 public interface MemberService {
@@ -27,6 +29,14 @@ public interface MemberService {
 	 * @return
 	 */
 	String findId(String memberTel);
+
+
+
+	int emailRedundancy(String memberEmail);
+
+
+
+	int nickNameRedundancy(String memberNickname);
 
 
 

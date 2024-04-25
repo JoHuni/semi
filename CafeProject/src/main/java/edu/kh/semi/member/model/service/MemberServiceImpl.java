@@ -1,5 +1,8 @@
 package edu.kh.semi.member.model.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -59,6 +62,20 @@ public class MemberServiceImpl implements MemberService{
 	public String findId(String memberTel) {
 		
 		return mapper.findId(memberTel);
+	}
+	
+	@Override
+	public int emailRedundancy(String memberEmail) {
+		return mapper.emailRedundancy(memberEmail);
+		
+		
+		
+		
+	}
+	
+	@Override
+	public int nickNameRedundancy(String memberNickname) {
+		return mapper.nickNameRedundancy(memberNickname);
 	}
 
 }
