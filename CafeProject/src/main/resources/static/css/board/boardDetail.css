@@ -1,0 +1,55 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+/*     border: 1px solid black; */
+}
+
+
+.boardDetailContainer{
+    width: 70%;
+    height: 750px;
+    display: block;
+    margin: auto;
+    
+
+}
+
+.boardTitle{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.writer-date{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.boardContent{
+
+    clear: both;
+    padding: 30px 0;
+    margin: 30px 0;
+    height: 500px;
+    border : 3px solid #ccc;
+
+    font-size: 20px;
+    white-space: pre-wrap;
+}
+
+.btnArea{
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.btnArea button{
+    margin: 5px;
+    padding: 10px;
+    border: 0.5px solid #ccc;
+    border-radius: 5px;
+    background-color: aliceblue;
+    font-weight: bold;
+    cursor: pointer;
+}

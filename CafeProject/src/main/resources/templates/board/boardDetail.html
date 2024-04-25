@@ -1,14 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>boardDetail</title>
+
+    <link rel="stylesheet" href="/css/board/boardDetail.css">
 </head>
 
+
+
 <body>
-    게시물 상세 조회입니다!
+
+    <main>
+        <th:block th:replace="~{common/header}"></th:block>
+
+        <th:block th:unless="${board!=null}">
+            <h1>게시물이 존재하지 않습니다.</h1>
+        </th:block>
+
+        <th:block th:if="${board!=null}">
+            <div class="boardDetailContainer">
+
+                <h1 class="boardTitle" th:text="${board.boardTitle}">제목</h1>
+
+                <hr>
+                <div class="writer-date">
+                    <h5 th:text="${board.memberNickname}">작성자</h5>
+                    <h5 th:text="${board.boardWriteDate}">작성일</h5>
+                </div>
+
+                <hr>
+
+                <div>
+                    <div class="boardContent" th:text="${board.boardContent}">내용</div>
+                </div>
+
+                <th:block th:if="${#list}"></th:block>
+
+                <div class="btnArea">
+                    <button type="button">목록으로</button>
+                    <button type="button">수정</button>
+                    <button type="button">삭제</button>
+                </div>
+
+            </div>
+        </th:block>
+
+
+    </main>
+
+    <th:block th:replace="~{common/footer}"></th:block>
 </body>
 
 </html>
