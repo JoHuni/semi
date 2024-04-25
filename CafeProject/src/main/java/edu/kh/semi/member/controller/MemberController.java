@@ -88,9 +88,7 @@ public class MemberController {
 		return service.countMember();
 	}
 	
-<<<<<<< HEAD
-	
-=======
+
 	/** 로그아웃
 	 * @param status
 	 * @return
@@ -121,5 +119,5 @@ public class MemberController {
 	    	return "board/successFindId";
 	    }
 	}
->>>>>>> b8a5929e1e6d9f6daca596f779bedcd540a9da3c
+
 }

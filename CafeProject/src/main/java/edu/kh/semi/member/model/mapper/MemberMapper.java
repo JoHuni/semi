@@ -21,17 +21,17 @@ public interface MemberMapper {
 	 */
 	int countMember();
 
-<<<<<<< HEAD
+
 	String getEncryptedPass(String memberEmail);
 
 	int checkPassRedundancy(Member member);
-=======
+
 	/** 아이디 찾기
 	 * @param memberTel
 	 * @return
 	 */
 	String findId(String memberTel);
->>>>>>> b8a5929e1e6d9f6daca596f779bedcd540a9da3c
+
 
 
 }

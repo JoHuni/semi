@@ -53,17 +53,12 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.countMember();
 
 	}
-<<<<<<< HEAD
 
-
-
-	
-=======
 	
 	@Override
 	public String findId(String memberTel) {
 		
 		return mapper.findId(memberTel);
 	}
->>>>>>> b8a5929e1e6d9f6daca596f779bedcd540a9da3c
+
 }
