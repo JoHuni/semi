@@ -1,8 +1,17 @@
 package edu.kh.semi.board.controller;
 
+
+import java.util.Arrays;
+import java.util.List;
+
+import java.util.HashMap;
+
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,24 +32,22 @@ public class BoardController {
 	
 	private final BoardService service;
 	
-	
-	
-	/** 글쓰기 페이지로 이동
-	 * @return
-	 */
+	/** 글쓰기 페이지로 이동 */
 	@GetMapping("writeBoard")
 	public String writeBoard() {
 		return "board/boardWrite";
 	}
 	
 	
-	/** 글씨기 작성 후 상세조회 페이지로 이동
+	/** 글씨기 작성
 	 * @return
 	 */
 	@GetMapping("insertBoard")
 	public String insertBoard(
 			@RequestParam("boardTitle") String boardTitle,
 			@RequestParam("boardContent") String boardContent,
+			@RequestParam(value = "boardCheckPublic", required = false) String boardCheckPublic,
+            @RequestParam(value = "boardCheckNotice", required = false) String boardCheckNotice,
 			@SessionAttribute (value="loginMember", required=false ) Member loginMember,
 			RedirectAttributes ra,
 			Model model) {
@@ -48,7 +55,7 @@ public class BoardController {
 		
 		int memberNo= loginMember.getMemberNo();
 		
-		int result= service.insertBoard(boardTitle, boardContent,memberNo);
+		int boardNo= service.insertBoard(boardTitle, boardContent,memberNo,boardCheckPublic,boardCheckNotice);
 		
 		String path = null;
 		String message=null;
@@ -56,8 +63,8 @@ public class BoardController {
 
 		
 		
-		if(result>0) {
-			path="/board/boardDetail" ;
+		if(boardNo>0) {
+			path="/board/boardDetail/" + boardNo ;
 			message="글쓰기 성공";
 		}
 		else {
@@ -70,8 +77,34 @@ public class BoardController {
 	}
 	
 	
-	@GetMapping("boardDetail")
-	public String boarDetail() {
+	
+	
+	/** 상세조회
+	 * @param boardNo
+	 * @param model
+	 * @param loginMember
+	 * @return
+	 */
+
+	
+	@GetMapping("boardDetail/{boardNo:[0-9]+}")
+	public String boardDetail(
+			@PathVariable("boardNo") int boardNo,
+			Model model,
+			@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
+		
+		Map<String, Integer> map = new HashMap<>();
+		map.put("boardNo", boardNo);
+		if (loginMember != null) {
+
+			map.put("memberNo", loginMember.getMemberNo());
+		}
+		
+		Board board = service.selectOne(map);
+		if(board!=null) { 
+			model.addAttribute("board", board);
+		}
+
 		
 		
 		return "/board/boardDetail";
@@ -79,18 +112,48 @@ public class BoardController {
 	
 	
 	
+	/*
+	 * @GetMapping("{boardType:(memberBoard|publicBoard|noticeBoard)Board}") public String
+	 * boardList(
+	 * 
+	 * @PathVariable("boardType") String boardType,
+	 * 
+	 * @RequestParam(value="cp", required = false, defaultValue = "1") int cp, Model
+	 * model) {
+	 * 
+	 * 
+	 * List<Board> board = service.selectBoardList(boardType,cp);
+	 * model.addAttribute("board", board); model.addAttribute("boardType",
+	 * boardType);
+	 * 
+	 * return "board/boardList"; }
+	 */
 	
 	
+	
+	/**게시판 조회
+	 * @param boardType
+	 * @param cp
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/{boardType}Board")
+	public String boardList(
+	        @PathVariable("boardType") String boardType,
+	        @RequestParam(value="cp", required = false, defaultValue = "1") int cp,
+	        Model model) {
 
+	    if (!Arrays.asList("member", "public", "notice").contains(boardType)) {
+	        return "/";
+	    }
 
-	
-	
-	
-	@GetMapping("findId")
-	public String findId() {
-		return "board/findId";
+	    List<Board> boardList = service.selectBoardList(boardType,cp);
+	   
+	    model.addAttribute("boardList", boardList);
+	    model.addAttribute("boardType", boardType);
+
+	    return "board/boardList";
 	}
 	
-	
-	
+
 }

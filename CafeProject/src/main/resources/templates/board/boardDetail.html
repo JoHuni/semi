@@ -5,38 +5,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>boardDetail</title>
+
+    <link rel="stylesheet" href="/css/board/boardDetail.css">
 </head>
 
-<link rel="stylesheet" href="/css/board/boardDetail.css">
+
 
 <body>
 
     <main>
         <th:block th:replace="~{common/header}"></th:block>
 
-        <div class="boardDetailContainer" th:if="${board!=null}">
+        <th:block th:unless="${board!=null}">
+            <h1>게시물이 존재하지 않습니다.</h1>
+        </th:block>
 
-            <h1 class="boardTitle" th:text="${board.boardTitle}">제목</h1>
+        <th:block th:if="${board!=null}">
+            <div class="boardDetailContainer">
 
-            <hr>
-            <div class="writer-date">
-                <h5 th:text="${board.memberNickname}">작성자</h5>
-                <h5 th:text="${board.boardWriteDate}">작성일</h5>
+                <h1 class="boardTitle" th:text="${board.boardTitle}">제목</h1>
+
+                <hr>
+                <div class="writer-date">
+                    <h5 th:text="${board.memberNickname}">작성자</h5>
+                    <h5 th:text="${board.boardWriteDate}">작성일</h5>
+                </div>
+
+                <hr>
+
+                <div>
+                    <div class="boardContent" th:text="${board.boardContent}">내용</div>
+                </div>
+
+
+                <div class="btnArea">
+                    <button type="button">목록으로</button>
+                    <button type="button">수정</button>
+                    <button type="button">삭제</button>
+                </div>
+
             </div>
-
-            <hr>
-
-            <div>
-                <div class="boardContent" th:text="${board.boardContent}">내용</div>
-            </div>
-
-            <div class="btnArea">
-                <button type="button">목록으로</button>
-                <button type="button">수정</button>
-                <button type="button">삭제</button>
-            </div>
-
-        </div>
+        </th:block>
 
 
     </main>

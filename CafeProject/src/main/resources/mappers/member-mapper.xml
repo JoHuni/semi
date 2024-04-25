@@ -37,6 +37,7 @@
 		WHERE MEMBER_TEL = #{memberTel}
 	</select>
 	
+
 	<select id="emailRedundancy" resultType="_int">
 		SELECT COUNT(*) FROM "MEMBER"
 		WHERE MEMBER_EMAIL = #{memberEmail}
@@ -46,4 +47,13 @@
 		SELECT COUNT(*) FROM "MEMBER"
 		WHERE MEMBER_NICKNAME= #{memberNickname}
 	</select>
+
+	<update id="profile">
+		UPDATE "MEMBER"
+		SET
+		PROFILE_IMG = #{profileImg},
+		MEMBER_NICKNAME = #{memberNickname}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+
 </mapper>
