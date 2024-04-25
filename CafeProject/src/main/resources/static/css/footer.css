@@ -1,5 +1,6 @@
 #footerAtricle {
     width: 70%;
+    height: 100px;
     display: flex;         
     justify-content: space-between; 
     align-items: center;    
@@ -37,8 +38,9 @@ a:hover {
 }
 
 footer {
+    background-color: #EFF9FD;
     display: block;
     width: 100%;
-    height: 200px;
+    height: 100px;
     margin-top: 30px;
 }

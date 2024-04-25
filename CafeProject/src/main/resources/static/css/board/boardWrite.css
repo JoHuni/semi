@@ -12,6 +12,7 @@
     margin: auto;
 }
 
+
 .writeHeader{
     display: flex;
     align-items: center;
@@ -126,13 +127,14 @@
 .imgArea{
     display: flex;
     justify-content: space-between;
+    height: 100px;
 }
 
 
 /* 이미지를 감싸는 div */
 .boardImg{
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     display: inline-block;
     text-align: center;
 
