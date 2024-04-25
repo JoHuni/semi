@@ -103,6 +103,11 @@ public class MemberController {
 		return "board/findId";
 	}
 	
+	@GetMapping("findPw")
+	public String findPw() {
+		return "board/findPw";
+	}
+	
 	@PostMapping("findId")
 	public String findId(
 	        @RequestParam("memberTel") String memberTel,
@@ -117,5 +122,10 @@ public class MemberController {
 	    	model.addAttribute("memberId", memberId);
 	    	return "board/successFindId";
 	    }
+	}
+	
+	@GetMapping("myPage")
+	public String myPage() {
+		return "member/myPage";
 	}
 }
