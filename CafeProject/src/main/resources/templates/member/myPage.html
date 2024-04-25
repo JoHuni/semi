@@ -5,48 +5,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로필 수정</title>
-    <link rel="stylesheet" href="../css/myPage.css">
+    <link rel="stylesheet" href="/css/myPage.css">
 </head>
 
 <body>
     <th:block th:replace="~{common/header}"></th:block>
 
+    <form action="profile" method="POST" id="profile" enctype="multipart/form-data">
     <div class="container">
         <div class="container-header">
             <h2>프로필 수정</h2>
             <p>카페 대표 프로필과 닉네임을 수정하실 수 있습니다.</p>
         </div>
-
+        
         <div class="container-body">
-            <div class="row">
-                <div class="row-left">
-                    <p>프로필 사진</p>
-                </div>
-                <div>
-                    <span class="profile-circle">
-                        <th:block th:if="${session.loginMember.profileImg == null}">
+                <div class="row row1">
+                    <div class="row-left">
+                        <p>프로필 사진</p>
+                    </div>
+                    
+                    <div class="btn-area">
+                        <span class="profile-circle">
                             <img th:with="user=#{user.default.image}" 
-                            th:src="${session.loginMember.profileImg ?: user }"
-                            style="width: 100%; height: 100%; object-fit: cover;">
-                        </th:block>
-                    </span>
-                    <button type="button" id="uploadBtn">파일 선택</button>
-                    <input type="file" id="fileInput" style="display: none;" accept="image/*">
-                    <button>삭제</button>
+                            th:src="${session.loginMember.profileImg ?: user }" 
+                            id="profileImg" style="width: 100%; height: 100%; object-fit: cover;">
+                        </span>
+                
+                            <button type="button" id="uploadBtn">파일 선택</button>
+                            <input type="file" name="profileImg" id="imageInput" style="display: none;" accept="image/*">
+                            <button id="deleteImage" type="button">삭제</button>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="row">
-                <div class="row-left">
-                    <p>별명</p>
+                
+                <div class="row row2">
+                    <div class="row-left">
+                        <p>별명</p>
+                    </div>
+                    <div class="nickname-area">
+                        <input type="text" name="memberNickname" th:value="${session.loginMember.memberNickname}">
+                    </div>
                 </div>
-                <div>gd4</div>
             </div>
         </div>
-    </div>
+        
+        <div class="submit-area">
+            <button>적용</button>
+        </form>
+            <form action="/" class="cancelForm">
+                <button id="cancelBtn">취소</button>
+            </form>
+        </div>
+
+
     
     <th:block th:replace="~{common/footer}"></th:block>
+
+    <script th:inline="javascript">
+        const loginMemberProfileImg = /*[[${session.loginMember.profileImg}]]*/ "회원 프로필 이미지";
+    </script>
     <script src = "/js/board/myPage.js"></script>
 </body>
 
-</html>
+</html> 
