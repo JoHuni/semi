@@ -26,16 +26,15 @@
 		FROM "MEMBER"
 	</select>
 	
-<<<<<<< HEAD
 	<select id="getEncryptedPw">
 		SELECT MEMBER_PW 
 		FROM "MEMBER"
 		WHERE MEMBER_EMAIL = #{memberEmail}
-=======
+	</select>
+		
 	<select id="findId" resultType="String">
 		SELECT "MEMBER_EMAIL"
 		FROM "MEMBER"
 		WHERE MEMBER_TEL = #{memberTel}
->>>>>>> b8a5929e1e6d9f6daca596f779bedcd540a9da3c
 	</select>
 </mapper>

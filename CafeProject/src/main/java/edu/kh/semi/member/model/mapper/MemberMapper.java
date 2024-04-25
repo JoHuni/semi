@@ -32,11 +32,6 @@ public interface MemberMapper {
 
 	int checkPassRedundancy(Member member);
 
-	/** 아이디 찾기
-	 * @param memberTel
-	 * @return
-	 */
-	String findId(String memberTel);
 
 
 

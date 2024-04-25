@@ -91,9 +91,6 @@ public class BoardController {
 		return "board/findId";
 	}
 	
-	@GetMapping("findId")
-	public String findId() {
-		return "board/findId";
-	}
+	
 	
 }
