@@ -55,10 +55,8 @@ public class BoardController {
 		
 
 		
-		log.debug("board : " + boardNo);
 		
 		if(result>0) {
-			model.addAttribute("boardNo", boardNo);
 			path="/board/boardDetail" ;
 			message="글쓰기 성공";
 		}
