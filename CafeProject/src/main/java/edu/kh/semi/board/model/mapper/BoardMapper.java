@@ -12,9 +12,6 @@ public interface BoardMapper {
 	int insertBoard(Board board);
 
 	Board selectBoard(Board board);
-
-
 	//상세조회
 	Board selectOne(Map<String, Integer> map);
-
 }

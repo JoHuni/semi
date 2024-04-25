@@ -52,7 +52,11 @@ public class BoardController {
 		
 		int memberNo= loginMember.getMemberNo();
 		
+
+		int result= service.insertBoard(boardTitle, boardContent,memberNo);
+
 		int boardNo= service.insertBoard(boardTitle, boardContent,memberNo);
+
 		
 		String path = null;
 		String message=null;
@@ -60,8 +64,13 @@ public class BoardController {
 
 		
 		
+
+		if(result>0) {
+			path="/board/boardDetail" ;
+
 		if(boardNo>0) {
 			path="/board/boardDetail/" + boardNo ;
+
 			message="글쓰기 성공";
 		}
 		else {
@@ -71,6 +80,33 @@ public class BoardController {
 		
 		ra.addFlashAttribute("message", message);
 		return "redirect:"+ path;
+	}
+	
+	
+	@GetMapping("boardDetail")
+	public String boarDetail() {
+		
+		
+		return "/board/boardDetail";
+	}
+	
+	
+	
+	
+	
+
+
+	
+	
+	
+	@GetMapping("findId")
+	public String findId() {
+		return "board/findId";
+	}
+	
+	
+	
+
 	}
 	
 	@GetMapping("boardDetail/{boardNo:[0-9]+}")

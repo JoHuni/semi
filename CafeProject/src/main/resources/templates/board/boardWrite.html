@@ -12,7 +12,13 @@
 <body>
     <div class="container">
 
+
+        <form action="/board/insertBoard" method="get" id="boardForm">
+            <div class="writeHeader">
+                <h2>카페 글쓰기</h2>
+
         <th:block th:replace="~{common/header}"></th:block>
+
 
         <div class="insertArea">
 
@@ -88,6 +94,16 @@
 
                         <p>공개 설정</p>
 
+
+                    <div class="checkArea">
+                        <div>
+                            <input type="checkbox" name="boardCheckPublic" id="boardCheckPublic"> 전체 공개
+                        </div>
+
+                        <div>
+                            <input type="checkbox" name="boardCheckNotice" id="boardCheckNotice"> 공지 사항
+                        </div>
+
                         <div class="checkArea">
                             <div>
                                 <input type="checkbox" name="boardCheckPublic" id="boardCheckPublic"> 전체 공개
@@ -96,6 +112,7 @@
                             <div>
                                 <input type="checkbox" name="boardCheckNotice" id="boardCheckNotice"> 공지 사항
                             </div>
+
 
                         </div>
                     </div>

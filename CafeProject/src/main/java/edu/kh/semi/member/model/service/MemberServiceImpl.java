@@ -1,11 +1,17 @@
 package edu.kh.semi.member.model.service;
 
+
+import java.util.HashMap;
+import java.util.Map;
+
+
 import java.io.File;
 import java.io.IOException;
 
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -68,6 +74,7 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.countMember();
 
 	}
+
 	
 	@Override
 	public String findId(String memberTel) {
@@ -75,6 +82,22 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.findId(memberTel);
 	}
 	
+
+	@Override
+	public int emailRedundancy(String memberEmail) {
+		return mapper.emailRedundancy(memberEmail);
+		
+		
+		
+		
+	}
+	
+	@Override
+	public int nickNameRedundancy(String memberNickname) {
+		return mapper.nickNameRedundancy(memberNickname);
+	}
+
+
 	// 프로필 이미지 변경
 	@Override
 	public int profile(Member loginMember, MultipartFile profileImg, String memberNickanme) throws IllegalStateException, IOException {
@@ -113,4 +136,5 @@ public class MemberServiceImpl implements MemberService{
 		
 		return result;
 	}
+
 }

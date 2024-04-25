@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -93,6 +94,7 @@ public class MemberController {
 		return service.countMember();
 	}
 	
+
 	/** 로그아웃
 	 * @param status
 	 * @return
@@ -106,11 +108,6 @@ public class MemberController {
 	@GetMapping("findId")
 	public String findId() {
 		return "board/findId";
-	}
-	
-	@GetMapping("findPw")
-	public String findPw() {
-		return "board/findPw";
 	}
 	
 	@PostMapping("findId")
@@ -129,11 +126,21 @@ public class MemberController {
 	    }
 	}
 	
-	@GetMapping("myPage")
-	public String myPage() {
-		return "member/myPage";
+	@ResponseBody
+	@PostMapping("checkEmailRedundancy")
+	public int emailRedundancy(@RequestBody String memberEmail) {
+		int emailCheck =  service.emailRedundancy(memberEmail);
+		
+		return emailCheck;
+		
 	}
 	
+	@ResponseBody
+	@PostMapping("checkNicknameRedundancy")
+	public int nickNameRedundancy(@RequestBody String memberNickname) {
+		return service.nickNameRedundancy(memberNickname);
+	}
+  
 	@PostMapping("profile")
 	public String profile(@RequestParam("profileImg") MultipartFile profileImg,
 			@SessionAttribute("loginMember") Member loginMember,
@@ -162,4 +169,5 @@ public class MemberController {
 		
 		return "redirect:myPage";
 	}
+
 }

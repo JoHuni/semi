@@ -1,11 +1,17 @@
 package edu.kh.semi.board.model.service;
 
+
+
 import java.util.Map;
+
 
 import edu.kh.semi.board.model.dto.Board;
 
 public interface BoardService {
 
+
+
+	int insertBoard(String boardTitle, String boardContent,int memberNo );
 
 	/** 글 작성
 	 * @param boardTitle
@@ -20,6 +26,7 @@ public interface BoardService {
 	 * @return
 	 */
 	Board selectOne(Map<String, Integer> map);
+
 	
 
 	

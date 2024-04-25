@@ -19,7 +19,11 @@ public class BoardServiceImpl implements BoardService{
 	
 	private final BoardMapper mapper;
 	
+
+	
+
 	//글작성
+
 	@Override
 	public int insertBoard(String boardTitle, String boardContent, int memberNo) {
 	
@@ -34,12 +38,17 @@ public class BoardServiceImpl implements BoardService{
 		
 		if(result>0) {
 			
+
+			return result;
+
 			int boardNo = board.getBoardNo();
 			return boardNo;
+
 		}
 	
 		return 0;
 	}
+
 	
 	
 	
@@ -51,6 +60,7 @@ public class BoardServiceImpl implements BoardService{
 		
 		return mapper.selectOne(map);
 	}
+
 }
 
 

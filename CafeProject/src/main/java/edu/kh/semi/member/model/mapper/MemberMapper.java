@@ -33,4 +33,17 @@ public interface MemberMapper {
 	int profile(Member mem);
 
 
+	String getEncryptedPass(String memberEmail);
+
+	int checkPassRedundancy(Member member);
+
+	int emailRedundancy(String memberEmail);
+
+	int nickNameRedundancy(String memberNickname);
+
+
+
+
+
+
 }
