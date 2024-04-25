@@ -34,7 +34,7 @@
     <!-- 로그인 안 되어있을 때 -->
     <th:block th:if="${session.loginMember == null}">
         <div class="btnClass">
-            <form action = "member/signup">
+            <form action="member/signup">
                 <button id="joinBtn">가입하기</button>
             </form>
             <form action="member/login" method="GET">
@@ -46,7 +46,7 @@
     <!-- 로그인 되었을 때 -->
     <th:block th:if="${session.loginMember != null}">
         <div class="btnClass">
-            <form action = "board/writeBoard">
+            <form action="board/writeBoard">
                 <button id="joinBtn">글쓰기</button>
             </form>
             <form action="member/logout" method="POST">
@@ -58,13 +58,10 @@
 
     <div class="menuList">
         <ul>
-            <a href="/board/writeBoard">
-                <li>글쓰기</li>
-            </a>
-
-            <li>메뉴 리스트2</li>
-            <li>메뉴 리스트3</li>
-            <li>메뉴 리스트5</li>
+            <li><a href="/board/writeBoard">글쓰기</a> </li>
+            <li><a href="/board/memberBoard"> 회원 전용 게시판</a></li>
+            <li><a href="/board/publicBoard">전체 공개 게시판</a></li>
+            <li><a href="/board/noticeBoard">공지사항</a></li>
         </ul>
     </div>
 

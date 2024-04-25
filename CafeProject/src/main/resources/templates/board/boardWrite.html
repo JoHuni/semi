@@ -10,101 +10,100 @@
 <link rel="stylesheet" href="../css/board/boardWrite.css">
 
 <body>
+
+    <th:block th:replace="~{common/header}"></th:block>
     <div class="container">
 
-        <th:block th:replace="~{common/header}"></th:block>
 
-        <div class="insertArea">
+        <form action="/board/insertBoard" method="get" id="boardForm">
 
-            <form action="/board/insertBoard" method="get" id="boardForm">
+            <div class="writeHeader">
+                <h2>카페 글쓰기</h2>
 
-                <div class="writeHeader">
-                    <h2>카페 글쓰기</h2>
+                <div class="btnArea">
+                    <button id="submitBtn" class="btn">등록</button>
+                </div>
 
-                    <div class="btnArea">
-                        <button id="submitBtn" class="btn">등록</button>
+            </div>
+
+
+            <hr>
+
+
+
+            <div class="writeContent">
+
+                <div class="writeWrap">
+
+                    <div class="titleArea">
+                        <input type="text" placeholder="제목을 입력해 주세요." id="boardTitle" name="boardTitle">
                     </div>
+
+
+                    <div class="contentArea">
+                        <textarea name="boardContent" id="boardContent" cols="50" rows="100"
+                            placeholder="내용을 입력해주세요"></textarea>
+                    </div>
+
+                    <div class="imgArea">
+
+                        <div class="boardImg">
+                            <label for="img1">
+                                <img class="preview" src="">
+                            </label>
+                            <input type="file" name="images" class="inputImage" id="img1" accept="image/*">
+                            <span class="delete-image">&times;</span>
+                        </div>
+
+                        <div class="boardImg">
+                            <label for="img2">
+                                <img class="preview" src="">
+                            </label>
+                            <input type="file" name="images" class="inputImage" id="img2" accept="image/*">
+                            <span class="delete-image">&times;</span>
+                        </div>
+
+                        <div class="boardImg">
+                            <label for="img3">
+                                <img class="preview" src="">
+                            </label>
+                            <input type="file" name="images" class="inputImage" id="img3" accept="image/*">
+                            <span class="delete-image">&times;</span>
+                        </div>
+
+                        <div class="boardImg">
+                            <label for="img4">
+                                <img class="preview" src="">
+                            </label>
+                            <input type="file" name="images" class="inputImage" id="img4" accept="image/*">
+                            <span class="delete-image">&times;</span>
+                        </div>
+                    </div>
+
 
                 </div>
 
+                <div class="checkSide">
 
-                <hr>
+                    <p>공개 설정</p>
 
-
-
-                <div class="writeContent">
-
-                    <div class="writeWrap">
-
-                        <div class="titleArea">
-                            <input type="text" placeholder="제목을 입력해 주세요." id="boardTitle" name="boardTitle">
+                    <div class="checkArea">
+                        <div>
+                            <input type="checkbox" name="boardCheckPublic" id="boardCheckPublic" value="Y"> 전체 공개
                         </div>
 
-
-                        <div class="contentArea">
-                            <textarea name="boardContent" id="boardContent" cols="50" rows="100"
-                                placeholder="내용을 입력해주세요"></textarea>
+                        <div>
+                            <input type="checkbox" name="boardCheckNotice" id="boardCheckNotice" value="Y"> 공지 사항
                         </div>
-
-                        <div class="imgArea">
-
-                            <div class="boardImg">
-                                <label for="img1">
-                                    <img class="preview" src="">
-                                </label>
-                                <input type="file" name="images" class="inputImage" id="img1" accept="image/*">
-                                <span class="delete-image">&times;</span>
-                            </div>
-
-                            <div class="boardImg">
-                                <label for="img2">
-                                    <img class="preview" src="">
-                                </label>
-                                <input type="file" name="images" class="inputImage" id="img2" accept="image/*">
-                                <span class="delete-image">&times;</span>
-                            </div>
-
-                            <div class="boardImg">
-                                <label for="img3">
-                                    <img class="preview" src="">
-                                </label>
-                                <input type="file" name="images" class="inputImage" id="img3" accept="image/*">
-                                <span class="delete-image">&times;</span>
-                            </div>
-
-                            <div class="boardImg">
-                                <label for="img4">
-                                    <img class="preview" src="">
-                                </label>
-                                <input type="file" name="images" class="inputImage" id="img4" accept="image/*">
-                                <span class="delete-image">&times;</span>
-                            </div>
-                        </div>
-
 
                     </div>
-
-                    <div class="checkSide">
-
-                        <p>공개 설정</p>
-
-                        <div class="checkArea">
-                            <div>
-                                <input type="checkbox" name="boardCheckPublic" id="boardCheckPublic"> 전체 공개
-                            </div>
-
-                            <div>
-                                <input type="checkbox" name="boardCheckNotice" id="boardCheckNotice"> 공지 사항
-                            </div>
-
-                        </div>
-                    </div>
-
                 </div>
-            </form>
-        </div>
 
+            </div>
+        </form>
     </div>
+
+
 
 
     <th:block th:replace="~{common/footer}"></th:block>

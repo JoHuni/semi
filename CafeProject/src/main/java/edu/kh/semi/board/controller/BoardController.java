@@ -1,6 +1,8 @@
 package edu.kh.semi.board.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -38,13 +40,15 @@ public class BoardController {
 	}
 	
 	
-	/** 글씨기 작성 후 상세조회 페이지로 이동
+	/** 글씨기 작성
 	 * @return
 	 */
 	@GetMapping("insertBoard")
 	public String insertBoard(
 			@RequestParam("boardTitle") String boardTitle,
 			@RequestParam("boardContent") String boardContent,
+			@RequestParam(value = "boardCheckPublic", required = false) String boardCheckPublic,
+            @RequestParam(value = "boardCheckNotice", required = false) String boardCheckNotice,
 			@SessionAttribute (value="loginMember", required=false ) Member loginMember,
 			RedirectAttributes ra,
 			Model model) {
@@ -52,7 +56,7 @@ public class BoardController {
 		
 		int memberNo= loginMember.getMemberNo();
 		
-		int boardNo= service.insertBoard(boardTitle, boardContent,memberNo);
+		int boardNo= service.insertBoard(boardTitle, boardContent,memberNo,boardCheckPublic,boardCheckNotice);
 		
 		String path = null;
 		String message=null;
@@ -76,8 +80,14 @@ public class BoardController {
 	
 	
 	
+	/** 상세조회
+	 * @param boardNo
+	 * @param model
+	 * @param loginMember
+	 * @return
+	 */
 	@GetMapping("boardDetail/{boardNo:[0-9]+}")
-	public String boarDetail(
+	public String boardDetail(
 			@PathVariable("boardNo") int boardNo,
 			Model model,
 			@SessionAttribute(value="loginMember", required=false) Member loginMember
@@ -104,6 +114,48 @@ public class BoardController {
 	
 	
 	
+	/*
+	 * @GetMapping("{boardType:(memberBoard|publicBoard|noticeBoard)Board}") public String
+	 * boardList(
+	 * 
+	 * @PathVariable("boardType") String boardType,
+	 * 
+	 * @RequestParam(value="cp", required = false, defaultValue = "1") int cp, Model
+	 * model) {
+	 * 
+	 * 
+	 * List<Board> board = service.selectBoardList(boardType,cp);
+	 * model.addAttribute("board", board); model.addAttribute("boardType",
+	 * boardType);
+	 * 
+	 * return "board/boardList"; }
+	 */
+	
+	
+	
+	/**게시판 조회
+	 * @param boardType
+	 * @param cp
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/{boardType}Board")
+	public String boardList(
+	        @PathVariable("boardType") String boardType,
+	        @RequestParam(value="cp", required = false, defaultValue = "1") int cp,
+	        Model model) {
+
+	    if (!Arrays.asList("member", "public", "notice").contains(boardType)) {
+	        return "/";
+	    }
+
+	    List<Board> boardList = service.selectBoardList(boardType,cp);
+	   
+	    model.addAttribute("boardList", boardList);
+	    model.addAttribute("boardType", boardType);
+
+	    return "board/boardList";
+	}
 	
 	
 
