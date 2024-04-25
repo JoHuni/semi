@@ -1,50 +1,162 @@
-.container {
+
+
+* button{
+    cursor: pointer;
+}
+
+form{
     display: flex;
-    flex-direction: column; /* Flex 아이템들을 수직(세로) 방향으로 배열 */
-    height: 500px;
-    align-items: center; /* 세로 축 중앙 정렬 */
-    justify-content: center; /* 주 축(여기서는 세로)을 중앙 정렬 */
+    flex-direction: column;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
 
 .row {
     display: flex;
-    border: 1px solid black;
     width: 900px;
+    margin-bottom: 0px; 
 }
 
 .row-left {
-    border: 1px solid black;
+    display: flex;
     width: 20%;
-    height: 100px;
+    align-items: center;
+    justify-content: center;
+    background-color: lightgrey;
+    margin-right: 30px;
 }
-
 
 .container-body {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* 모든 자식 요소를 수평 중앙 정렬 */
     width: 100%;
 }
 
-.row-left > p{
-    margin-left: 20px;
+.container-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    text-align: left; 
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 70px;
 }
 
-
-.container-header {
-    width: 900px;
-    text-align: left; /* 텍스트를 왼쪽으로 정렬 */
-    padding: 20px; /* 적당한 여백을 추가 */
+.container-header > h2{
+    margin-bottom: 15px;
 }
 
 .profile-circle {
-    width: 100px;        /* 원의 너비 */
-    height: 100px;       /* 원의 높이 */
-    border-radius: 50%;  /* 원 모양 만들기 */
-    background-color: #ccc; /* 배경색 설정, 이미지가 없을 경우를 대비 */
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #ccc;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;    /* 이미지가 원 밖으로 나가지 않도록 처리 */
-    background-size: cover; /* 배경 이미지 크기가 원을 꽉 채우도록 설정 */
+    overflow: hidden;
+    background-size: cover;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.btn-area > button{
+    width: 100px;
+    background-color: white;
+    border: 1px solid black;
+    margin: 5px;
+}
+
+.nickname-area{
+    display: flex; 
+    align-items: center;
+}
+
+.nickname-area > input{
+    margin-left: 10px;
+}
+
+.submit-area{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px; 
+    margin-left: 300px;
+}
+
+
+
+.row2 {
+    height: 70px;
+    margin-top: 0px; 
+}
+.submit-area > button{
+    width: 80px;
+    height: 40px;
+    background-color: #2FED28;
+    border: 1px solid lightgrey;
+    margin: 5px;
+}
+
+
+#cancelBtn{
+    width: 80px;
+    height: 40px;
+    background-color: white;
+    border: 1px solid lightgrey;
+    margin: 5px;
+}
+
+.left-side {
+    width: 15%;
+    border-right: 2px solid #ddd;
+    padding: 20px 0;
+    background-color: #f8f9fa;
+    height: 100vh;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.list-group {
+    width: 100%;
+    list-style: none;
+}
+
+.list-group > li {
+    height: 50px;
+    font-size: 18px;
+    padding-left: 10px;
+}
+
+.list-group > li > a {
+    color: black;
+    text-decoration: none;
+    display: flex;
+    height: 100%;
+    justify-content: flex-start; /* 아이콘과 텍스트를 왼쪽으로 정렬 */
+    align-items: center;
+    border-bottom: 1px solid #ddd; /* 세밀한 테두리 */
+    transition: background-color 0.3s; /* 부드러운 배경 색상 변경 효과 */
+}
+
+.list-group > li > a:hover {
+    background-color: #e9ecef; /* 호버 시 배경 색상 변경 */
+}
+
+.list-group > li > a:active {
+    background-color: #dee2e6; /* 클릭 시 배경 색상 변경 */
+    color: #495057; /* 클릭 시 텍스트 색상 변경 */
+}
+
+.wrapper-conatiner{
+    display: flex;
+    width: 100%;
 }

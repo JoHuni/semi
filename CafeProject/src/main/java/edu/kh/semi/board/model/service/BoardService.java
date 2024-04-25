@@ -2,10 +2,10 @@ package edu.kh.semi.board.model.service;
 
 import java.util.List;
 import java.util.Map;
-
 import edu.kh.semi.board.model.dto.Board;
 
 public interface BoardService {
+
 
 
 	/** 글 작성
@@ -31,9 +31,6 @@ public interface BoardService {
 	 * @return
 	 */
 	List<Board> selectBoardList(String boardType, int cp);
-
-	
-	
 
 	
 

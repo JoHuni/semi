@@ -1,12 +1,15 @@
 package edu.kh.semi.board.model.service;
 
+
 import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import edu.kh.semi.board.model.dto.Board;
 import edu.kh.semi.board.model.dto.Pagination;
+
 import edu.kh.semi.board.model.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,15 +24,18 @@ public class BoardServiceImpl implements BoardService{
 	
 	private final BoardMapper mapper;
 	
+
 	//글작성
 	@Override
 	public int insertBoard(String boardTitle, String boardContent, int memberNo,String boardCheckPublic,
 			String boardCheckNotice) {
+
 	
 		Board board = new Board();
 		board.setBoardTitle(boardTitle);
 		board.setBoardContent(boardContent);
 		board.setMemberNo(memberNo);
+
 
 		
 		if(boardCheckNotice==null) {
@@ -43,6 +49,7 @@ public class BoardServiceImpl implements BoardService{
 		}else {
 			board.setBoardCheckPublic(boardCheckPublic);
 		}
+
 		
 		int result = mapper.insertBoard(board);
 		log.debug("result : " + result );
@@ -50,6 +57,7 @@ public class BoardServiceImpl implements BoardService{
 		
 		if(result>0) {
 			
+
 			int boardNo = board.getBoardNo();
 			return boardNo;
 		}
@@ -88,6 +96,7 @@ public class BoardServiceImpl implements BoardService{
 		
 		return boardList;
 	}
+
 }
 
 
