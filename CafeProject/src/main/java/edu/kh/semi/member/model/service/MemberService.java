@@ -53,4 +53,8 @@ public interface MemberService {
 
 
 
+	int withdrawalMember(String currentPassword, int memberNo);
+
+
+
 }

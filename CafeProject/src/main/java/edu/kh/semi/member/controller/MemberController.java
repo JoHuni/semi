@@ -39,6 +39,11 @@ public class MemberController {
 		return "board/signup";
 	}
 	
+	@GetMapping("withdrawal")
+	public String withdrawal() {
+		return "member/withdrawal";
+	}
+	
 	@PostMapping("register")
 	public String signup( 
 			Member member,
@@ -72,7 +77,7 @@ public class MemberController {
 			Model model) {
 		
 		Member loginMember = service.login(inputMember); 
-
+		
 		String message = null;
 		if(loginMember == null) {
 			message = "아이디 또는 비밀번호가 일치하지 않습니다";
@@ -206,6 +211,32 @@ public class MemberController {
 			message = "비밀번호가 변경되었습니다.";
 			ra.addFlashAttribute("message", message);
 			return "redirect:myPage";
+		}
+	}
+	
+	@PostMapping("withdrawal")
+	public String withdrawal(
+			@RequestParam("currentPassword") String currentPassword,
+			@SessionAttribute("loginMember") Member loginMember,
+			SessionStatus status,
+			RedirectAttributes ra) {
+		
+		int memberNo = loginMember.getMemberNo();
+		
+		int result = service.withdrawalMember(currentPassword, memberNo);
+		
+		String message = null;
+		
+		if(result > 0) {
+			message = "탈퇴가 완료되었습니다.";
+			ra.addFlashAttribute("message", message);
+			status.setComplete();
+			return "redirect:/";
+		}
+		else {
+			message = "탈퇴가 안 돼";
+			ra.addFlashAttribute("message", message);
+			return "redirect:/";
 		}
 	}
 }

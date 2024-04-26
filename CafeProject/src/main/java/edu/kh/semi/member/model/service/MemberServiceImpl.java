@@ -156,4 +156,22 @@ public class MemberServiceImpl implements MemberService{
 			return mapper.changePw(map);
 		}
 	}
+	
+	@Override
+	public int withdrawalMember(String currentPassword, int memberNo) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("currentPassword", currentPassword);
+		map.put("memberNo", memberNo);
+		
+		String encPw = mapper.checkPw(map);
+		
+		
+		if(!bcrypt.matches(currentPassword, encPw)) {
+			return 0;
+		}
+		else {
+			return mapper.withdrawal(memberNo);
+		}
+	}
 }

@@ -47,5 +47,7 @@ public interface MemberMapper {
 
 	int changePw(Map<String, Object> map);
 
+	int withdrawal(int memberNo);
+
 
 }
