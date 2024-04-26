@@ -49,4 +49,8 @@ public interface MemberService {
 
 
 
+	int changePw(String currentPassword, String newPassword, Member loginMember);
+
+
+
 }

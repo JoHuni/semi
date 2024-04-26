@@ -1,5 +1,7 @@
 package edu.kh.semi.member.model.mapper;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.semi.member.model.dto.Member;
@@ -41,9 +43,9 @@ public interface MemberMapper {
 
 	int nickNameRedundancy(String memberNickname);
 
+	String checkPw(Map<String, Object> map);
 
-
-
+	int changePw(Map<String, Object> map);
 
 
 }
