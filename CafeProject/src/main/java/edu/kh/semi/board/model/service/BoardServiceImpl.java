@@ -89,7 +89,11 @@ public class BoardServiceImpl implements BoardService{
 		 * Pagination();
 		 */
 		
+		int listCount = mapper.getListCount(boardType);
 		
+		Pagination pagination = new Pagination(cp, listCount);
+		
+		int limit = pagination.getLimit();
 		
 		//보드 리스트 조회
 		List<Board> boardList = mapper.selectBoard(boardType);
