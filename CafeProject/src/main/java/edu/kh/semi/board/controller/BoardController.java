@@ -52,7 +52,7 @@ public class BoardController {
 			@RequestParam("boardContent") String boardContent,
 			@RequestParam(value = "boardCheckPublic", required = false) String boardCheckPublic,
             @RequestParam(value = "boardCheckNotice", required = false) String boardCheckNotice,
-			@RequestParam("images") List<MultipartFile> images,
+			@RequestParam(value="images", required = false) List<MultipartFile> images,
             @SessionAttribute (value="loginMember", required=false ) Member loginMember,
 			RedirectAttributes ra,
 			Model model) throws IllegalStateException, IOException {
@@ -137,6 +137,7 @@ public class BoardController {
 		        if(board.getImageList() != null&&!board.getImageList().isEmpty()) {
 		        	model.addAttribute("start", 0);
 		        }
+		       
 		        
 		        if(loginMember==null) {
 			        if(boardType.equals("member")) {
@@ -201,6 +202,7 @@ public class BoardController {
 
 	    return "board/boardList";
 	}
+	
 	
 
 }
