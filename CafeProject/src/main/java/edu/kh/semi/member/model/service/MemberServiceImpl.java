@@ -137,4 +137,23 @@ public class MemberServiceImpl implements MemberService{
 		return result;
 	}
 
+	@Override
+	public int changePw(String currentPassword, String newPassword, Member loginMember) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("currentPassword", currentPassword);
+		map.put("memberNo", loginMember.getMemberNo());
+		
+		String encPw = mapper.checkPw(map);
+		
+		
+		if(!bcrypt.matches(currentPassword, encPw)) {
+			return 0;
+		}
+		else {
+			String newPw = bcrypt.encode(newPassword);
+			map.put("newPw", newPw);
+			
+			return mapper.changePw(map);
+		}
+	}
 }

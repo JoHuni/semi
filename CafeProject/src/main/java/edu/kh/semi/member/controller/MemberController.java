@@ -173,5 +173,39 @@ public class MemberController {
 		
 		return "redirect:myPage";
 	}
+	
+	@GetMapping("changePw")
+	public String changePw() {
+		return "member/changePw";
+	}
 
+	@PostMapping("changePw")
+	public String changePw(
+			@RequestParam("currentPassword") String currentPassword,
+			@RequestParam("newPassword") String newPassword,
+			@SessionAttribute("loginMember") Member loginMember,
+			RedirectAttributes ra) {
+		
+		
+		int result = service.changePw(currentPassword, newPassword, loginMember);
+		
+		String message = null;
+		
+		if(currentPassword.equals(newPassword)) {
+			message = "현재 비밀번호와 다른 비밀번호를 입력해주세요.";
+			ra.addFlashAttribute("message", message);
+			return "redirect:changePw";
+		}
+		
+		if(result == 0) {
+			message = "현재 비밀번호가 올바르지 않습니다.";
+			ra.addFlashAttribute("message", message);
+			return "redirect:changePw";
+		}
+		else {
+			message = "비밀번호가 변경되었습니다.";
+			ra.addFlashAttribute("message", message);
+			return "redirect:myPage";
+		}
+	}
 }

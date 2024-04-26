@@ -160,3 +160,48 @@ form{
     display: flex;
     width: 100%;
 }
+
+.profile-update-form {
+    width: 50%;
+    margin: 50px 0 50px 50px; /* 상단과 하단 마진 50px, 왼쪽 마진 50px으로 조정 */
+    padding: 20px;
+    border-radius: 8px;
+    float: left; /* 폼을 왼쪽으로 정렬 */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+.pwform-container{
+    display: flex;
+    width: 100%;
+}
+
+.pwChangeForm > button {
+    width: 100%;
+    padding: 10px;
+    background-color: #2FED28;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pwChangeForm > button:hover {
+    background-color: #2FED28;
+}
