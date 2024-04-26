@@ -29,7 +29,7 @@
     clear: both;
     padding: 30px 0;
     margin: 30px 0;
-    height: 500px;
+    height: 300px;
     border : 3px solid #ccc;
 
     font-size: 20px;
@@ -51,4 +51,25 @@
     background-color: aliceblue;
     font-weight: bold;
     cursor: pointer;
+}
+
+
+.imgContainer{
+    border: 1px solid #ccc;
+    padding: 3px;
+}
+
+.imgArea{
+    display: inline-block;
+    height: 50px;
+    
+}
+
+.boardImg{
+    display: flex;
+}
+.boardImg img {
+   
+    width: 70px;
+    height: 70px;
 }

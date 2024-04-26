@@ -1,13 +1,22 @@
 package edu.kh.semi.board.model.service;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import java.util.Map;
 
+import javax.management.RuntimeErrorException;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.semi.board.model.dto.Board;
+import edu.kh.semi.board.model.dto.Image;
 import edu.kh.semi.board.model.dto.Pagination;
 
 import edu.kh.semi.board.model.mapper.BoardMapper;
@@ -24,25 +33,34 @@ public class BoardServiceImpl implements BoardService{
 	
 	private final BoardMapper mapper;
 	
+	//config.properties 값을 얻어와 필드에 저장
+		@Value("${my.board.web-path}")
+		private String webPath;
+		
+		@Value("${my.board.folder-path}")
+		private String folderPath;
+	
 
 	//글작성
 	@Override
-	public int insertBoard(String boardTitle, String boardContent, int memberNo,String boardCheckPublic,
-			String boardCheckNotice) {
-
+	public int insertBoard(String boardTitle, String boardContent, int memberNo, String boardCheckPublic,
+			String boardCheckNotice, List<MultipartFile> images) throws IllegalStateException, IOException {
 	
 		Board board = new Board();
 		board.setBoardTitle(boardTitle);
 		board.setBoardContent(boardContent);
 		board.setMemberNo(memberNo);
+		
 
 
 		
 		if(boardCheckNotice==null) {
 			board.setBoardCheckNotice("N");
-		}else {
+		}
+		else {
 			board.setBoardCheckNotice(boardCheckNotice);
 		}
+		
 		
 		if(boardCheckPublic==null) {
 			board.setBoardCheckPublic("N");
@@ -54,15 +72,48 @@ public class BoardServiceImpl implements BoardService{
 		int result = mapper.insertBoard(board);
 		log.debug("result : " + result );
 		
+		if(result==0) return 0;
 		
-		if(result>0) {
-			
-
-			int boardNo = board.getBoardNo();
+		
+		int boardNo = board.getBoardNo();
+		
+		List<Image> uploadList = new ArrayList<>();
+		
+		for(int i=0; i<images.size(); i++) {
+			if(!images.get(i).isEmpty()) {
+				String imgName=images.get(i).getOriginalFilename();
+				
+				Image img = Image.builder()
+							.imgName(imgName)
+							.imgOrder(i)
+							.imgPath(webPath)
+							.boardNo(boardNo)
+							.uploadFile(images.get(i))
+							.build();
+				uploadList.add(img);
+			}
+		}
+		
+		if(uploadList.isEmpty()) {
 			return boardNo;
 		}
+
+		
+		result=mapper.insertUploadList(uploadList);
+		
+		if(result==uploadList.size()) {
+			
+			for(Image img : uploadList) {
+				img.getUploadFile()
+					.transferTo(new File(folderPath + img.getImgName()));
+			}
+		}else {
+			
+			throw new RuntimeException("이미지가 정상 삽입되지 않음!!");
+			
+		}
 	
-		return 0;
+		return boardNo;
 	}
 	
 	
@@ -71,8 +122,7 @@ public class BoardServiceImpl implements BoardService{
 	
 	//글 상세조회
 	@Override
-	public Board selectOne(Map<String, Integer> map) {
-		
+	public Board selectOne(Map<String, Object> map) {
 		return mapper.selectOne(map);
 	}
 	
@@ -96,6 +146,13 @@ public class BoardServiceImpl implements BoardService{
 		
 		return boardList;
 	}
+
+
+
+
+
+
+
 
 }
 

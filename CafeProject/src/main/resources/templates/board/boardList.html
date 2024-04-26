@@ -35,7 +35,12 @@
             <th:block th:unless="${#lists.isEmpty(boardList)}" class="tbody">
                 <tr th:each="board : ${boardList}" th:object="${board}" class="tr">
                     <td th:text="*{boardNo}">게시글 번호</td>
-                    <td th:text="*{boardTitle}">게시글 번호</td>
+                    <td>
+                        <a th:href="@{/board/{boardType}/boardDetail/{boardNo}(boardType=${boardType} + 'Board',boardNo=*{boardNo})}"
+                            th:text="*{boardTitle}">
+                            게시글 제목
+                        </a>
+                    </td>
                     <td th:text="*{memberNickname}">작성자</td>
                     <td th:text="*{boardWriteDate}">작성일</td>
                     <td th:text="*{readCount}">조회수</td>
@@ -47,6 +52,12 @@
 
     <th:block th:replace="~{common/footer}"></th:block>
     <script src="/js/board/main.js"></script>
+    <script th:inline="javascript">
+        const message =  /*[[${message}]]*/ "전달 받은 message";
+
+        if (message != null) alert(message);
+    </script>
+
 </body>
 
 </html>
