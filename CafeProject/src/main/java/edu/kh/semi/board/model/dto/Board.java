@@ -1,5 +1,7 @@
 package edu.kh.semi.board.model.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +29,8 @@ public class Board {
 	private String memberNickname;
 	
 	private String boardType;
+	
+	private List<Image> imageList;
 	
 	
 	

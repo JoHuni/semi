@@ -1,6 +1,7 @@
 package edu.kh.semi.board.controller;
 
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.semi.board.model.dto.Board;
@@ -41,21 +43,24 @@ public class BoardController {
 	
 	/** 글씨기 작성
 	 * @return
+	 * @throws IOException 
+	 * @throws IllegalStateException 
 	 */
-	@GetMapping("insertBoard")
+	@PostMapping("insertBoard")
 	public String insertBoard(
 			@RequestParam("boardTitle") String boardTitle,
 			@RequestParam("boardContent") String boardContent,
 			@RequestParam(value = "boardCheckPublic", required = false) String boardCheckPublic,
             @RequestParam(value = "boardCheckNotice", required = false) String boardCheckNotice,
-			@SessionAttribute (value="loginMember", required=false ) Member loginMember,
+			@RequestParam("images") List<MultipartFile> images,
+            @SessionAttribute (value="loginMember", required=false ) Member loginMember,
 			RedirectAttributes ra,
-			Model model) {
+			Model model) throws IllegalStateException, IOException {
 		
 		
 		int memberNo= loginMember.getMemberNo();
 		
-		int boardNo= service.insertBoard(boardTitle, boardContent,memberNo,boardCheckPublic,boardCheckNotice);
+		int boardNo= service.insertBoard(boardTitle, boardContent,memberNo,boardCheckPublic,boardCheckNotice,images);
 		
 		String path = null;
 		String message=null;
@@ -124,8 +129,14 @@ public class BoardController {
 		String path=null;
 		
 		 if (board != null) {
+			 
 		        model.addAttribute("board", board);
 		        log.debug("boardType : " + boardType);
+		        log.debug("board : " + board);
+		        
+		        if(board.getImageList() != null&&!board.getImageList().isEmpty()) {
+		        	model.addAttribute("start", 0);
+		        }
 		        
 		        if(loginMember==null) {
 			        if(boardType.equals("member")) {

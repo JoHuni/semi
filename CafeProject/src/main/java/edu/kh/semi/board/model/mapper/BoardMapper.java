@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.semi.board.model.dto.Board;
+import edu.kh.semi.board.model.dto.Image;
 
 @Mapper
 public interface BoardMapper {
@@ -33,6 +34,8 @@ public interface BoardMapper {
 	 * @return
 	 */
 	int getListCount(String boardType);
+
+	int insertUploadList(List<Image> uploadList);
 
 
 
