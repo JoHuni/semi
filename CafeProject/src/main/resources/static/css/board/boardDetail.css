@@ -55,8 +55,10 @@
 
 
 .imgContainer{
-    border: 1px solid #ccc;
     padding: 3px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
 }
 
 .imgArea{
@@ -69,7 +71,7 @@
     display: flex;
 }
 .boardImg img {
-   
-    width: 70px;
-    height: 70px;
+
+    width: 120px;
+    height: 120px;
 }
