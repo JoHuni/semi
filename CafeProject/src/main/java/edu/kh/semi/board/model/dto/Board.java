@@ -26,6 +26,8 @@ public class Board {
 	
 	private String memberNickname;
 	
+	private String boardType;
+	
 	
 	
 

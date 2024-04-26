@@ -26,13 +26,15 @@ public interface BoardMapper {
 	 * @param map
 	 * @return
 	 */
-	Board selectOne(Map<String, Integer> map);
+	Board selectOne(Map<String, Object> map);
 
 	/**게시판 수 세기
 	 * @param boardType
 	 * @return
 	 */
 	int getListCount(String boardType);
+
+
 
 
 }

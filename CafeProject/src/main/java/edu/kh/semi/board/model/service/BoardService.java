@@ -21,7 +21,7 @@ public interface BoardService {
 	 * @param map
 	 * @return
 	 */
-	Board selectOne(Map<String, Integer> map);
+	Board selectOne(Map<String, Object> map);
 
 	
 	
@@ -31,6 +31,8 @@ public interface BoardService {
 	 * @return
 	 */
 	List<Board> selectBoardList(String boardType, int cp);
+
+
 
 	
 

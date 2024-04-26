@@ -71,7 +71,7 @@ public class BoardServiceImpl implements BoardService{
 	
 	//글 상세조회
 	@Override
-	public Board selectOne(Map<String, Integer> map) {
+	public Board selectOne(Map<String, Object> map) {
 		
 		return mapper.selectOne(map);
 	}

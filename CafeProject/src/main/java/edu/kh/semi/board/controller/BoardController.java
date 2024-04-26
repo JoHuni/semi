@@ -61,10 +61,24 @@ public class BoardController {
 		String message=null;
 		
 
+		String boardType ="member";
 		
+		if(boardCheckNotice=="Y") {
+			if(boardCheckPublic==null) {
+				boardCheckPublic="N";
+			}
+			boardType="notice";
+		}
+		
+		if(boardCheckPublic=="Y") {
+			if(boardCheckNotice==null) {
+				boardCheckNotice="N";
+			}
+			boardType="public";
+		}
 		
 		if(boardNo>0) {
-			path="/board/boardDetail/" + boardNo ;
+			path="/board/"+boardType+"Board/boardDetail/"+boardNo;
 			message="글쓰기 성공";
 		}
 		else {
@@ -87,27 +101,49 @@ public class BoardController {
 	 */
 
 	
-	@GetMapping("boardDetail/{boardNo:[0-9]+}")
+	@GetMapping("{boardType}Board/boardDetail/{boardNo:[0-9]+}")
 	public String boardDetail(
 			@PathVariable("boardNo") int boardNo,
+			@PathVariable("boardType") String boardType,
 			Model model,
-			@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
+			@SessionAttribute(value = "loginMember", required = false) Member loginMember,
+			RedirectAttributes ra ) {
 		
-		Map<String, Integer> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
 		map.put("boardNo", boardNo);
+		map.put("boardType", boardType);
+		
 		if (loginMember != null) {
 
 			map.put("memberNo", loginMember.getMemberNo());
 		}
 		
 		Board board = service.selectOne(map);
-		if(board!=null) { 
-			model.addAttribute("board", board);
-		}
+		
+		String message=null;
+		String path=null;
+		
+		 if (board != null) {
+		        model.addAttribute("board", board);
+		        log.debug("boardType : " + boardType);
+		        
+		        if(loginMember==null) {
+			        if(boardType.equals("member")) {
+			        	message="로그인 후 이용해주세요";
+			        	ra.addFlashAttribute("message",message);
+			        	return "redirect:/member/login";
+			        }
+		        }
 
+		        path= "/board/boardDetail";
+		        
+		    } 
+		 else {
+		        path= "/board/" + boardType + "Board"; 
+		    }
 		
 		
-		return "/board/boardDetail";
+		return path;
 	}
 	
 	

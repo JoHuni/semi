@@ -31,6 +31,8 @@
 		JOIN "MEMBER" USING(MEMBER_NO)
 		WHERE BOARD_NO = #{boardNo}
 		AND BOARD_DEL_FL='N'
+		
+		
 	</select>
 	
 	
