@@ -23,6 +23,7 @@
 	<select id="countMember" resultType="_int">
 		SELECT COUNT(*)
 		FROM "MEMBER"
+		WHERE MEMBER_DEL_FL = 'N'
 	</select>
 	
 	<select id="getEncryptedPw">
