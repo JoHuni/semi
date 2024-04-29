@@ -84,6 +84,7 @@ inputEmail.addEventListener("input", () => {
 
             otpBtn.textContent = "인증요청 보내기";
             otpBtn.classList.add("btn");
+            otpBtn.setAttribute("type","button")
             emailAlert.append(otpBtn);
             return;
            
