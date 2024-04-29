@@ -100,7 +100,8 @@ public class MemberServiceImpl implements MemberService{
 
 	// 프로필 이미지 변경
 	@Override
-	public int profile(Member loginMember, MultipartFile profileImg, String memberNickanme) throws IllegalStateException, IOException {
+	public int profile(
+			Member loginMember, MultipartFile profileImg, String memberNickanme) throws IllegalStateException, IOException {
 		String updatePath = null;
 		
 		String rename = null;
@@ -173,5 +174,24 @@ public class MemberServiceImpl implements MemberService{
 		else {
 			return mapper.withdrawal(memberNo);
 		}
+	}
+	
+	@Override
+	public int findPw(String memberEmail) {
+		return mapper.findPw(memberEmail);
+	}
+	
+	@Override
+	public int updatePw(String memberPw, String memberEmail) {
+		String encPw = bcrypt.encode(memberPw);
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("encPw", encPw);
+		map.put("memberEmail", memberEmail);
+		
+		
+		return mapper.updatePw(map);
+	
 	}
 }

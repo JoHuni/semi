@@ -76,4 +76,17 @@
 		MEMBER_DEL_FL = 'Y'
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+	<select id="findPw" resultType="_int">
+		SELECT COUNT(*)
+		FROM "MEMBER"
+		WHERE MEMBER_EMAIL = #{memberEmail}
+	</select>
+	
+	<update id="updatePw">
+		UPDATE "MEMBER"
+		SET
+		MEMBER_PW = #{encPw}
+		WHERE MEMBER_EMAIL = #{memberEmail}
+	</update>
 </mapper>

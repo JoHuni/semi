@@ -36,8 +36,6 @@ public class EmailController {
 	@PostMapping("checkAuthKey")
 	public int checkAuthKey(
 			@RequestBody Map<String, Object> map) {
-			return service.checkAuthKey(map);
-			
-			
+			return service.checkAuthKey(map);	
 	}
 }

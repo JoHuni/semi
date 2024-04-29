@@ -14,41 +14,70 @@
     <th:block th:replace="~{common/header}"></th:block>
 
     <div class="container">
-        <table class="boardTable">
-            <th:block th:if="${#lists.isEmpty(boardList)}">
-                <tr>
-                    <th colspan="6">게시글이 존재하지 않습니다.</th>
-                </tr>
-            </th:block>
-
-            <thead class="thead">
-                <tr>
-                    <th>게시글 번호</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
-                    <th>조회수</th>
-                </tr>
-            </thead>
-
-
-            <th:block th:unless="${#lists.isEmpty(boardList)}" class="tbody">
-                <tr th:each="board : ${boardList}" th:object="${board}" class="tr">
-                    <td th:text="*{boardNo}">게시글 번호</td>
-                    <td>
-                        <a th:href="@{/board/{boardType}/boardDetail/{boardNo}(boardType=${boardType} + 'Board',boardNo=*{boardNo})}"
-                            th:text="*{boardTitle}">
-                            게시글 제목
-                        </a>
-                    </td>
-                    <td th:text="*{memberNickname}">작성자</td>
-                    <td th:text="*{boardWriteDate}">작성일</td>
-                    <td th:text="*{readCount}">조회수</td>
-                </tr>
-            </th:block>
-        </table>
+        <div class="main-area">
+            <table class="boardTable">
+                <th:block th:if="${#lists.isEmpty(boardList)}">
+                    <tr>
+                        <th colspan="6">게시글이 존재하지 않습니다.</th>
+                    </tr>
+                </th:block>
+    
+                <thead class="thead">
+                    <tr>
+                        <th>게시글 번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th>조회수</th>
+                    </tr>
+                </thead>
+    
+    
+                <th:block th:unless="${#lists.isEmpty(boardList)}" class="tbody">
+                    <tr th:each="board : ${boardList}" th:object="${board}" class="tr">
+                        <td th:text="*{boardNo}">게시글 번호</td>
+                        <td>
+                            <a th:unless="${param.key}"
+                                th:href="@{/board/{boardType}/boardDetail/{boardNo}(boardType=${boardType} + 'Board',boardNo=*{boardNo}, cp=${pagination.currentPage})}" 
+                                th:text="*{boardTitle}">
+                                게시글 제목
+                            </a>
+                        </td>
+                        <td th:text="*{memberNickname}">작성자</td>
+                        <td th:text="*{boardWriteDate}">작성일</td>
+                        <td th:text="*{readCount}">조회수</td>
+                    </tr>
+                </th:block>
+            </table>
+    
+    
+            <ul class="pagination" th:unless="${param.key}" th:object="${pagination}">
+    
+                <li><a th:href="@{/board/{boardType} (boardType=${boardType} + 'Board', cp = 1)}">&lt;&lt;</a></li>
+                <li><a th:href="@{/board/{boardType} (boardType=${boardType} + 'Board', cp = *{prevPage})}">&lt;</a></li>
+    
+                <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage)}"> 
+                    <li th:if="${i == pagination.currentPage}">
+                        <a class="current" th:text="${i}">현재 페이지</a>
+                    </li>
+                
+                    <li th:unless="${i == pagination.currentPage}"> 
+                        <a th:href="@{/board/{boardType} (boardType=${boardType} + 'Board', cp=${i})}" th:text="${i}">이동할 페이지</a>
+                    </li>
+                </th:block>
+    
+    
+        
+                <li><a th:href="@{/board/{boardType} (boardType=${boardType} + 'Board', cp = *{nextPage})}">&gt;</a></li>
+    
+    
+                <li><a th:href="@{/board/{boardType} (boardType=${boardType} + 'Board', cp = *{maxPage})}">&gt;&gt;</a></li>
+            </ul>
+        </div>
         <th:block th:replace="~{common/sideMenu}" id="sideMenu"></th:block>
     </div>
+
+    
 
     <th:block th:replace="~{common/footer}"></th:block>
     <script src="/js/board/main.js"></script>

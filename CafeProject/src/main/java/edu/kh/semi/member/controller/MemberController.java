@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,18 +31,53 @@ public class MemberController {
 	
 	@GetMapping("login")
 	public String login() {
-		return "/board/Login";
+		return "board/Login";
 	}
 	
-
-	@GetMapping("signup")
-	public String register() {
-		return "board/signup";
+	@GetMapping("myPage")
+	public String myPage() {
+		return "/member/myPage";
 	}
 	
 	@GetMapping("withdrawal")
 	public String withdrawal() {
-		return "member/withdrawal";
+		return "/member/withdrawal";
+	}
+	
+    @PostMapping("withdrawal")
+    public String withdrawal(
+            @RequestParam("currentPassword") String currentPassword,
+            @SessionAttribute("loginMember") Member loginMember,
+            SessionStatus status,
+            RedirectAttributes ra) {
+        
+        int memberNo = loginMember.getMemberNo();
+        
+        int result = service.withdrawalMember(currentPassword, memberNo);
+        
+        String message = null;
+        
+        if(result > 0) {
+            message = "탈퇴가 완료되었습니다.";
+            ra.addFlashAttribute("message", message);
+            status.setComplete();
+            return "redirect:/";
+        }
+        else {
+            message = "비밀번호가 일치하지 않습니다.";
+            ra.addFlashAttribute("message", message);
+            return "redirect:/member/withdrawal";
+        }
+    }
+
+	@GetMapping("signup")
+	public String register() {
+		return "/board/signup";
+	}
+	
+	@GetMapping("findPw")
+	public String findPw() {
+		return "/board/findPw";
 	}
 	
 	@PostMapping("register")
@@ -77,7 +113,7 @@ public class MemberController {
 			Model model) {
 		
 		Member loginMember = service.login(inputMember); 
-		
+
 		String message = null;
 		if(loginMember == null) {
 			message = "아이디 또는 비밀번호가 일치하지 않습니다";
@@ -115,10 +151,11 @@ public class MemberController {
 		return "board/findId";
 	}
 	
-	@GetMapping("myPage")
-	public String myPage() {
-		return "member/myPage";
-	}
+//    @GetMapping("moveToLogin")
+//    public String moveLogin() {
+//    	return "board/Login";
+//    }
+	
 	@PostMapping("findId")
 	public String findId(
 	        @RequestParam("memberTel") String memberTel,
@@ -149,6 +186,7 @@ public class MemberController {
 	public int nickNameRedundancy(@RequestBody String memberNickname) {
 		return service.nickNameRedundancy(memberNickname);
 	}
+
   
 	@PostMapping("profile")
 	public String profile(@RequestParam("profileImg") MultipartFile profileImg,
@@ -156,10 +194,7 @@ public class MemberController {
 			@RequestParam("memberNickname") String memberNickanme,
 			RedirectAttributes ra,
 			HttpSession session)  throws IllegalStateException, IOException {
-		
-		// 서비스 호출
-		// -> /myPage/test/변경된 파일명 형태의 문자열
-		// 	  현재 로그인한 회원의 PROFILE_IMG 컬럼 값으로 수정
+
 		
 		int result = service.profile(loginMember, profileImg, memberNickanme);
 		
@@ -168,7 +203,6 @@ public class MemberController {
 		if(result > 0) {
 			message = "변경 성공!";
 			loginMember.setMemberNickname(memberNickanme);
-			// 세션에 저장된 로그인 회원 정보에
 		}
 		else {
 			message = "변경 실패...";
@@ -184,58 +218,55 @@ public class MemberController {
 		return "member/changePw";
 	}
 
-	@PostMapping("changePw")
-	public String changePw(
-			@RequestParam("currentPassword") String currentPassword,
-			@RequestParam("newPassword") String newPassword,
-			@SessionAttribute("loginMember") Member loginMember,
-			RedirectAttributes ra) {
+	@PostMapping("findPw")
+	public String findPw(
+			@RequestParam("memberEmail") String memberEmail,
+			RedirectAttributes ra,
+			Model model,
+			HttpSession session) {
 		
-		
-		int result = service.changePw(currentPassword, newPassword, loginMember);
-		
-		String message = null;
-		
-		if(currentPassword.equals(newPassword)) {
-			message = "현재 비밀번호와 다른 비밀번호를 입력해주세요.";
-			ra.addFlashAttribute("message", message);
-			return "redirect:changePw";
-		}
-		
-		if(result == 0) {
-			message = "현재 비밀번호가 올바르지 않습니다.";
-			ra.addFlashAttribute("message", message);
-			return "redirect:changePw";
-		}
-		else {
-			message = "비밀번호가 변경되었습니다.";
-			ra.addFlashAttribute("message", message);
-			return "redirect:myPage";
-		}
-	}
-	
-	@PostMapping("withdrawal")
-	public String withdrawal(
-			@RequestParam("currentPassword") String currentPassword,
-			@SessionAttribute("loginMember") Member loginMember,
-			SessionStatus status,
-			RedirectAttributes ra) {
-		
-		int memberNo = loginMember.getMemberNo();
-		
-		int result = service.withdrawalMember(currentPassword, memberNo);
-		
+		int result = service.findPw(memberEmail);
 		String message = null;
 		
 		if(result > 0) {
-			message = "탈퇴가 완료되었습니다.";
-			ra.addFlashAttribute("message", message);
-			status.setComplete();
-			return "redirect:/";
+			session.setAttribute("memberEmail", memberEmail);
+			return "board/successFindPw";
 		}
 		else {
-			message = "탈퇴가 안 돼";
+			message = "일치하는 회원 정보가 없습니다.";
 			ra.addFlashAttribute("message", message);
+			return "redirect:/member/findPw";
+		}
+	}
+	
+	
+	@GetMapping("updatePw")
+	public String updatePw() {
+		return "/board/successFindPw";
+	}
+	
+	@PostMapping("updatePw")
+	public String updatePw(
+			@RequestParam("memberPw") String memberPw,
+			@RequestParam("memberPwCheck") String memberPwCheck,
+			@SessionAttribute("memberEmail") String memberEmail,
+			RedirectAttributes ra) {
+		String message = null;
+
+		if(!memberPw.equals(memberPwCheck)) {
+			message = "비밀번호를 제대로 입력해주세요.";
+			ra.addFlashAttribute("message", message);
+			return "redirect:/member/updatePw";
+		}
+		
+		int result = service.updatePw(memberPw, memberEmail);
+		
+		if(result > 0) {
+			message = "비밀번호가 변경되었습니다.";
+			ra.addFlashAttribute("message", message);
+			return "redirect:/";
+		}
+		else{
 			return "redirect:/";
 		}
 	}

@@ -6,7 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+
 import org.springframework.web.multipart.MultipartFile;
+
+import org.apache.ibatis.session.RowBounds;
+
 
 import edu.kh.semi.board.model.dto.Board;
 import edu.kh.semi.board.model.dto.Image;
@@ -15,14 +19,6 @@ import edu.kh.semi.board.model.dto.Image;
 public interface BoardMapper {
 
 	int insertBoard(Board board);
-
-	/** 게시글 리스트 조회
-	 * @param boardType
-	 * @return
-	 */
-	List<Board> selectBoard(String boardType);
-
-
 
 	/** 게시판 상세조회
 	 * @param map
@@ -35,8 +31,6 @@ public interface BoardMapper {
 	 * @return
 	 */
 	int getListCount(String boardType);
-
-	int insertUploadList(List<Image> uploadList);
 
 	/** 게시물 삭제
 	 * @param map
@@ -69,9 +63,8 @@ public interface BoardMapper {
 	 */
 	int deleteImage(Map<String, Object> map);
 
+	List<Board> selectBoard(String boardType, RowBounds bounds);
 
-
-
-
+	int insertUploadList(List<Image> uploadList);
 }
 
