@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/myPage.css">
+
+</head>
+<body>
+    <th:block th:replace="~{common/header}"></th:block>
+    <form action="/member/withdrawal" class="pwChangeForm" method="POST">
+        <div class="withdrawal-conatiner">
+            <th:block th:replace="~{member/sideBar}"></th:block>
+            <div class="terms-container">
+                <h3>현재 비밀번호가 일치해야만 탈퇴할 수 있습니다.</h3>
+                <br><br><br>
+                
+                <div class="form-group form-password">
+                    <label for="currentPassword">현재 비밀번호:</label>
+                    <input type="password" id="currentPassword" name="currentPassword" required>
+                </div>
+                <pre class="secession-terms">
+제1조
+이 약관은 샘플 약관입니다.
+
+① 약관 내용 1
+
+② 약관 내용 2
+
+③ 약관 내용 3
+
+④ 약관 내용 4
+
+
+제2조
+이 약관은 샘플 약관입니다.
+
+① 약관 내용 1
+
+② 약관 내용 2
+
+③ 약관 내용 3
+
+④ 약관 내용 4
+                                
+                </pre>
+                <div>
+                    <input type="checkbox" name="agree" id="agree">
+                    <label for="agree">위 약관에 동의합니다.</label>
+                </div>
+                <button id="withdrawalBtn">탈퇴하기</button>
+            </div>
+        </div>
+    </form>
+
+
+    <th:block th:replace="~{common/footer}"></th:block>
+
+    <script src="/js/board/withdrawal.js"></script>
+</body>
+</html>

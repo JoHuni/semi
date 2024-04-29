@@ -23,6 +23,7 @@
 	<select id="countMember" resultType="_int">
 		SELECT COUNT(*)
 		FROM "MEMBER"
+		WHERE MEMBER_DEL_FL = 'N'
 	</select>
 	
 	<select id="getEncryptedPw">
@@ -56,4 +57,23 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
 
+	<select id="checkPw" resultType="String">
+		SELECT MEMBER_PW
+		FROM "MEMBER"
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<update id="changePw">
+		UPDATE "MEMBER"
+		SET
+		MEMBER_PW = #{newPw}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<update id="withdrawal">
+		UPDATE "MEMBER"
+		SET
+		MEMBER_DEL_FL = 'Y'
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
 </mapper>
