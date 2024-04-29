@@ -50,22 +50,32 @@
                                 </div>
                             </th:block>
                         </div>
+                    </th:block>
+                </th:block>
 
 
-                        <div class="btnArea">
-                            <button type="button">목록으로</button>
-                            <button type="button">수정</button>
-                            <button type="button">삭제</button>
-                        </div>
+                <div class="btnArea">
+                    <button type="button">목록으로</button>
+                    <div th:if="${board.memberNo == session.loginMember?.memberNo}">
+                        <button type="button" id="updateBtn">수정</button>
+                        <button type="button" id="deleteBtn">삭제</button>
+                    </div>
+                </div>
 
             </div>
         </th:block>
-        </th:block>
+
 
 
     </main>
 
     <th:block th:replace="~{common/footer}"></th:block>
+    <script src="/js/board/boardDetail.js"></script>
+    <script th:inline="javascript">
+        const message =  /*[[${message}]]*/ "전달 받은 message";
+
+        if (message != null) alert(message);
+    </script>
 </body>
 
 </html>

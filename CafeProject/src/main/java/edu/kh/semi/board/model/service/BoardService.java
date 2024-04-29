@@ -40,6 +40,24 @@ public interface BoardService {
 	List<Board> selectBoardList(String boardType, int cp);
 
 
+	/** 게시물 삭제
+	 * @param map
+	 * @return
+	 */
+	int deleteBoard(Map<String, Object> map);
+
+
+	/** 게시물 수정하기
+	 * @param board
+	 * @param images
+	 * @param deleteOrder 
+	 * @return
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	int updateBoard(Board board, List<MultipartFile> images,int memberNo, String deleteOrder) throws IllegalStateException, IOException;
+
+
 
 
 

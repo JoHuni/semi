@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.semi.board.model.dto.Board;
 import edu.kh.semi.board.model.dto.Image;
@@ -37,7 +38,40 @@ public interface BoardMapper {
 
 	int insertUploadList(List<Image> uploadList);
 
+	/** 게시물 삭제
+	 * @param map
+	 * @return
+	 */
+	int deleteBoard(Map<String, Object> map);
+
+	/** 게시물 수정
+	 * @param board
+	 * @param images
+	 * @return
+	 */
+	int updateBoard(Board board);
+
+	/** 이미지 수정
+	 * @param img
+	 * @return
+	 */
+	int updateImage(Image img);
+
+	/** 이미지 한 행 추가
+	 * @param img
+	 * @return
+	 */
+	int insertImage(Image img);
+
+	/**게시글 이미지 삭제
+	 * @param map
+	 * @return
+	 */
+	int deleteImage(Map<String, Object> map);
+
+
 
 
 
 }
+
