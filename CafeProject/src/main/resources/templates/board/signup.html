@@ -13,9 +13,9 @@
             <div id="parentContainer">
                 <div id = "heading"><h1>회원 가입</h1></div>
                 <div id = "rowContainer">
-                    
+                    <form action = "register" method="POST" id = "signUpForm">
                     <div id="container">
-                        <form action = "register" method="POST" id = "signUpForm"></form>
+                        
                         <input type="text"     name="memberEmail" id="memberEmail" placeholder="이메일"> 
                         <div id = "alertMessage1"></div>
         
@@ -36,17 +36,19 @@
                         <input type="text"     name="memberTel"   id="memberTel"   placeholder="휴대폰 번호. '-' 제외">
                         <div id = "alertMessage7"></div>
                         <button id="registerBtn"><b>가입하기</b></button>
-                    </form>
+                    
                     </div>
+                </form>
     
                    
     
-                   
+                <form action = "login" method = "GET" >
                         <div id = "parentContainer2">
-                            <form action = "login" method = "GET" >
+                            
                             <button id = "signUpBtn" >sign up</button>
-                        </form>
+                        
                          </div>
+                         </form>
                     
                 </div>
                   
