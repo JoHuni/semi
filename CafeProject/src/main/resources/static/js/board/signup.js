@@ -22,7 +22,7 @@ const checkEmail =  document.querySelector("#checkEmail"); // 이메일 인증�
 const checkAuthKeyBtn = document.querySelector("#checkBtn");
 const authKeyMessage =document.querySelector("#authKeyMessage");
 
-
+const registerBtn= document.querySelector("#registerBtn");
 
 const signUpForm = document.querySelector("#signUpForm");
 
@@ -391,7 +391,7 @@ checkAuthKeyBtn.addEventListener("click",e => {
     })
 });
 
-signUpForm.addEventListener("submit", () => {
+signUpForm.addEventListener("submit", e => {
    
     for(let key in obj){
      
@@ -408,6 +408,8 @@ signUpForm.addEventListener("submit", () => {
             alert(str);
             document.getElementById(key).focus();
             document.getElementById(key).style.border = "1px solid red";
+            e.preventDefault();
+            return;
             
             
         }
