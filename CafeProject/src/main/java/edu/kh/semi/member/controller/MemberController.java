@@ -1,5 +1,7 @@
 package edu.kh.semi.member.controller;
 
+import java.io.IOException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,12 +10,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.semi.member.model.dto.Member;
 import edu.kh.semi.member.model.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @RequestMapping("member")
@@ -28,6 +33,15 @@ public class MemberController {
 		return "board/Login";
 	}
 	
+	@GetMapping("myPage")
+	public String myPage() {
+		return "/member/myPage";
+	}
+	
+	@GetMapping("withdrawal")
+	public String withdrawal() {
+		return "/member/withdrawal";
+	}
 
 	@GetMapping("signup")
 	public String register() {
