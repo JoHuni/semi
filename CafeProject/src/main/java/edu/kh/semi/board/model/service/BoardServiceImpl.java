@@ -1,17 +1,23 @@
 package edu.kh.semi.board.model.service;
 
 
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 
 import java.util.Map;
 
+
+import org.apache.ibatis.session.RowBounds;
+
 import javax.management.RuntimeErrorException;
 
 import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -130,7 +136,7 @@ public class BoardServiceImpl implements BoardService{
 	
 	//게시글 리스트 조회
 	@Override
-	public List<Board> selectBoardList(String boardType, int cp) {
+	public Map<String, Object> selectBoardList(String boardType, int cp) {
 
 		
 		//페이지네이션
@@ -139,12 +145,23 @@ public class BoardServiceImpl implements BoardService{
 		 * Pagination();
 		 */
 		
+		int listCount = mapper.getListCount(boardType);
 		
+		Pagination pagination = new Pagination(cp, listCount);
 		
-		//보드 리스트 조회
-		List<Board> boardList = mapper.selectBoard(boardType);
+		int limit = pagination.getLimit();
 		
-		return boardList;
+		int offset = (cp-1) * limit;
+		
+		RowBounds bounds = new RowBounds(offset, limit);
+		
+		List<Board> boardList = mapper.selectBoard(boardType, bounds);
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("pagination", pagination);
+		map.put("boardList", boardList);
+		
+		return map;
 	}
 
 

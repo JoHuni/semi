@@ -37,7 +37,7 @@ public interface BoardService {
 	 * @param cp
 	 * @return
 	 */
-	List<Board> selectBoardList(String boardType, int cp);
+	Map<String, Object> selectBoardList(String boardType, int cp);
 
 
 

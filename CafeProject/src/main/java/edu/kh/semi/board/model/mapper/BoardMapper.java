@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.semi.board.model.dto.Board;
 import edu.kh.semi.board.model.dto.Image;
@@ -15,11 +16,11 @@ public interface BoardMapper {
 
 	int insertBoard(Board board);
 
-	/** 게시글 리스트 조회
-	 * @param boardType
-	 * @return
-	 */
-	List<Board> selectBoard(String boardType);
+//	/** 게시글 리스트 조회
+//	 * @param boardType
+//	 * @return
+//	 */
+//	List<Board> selectBoard(String boardType, RowBounds bounds);
 
 
 
@@ -35,9 +36,7 @@ public interface BoardMapper {
 	 */
 	int getListCount(String boardType);
 
+	List<Board> selectBoard(String boardType, RowBounds bounds);
+
 	int insertUploadList(List<Image> uploadList);
-
-
-
-
 }
