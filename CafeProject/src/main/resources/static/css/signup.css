@@ -133,6 +133,7 @@
 #heading{
     height: 30%;
     margin-top: 60px;
+    margin:auto;
 }
 #parentContainer{
     width:100%;
