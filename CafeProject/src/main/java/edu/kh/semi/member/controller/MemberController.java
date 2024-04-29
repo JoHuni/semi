@@ -141,4 +141,37 @@ public class MemberController {
 		return service.nickNameRedundancy(memberNickname);
 	}
 
+  
+	@PostMapping("profile")
+	public String profile(@RequestParam("profileImg") MultipartFile profileImg,
+			@SessionAttribute("loginMember") Member loginMember,
+			@RequestParam("memberNickname") String memberNickanme,
+			RedirectAttributes ra,
+			HttpSession session)  throws IllegalStateException, IOException {
+
+		
+		int result = service.profile(loginMember, profileImg, memberNickanme);
+		
+		String message = null;
+		
+		if(result > 0) {
+			message = "변경 성공!";
+			loginMember.setMemberNickname(memberNickanme);
+			// 세션에 저장된 로그인 회원 정보에
+		}
+		else {
+			message = "변경 실패...";
+		}
+		
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:myPage";
+	}
+	
+	@GetMapping("changePw")
+	public String changePw() {
+		return "member/changePw";
+	}
+
+
 }

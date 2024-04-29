@@ -22,9 +22,13 @@ const checkEmail =  document.querySelector("#checkEmail"); // 이메일 인증�
 const checkAuthKeyBtn = document.querySelector("#checkBtn");
 const authKeyMessage =document.querySelector("#authKeyMessage");
 
+
 const registerBtn= document.querySelector("#registerBtn");
 
 const signUpForm = document.querySelector("#signUpForm");
+=======
+const signUpBtn = document.querySelector("signUpBtn");
+
 
 let min;
 let sec;
@@ -97,7 +101,6 @@ inputEmail.addEventListener("input", () => {
 
     })
 });
-
 
 
 
@@ -232,6 +235,33 @@ inputTel.addEventListener("input", () => {
     obj.memberTel = true;
 });
 
+
+
+signUpForm.addEventListener("submit", () => {
+   
+    for(let key in obj){
+     
+        if(!obj[key]){
+            let str;
+            switch(key){
+                case "memberEmail": str = "이메일을 입력해 주세요";break;
+                case "checkEmail" : str = "이메일이 인증이 되지 않았습니다";break
+                case "memberPw": str = "비밀번호를  입력해 주세요";break;
+                case "checkPass": str = "비밀번호가 인증이 되지 않았습니다";break;
+                case "memberNickname": str = "닉네임을 입력해 주세요";break;
+                case "memberTel": str = "전화번호를 입력해 주세요";break;
+            }
+            alert(str);
+            document.getElementById(key).focus();
+            document.getElementById(key).style.border = "1px solid red";
+            
+            
+        }
+
+        document.getElementById(key).style.border = "1px solid green";
+        
+        
+    }
 
 
 
@@ -420,6 +450,11 @@ signUpForm.addEventListener("submit", e => {
     }
 
 });
+
+
+
+
+
 
 
 
