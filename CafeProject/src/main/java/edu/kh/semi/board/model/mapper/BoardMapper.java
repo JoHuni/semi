@@ -1,5 +1,6 @@
 package edu.kh.semi.board.model.mapper;
 
+	int insertUploadList(List<Image> uploadList);
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import org.apache.ibatis.session.RowBounds;
 
+	int insertUploadList(List<Image> uploadList);
 
 import edu.kh.semi.board.model.dto.Board;
 import edu.kh.semi.board.model.dto.Image;
