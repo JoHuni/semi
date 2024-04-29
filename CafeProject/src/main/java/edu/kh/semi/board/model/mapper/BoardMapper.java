@@ -1,9 +1,7 @@
 package edu.kh.semi.board.model.mapper;
 
-	
 
 import java.util.List;
-
 
 import java.util.Map;
 
@@ -12,7 +10,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.web.multipart.MultipartFile;
 
 import org.apache.ibatis.session.RowBounds;
-
 
 
 import edu.kh.semi.board.model.dto.Board;

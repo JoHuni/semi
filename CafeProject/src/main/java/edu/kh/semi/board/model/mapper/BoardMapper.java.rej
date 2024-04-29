@@ -1,9 +1,0 @@
-diff a/CafeProject/src/main/java/edu/kh/semi/board/model/mapper/BoardMapper.java b/CafeProject/src/main/java/edu/kh/semi/board/model/mapper/BoardMapper.java	(rejected hunks)
-@@ -32,7 +32,6 @@
- 	 */
- 	int getListCount(String boardType);
- 
--	int insertUploadList(List<Image> uploadList);
- 
- 	/** 게시물 삭제
- 	 * @param map

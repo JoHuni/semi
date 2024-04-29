@@ -29,4 +29,12 @@ public interface MemberService {
 	String findId(String memberTel);
 
 
+
+	int nickNameRedundancy(String memberNickname);
+
+
+
+	int emailRedundancy(String memberEmail);
+
+
 }
