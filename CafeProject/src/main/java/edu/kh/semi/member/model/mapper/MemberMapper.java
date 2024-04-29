@@ -49,5 +49,11 @@ public interface MemberMapper {
 
 	int withdrawal(int memberNo);
 
+	int findPw(String memberEmail);
+
+	int updatePw(String memberEmail);
+
+	int updatePw(Map<String, Object> map);
+
 
 }

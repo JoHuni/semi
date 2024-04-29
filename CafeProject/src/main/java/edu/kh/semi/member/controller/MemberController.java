@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,10 +43,41 @@ public class MemberController {
 	public String withdrawal() {
 		return "/member/withdrawal";
 	}
+	
+    @PostMapping("withdrawal")
+    public String withdrawal(
+            @RequestParam("currentPassword") String currentPassword,
+            @SessionAttribute("loginMember") Member loginMember,
+            SessionStatus status,
+            RedirectAttributes ra) {
+        
+        int memberNo = loginMember.getMemberNo();
+        
+        int result = service.withdrawalMember(currentPassword, memberNo);
+        
+        String message = null;
+        
+        if(result > 0) {
+            message = "탈퇴가 완료되었습니다.";
+            ra.addFlashAttribute("message", message);
+            status.setComplete();
+            return "redirect:/";
+        }
+        else {
+            message = "비밀번호가 일치하지 않습니다.";
+            ra.addFlashAttribute("message", message);
+            return "redirect:/member/withdrawal";
+        }
+    }
 
 	@GetMapping("signup")
 	public String register() {
-		return "board/signup";
+		return "/board/signup";
+	}
+	
+	@GetMapping("findPw")
+	public String findPw() {
+		return "/board/findPw";
 	}
 	
 	@PostMapping("register")
@@ -171,7 +203,6 @@ public class MemberController {
 		if(result > 0) {
 			message = "변경 성공!";
 			loginMember.setMemberNickname(memberNickanme);
-			// 세션에 저장된 로그인 회원 정보에
 		}
 		else {
 			message = "변경 실패...";
@@ -187,5 +218,56 @@ public class MemberController {
 		return "member/changePw";
 	}
 
+	@PostMapping("findPw")
+	public String findPw(
+			@RequestParam("memberEmail") String memberEmail,
+			RedirectAttributes ra,
+			Model model,
+			HttpSession session) {
+		
+		int result = service.findPw(memberEmail);
+		String message = null;
+		
+		if(result > 0) {
+			session.setAttribute("memberEmail", memberEmail);
+			return "board/successFindPw";
+		}
+		else {
+			message = "일치하는 회원 정보가 없습니다.";
+			ra.addFlashAttribute("message", message);
+			return "redirect:/member/findPw";
+		}
+	}
+	
+	
+	@GetMapping("updatePw")
+	public String updatePw() {
+		return "/board/successFindPw";
+	}
+	
+	@PostMapping("updatePw")
+	public String updatePw(
+			@RequestParam("memberPw") String memberPw,
+			@RequestParam("memberPwCheck") String memberPwCheck,
+			@SessionAttribute("memberEmail") String memberEmail,
+			RedirectAttributes ra) {
+		String message = null;
 
+		if(!memberPw.equals(memberPwCheck)) {
+			message = "비밀번호를 제대로 입력해주세요.";
+			ra.addFlashAttribute("message", message);
+			return "redirect:/member/updatePw";
+		}
+		
+		int result = service.updatePw(memberPw, memberEmail);
+		
+		if(result > 0) {
+			message = "비밀번호가 변경되었습니다.";
+			ra.addFlashAttribute("message", message);
+			return "redirect:/";
+		}
+		else{
+			return "redirect:/";
+		}
+	}
 }

@@ -57,4 +57,12 @@ public interface MemberService {
 
 
 
+	int findPw(String memberEmail);
+
+
+
+	int updatePw(String memberPw, String memberEmail);
+
+
+
 }
