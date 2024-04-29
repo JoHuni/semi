@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.kh.semi.member.model.mapper.MemberMapper">
 	<select id="login" resultType="Member">
-		SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_PW, MEMBER_TEL,
+		SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_PW, MEMBER_TEL,AUTHORITY,
 		MEMBER_NICKNAME, PROFILE_IMG, TO_CHAR(ENROLL_DATE, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') ENROLL_DATE
 		FROM "MEMBER"
 		WHERE MEMBER_EMAIL = #{memberEmail}
@@ -23,6 +23,7 @@
 	<select id="countMember" resultType="_int">
 		SELECT COUNT(*)
 		FROM "MEMBER"
+		WHERE MEMBER_DEL_FL = 'N'
 	</select>
 	
 	<select id="getEncryptedPw">
@@ -56,4 +57,23 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
 
+	<select id="checkPw" resultType="String">
+		SELECT MEMBER_PW
+		FROM "MEMBER"
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<update id="changePw">
+		UPDATE "MEMBER"
+		SET
+		MEMBER_PW = #{newPw}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<update id="withdrawal">
+		UPDATE "MEMBER"
+		SET
+		MEMBER_DEL_FL = 'Y'
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
 </mapper>
