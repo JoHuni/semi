@@ -175,4 +175,23 @@ public class MemberServiceImpl implements MemberService{
 			return mapper.withdrawal(memberNo);
 		}
 	}
+	
+	@Override
+	public int findPw(String memberEmail) {
+		return mapper.findPw(memberEmail);
+	}
+	
+	@Override
+	public int updatePw(String memberPw, String memberEmail) {
+		String encPw = bcrypt.encode(memberPw);
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("encPw", encPw);
+		map.put("memberEmail", memberEmail);
+		
+		
+		return mapper.updatePw(map);
+	
+	}
 }
