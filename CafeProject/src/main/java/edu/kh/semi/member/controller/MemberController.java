@@ -1,7 +1,5 @@
 package edu.kh.semi.member.controller;
 
-import java.io.IOException;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,15 +8,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.semi.member.model.dto.Member;
 import edu.kh.semi.member.model.service.MemberService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @RequestMapping("member")
@@ -30,18 +25,13 @@ public class MemberController {
 	
 	@GetMapping("login")
 	public String login() {
-		return "/board/Login";
+		return "board/Login";
 	}
 	
 
 	@GetMapping("signup")
 	public String register() {
 		return "board/signup";
-	}
-	
-	@GetMapping("withdrawal")
-	public String withdrawal() {
-		return "member/withdrawal";
 	}
 	
 	@PostMapping("register")
@@ -77,7 +67,7 @@ public class MemberController {
 			Model model) {
 		
 		Member loginMember = service.login(inputMember); 
-		
+
 		String message = null;
 		if(loginMember == null) {
 			message = "아이디 또는 비밀번호가 일치하지 않습니다";
@@ -115,10 +105,11 @@ public class MemberController {
 		return "board/findId";
 	}
 	
-	@GetMapping("myPage")
-	public String myPage() {
-		return "member/myPage";
-	}
+//    @GetMapping("moveToLogin")
+//    public String moveLogin() {
+//    	return "board/Login";
+//    }
+	
 	@PostMapping("findId")
 	public String findId(
 	        @RequestParam("memberTel") String memberTel,
@@ -149,6 +140,7 @@ public class MemberController {
 	public int nickNameRedundancy(@RequestBody String memberNickname) {
 		return service.nickNameRedundancy(memberNickname);
 	}
+
   
 	@PostMapping("profile")
 	public String profile(@RequestParam("profileImg") MultipartFile profileImg,
@@ -156,10 +148,7 @@ public class MemberController {
 			@RequestParam("memberNickname") String memberNickanme,
 			RedirectAttributes ra,
 			HttpSession session)  throws IllegalStateException, IOException {
-		
-		// 서비스 호출
-		// -> /myPage/test/변경된 파일명 형태의 문자열
-		// 	  현재 로그인한 회원의 PROFILE_IMG 컬럼 값으로 수정
+
 		
 		int result = service.profile(loginMember, profileImg, memberNickanme);
 		
@@ -184,59 +173,5 @@ public class MemberController {
 		return "member/changePw";
 	}
 
-	@PostMapping("changePw")
-	public String changePw(
-			@RequestParam("currentPassword") String currentPassword,
-			@RequestParam("newPassword") String newPassword,
-			@SessionAttribute("loginMember") Member loginMember,
-			RedirectAttributes ra) {
-		
-		
-		int result = service.changePw(currentPassword, newPassword, loginMember);
-		
-		String message = null;
-		
-		if(currentPassword.equals(newPassword)) {
-			message = "현재 비밀번호와 다른 비밀번호를 입력해주세요.";
-			ra.addFlashAttribute("message", message);
-			return "redirect:changePw";
-		}
-		
-		if(result == 0) {
-			message = "현재 비밀번호가 올바르지 않습니다.";
-			ra.addFlashAttribute("message", message);
-			return "redirect:changePw";
-		}
-		else {
-			message = "비밀번호가 변경되었습니다.";
-			ra.addFlashAttribute("message", message);
-			return "redirect:myPage";
-		}
-	}
-	
-	@PostMapping("withdrawal")
-	public String withdrawal(
-			@RequestParam("currentPassword") String currentPassword,
-			@SessionAttribute("loginMember") Member loginMember,
-			SessionStatus status,
-			RedirectAttributes ra) {
-		
-		int memberNo = loginMember.getMemberNo();
-		
-		int result = service.withdrawalMember(currentPassword, memberNo);
-		
-		String message = null;
-		
-		if(result > 0) {
-			message = "탈퇴가 완료되었습니다.";
-			ra.addFlashAttribute("message", message);
-			status.setComplete();
-			return "redirect:/";
-		}
-		else {
-			message = "탈퇴가 안 돼";
-			ra.addFlashAttribute("message", message);
-			return "redirect:/";
-		}
-	}
+
 }

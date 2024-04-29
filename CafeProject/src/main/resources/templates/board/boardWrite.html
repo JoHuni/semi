@@ -15,7 +15,7 @@
     <div class="container">
 
 
-        <form action="/board/insertBoard" method="get" id="boardForm">
+        <form action="/board/insertBoard" method="post" id="boardForm" enctype="multipart/form-data">
 
             <div class="writeHeader">
                 <h2>카페 글쓰기</h2>
@@ -92,9 +92,11 @@
                             <input type="checkbox" name="boardCheckPublic" id="boardCheckPublic" value="Y"> 전체 공개
                         </div>
 
-                        <div>
-                            <input type="checkbox" name="boardCheckNotice" id="boardCheckNotice" value="Y"> 공지 사항
-                        </div>
+                        <th:block th:if="${session.loginMember.authority==1}">
+                            <div>
+                                <input type="checkbox" name="boardCheckNotice" id="boardCheckNotice" value="Y"> 공지 사항
+                            </div>
+                        </th:block>
 
                     </div>
                 </div>

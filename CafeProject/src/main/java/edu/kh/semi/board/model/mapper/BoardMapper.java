@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.semi.board.model.dto.Board;
+import edu.kh.semi.board.model.dto.Image;
 
 @Mapper
 public interface BoardMapper {
@@ -27,7 +28,7 @@ public interface BoardMapper {
 	 * @param map
 	 * @return
 	 */
-	Board selectOne(Map<String, Integer> map);
+	Board selectOne(Map<String, Object> map);
 
 	/**게시판 수 세기
 	 * @param boardType
@@ -37,5 +38,5 @@ public interface BoardMapper {
 
 	List<Board> selectBoard(String boardType, RowBounds bounds);
 
-
+	int insertUploadList(List<Image> uploadList);
 }
