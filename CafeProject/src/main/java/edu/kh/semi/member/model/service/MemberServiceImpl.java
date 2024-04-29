@@ -100,7 +100,8 @@ public class MemberServiceImpl implements MemberService{
 
 	// 프로필 이미지 변경
 	@Override
-	public int profile(Member loginMember, MultipartFile profileImg, String memberNickanme) throws IllegalStateException, IOException {
+	public int profile(
+			Member loginMember, MultipartFile profileImg, String memberNickanme) throws IllegalStateException, IOException {
 		String updatePath = null;
 		
 		String rename = null;
