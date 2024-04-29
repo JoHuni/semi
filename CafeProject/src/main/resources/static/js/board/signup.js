@@ -22,7 +22,9 @@ const checkEmail =  document.querySelector("#checkEmail"); // 이메일 인증�
 const checkAuthKeyBtn = document.querySelector("#checkBtn");
 const authKeyMessage =document.querySelector("#authKeyMessage");
 
-const signUpBtn = document.querySelector("signUpBtn");
+
+
+const signUpForm = document.querySelector("#signUpForm");
 
 let min;
 let sec;
@@ -84,6 +86,7 @@ inputEmail.addEventListener("input", () => {
             otpBtn.classList.add("btn");
             emailAlert.append(otpBtn);
             return;
+           
         }
 
         emailAlert.innerText = "이미 존재하는 이메일 입니다";
@@ -228,35 +231,9 @@ inputTel.addEventListener("input", () => {
     obj.memberTel = true;
 });
 
-const signUpForm = document.querySelector("#signUpForm");
 
-signUpForm.addEventListener("submit", () => {
-   
-    for(let key in obj){
-     
-        if(!obj[key]){
-            let str;
-            switch(key){
-                case "memberEmail": str = "이메일을 입력해 주세요";break;
-                case "checkEmail" : str = "이메일이 인증이 되지 않았습니다";break
-                case "memberPw": str = "비밀번호를  입력해 주세요";break;
-                case "checkPass": str = "비밀번호가 인증이 되지 않았습니다";break;
-                case "memberNickname": str = "닉네임을 입력해 주세요";break;
-                case "memberTel": str = "전화번호를 입력해 주세요";break;
-            }
-            alert(str);
-            document.getElementById(key).focus();
-            document.getElementById(key).style.border = "1px solid red";
-            
-            
-        }
 
-        document.getElementById(key).style.border = "1px solid green";
-        
-        
-    }
 
-});
 
 
 //-------------------------------------------------------이메일 인증 번호 발송------------------------------------------------------
@@ -411,6 +388,34 @@ checkAuthKeyBtn.addEventListener("click",e => {
        console.log(result);
         
     })
+});
+
+signUpForm.addEventListener("submit", () => {
+   
+    for(let key in obj){
+     
+        if(!obj[key]){
+            let str;
+            switch(key){
+                case "memberEmail": str = "이메일을 입력해 주세요";break;
+                case "checkEmail" : str = "이메일이 인증이 되지 않았습니다";break
+                case "memberPw": str = "비밀번호를  입력해 주세요";break;
+                case "checkPass": str = "비밀번호가 인증이 되지 않았습니다";break;
+                case "memberNickname": str = "닉네임을 입력해 주세요";break;
+                case "memberTel": str = "전화번호를 입력해 주세요";break;
+            }
+            alert(str);
+            document.getElementById(key).focus();
+            document.getElementById(key).style.border = "1px solid red";
+            
+            
+        }
+
+        document.getElementById(key).style.border = "1px solid green";
+        
+        
+    }
+
 });
 
 
