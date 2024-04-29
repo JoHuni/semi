@@ -106,6 +106,7 @@ public class BoardController {
 	 */
 
 	
+
 	@GetMapping("{boardType}Board/boardDetail/{boardNo:[0-9]+}")
 	public String boardDetail(
 			@PathVariable("boardNo") int boardNo,
@@ -189,20 +190,22 @@ public class BoardController {
 	public String boardList(
 	        @PathVariable("boardType") String boardType,
 	        @RequestParam(value="cp", required = false, defaultValue = "1") int cp,
-	        Model model) {
+	        Model model,
+			@RequestParam Map<String, Object> paramMap) {
 
+		Map<String, Object> map = null;
+
+		if(paramMap.get("key") == null) {
+			map = service.selectBoardList(boardType, cp);
+		}
+		
 	    if (!Arrays.asList("member", "public", "notice").contains(boardType)) {
 	        return "/";
 	    }
-
-	    List<Board> boardList = service.selectBoardList(boardType,cp);
 	   
-	    model.addAttribute("boardList", boardList);
-	    model.addAttribute("boardType", boardType);
+		model.addAttribute("pagination", map.get("pagination"));
+		model.addAttribute("boardList", map.get("boardList"));
 
 	    return "board/boardList";
 	}
-	
-	
-
 }
