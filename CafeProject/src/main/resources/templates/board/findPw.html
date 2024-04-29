@@ -13,7 +13,8 @@
             <div id="container">
                 <h3>이메일 인증 후 찾기 가능합니다.</h3>
                 <input type="text" name="memberEmail"  id="inputPass"  placeholder="이메일 입력">
-                <button id="registerBtn"><b>비밀번호 찾기</b></button>
+                <div id = "alertMessage"></div>
+                <button id="registerBtn" type = "button"><b>비밀번호 찾기</b></button>
         </form>
     </div>
     <script th:inline="javascript">
@@ -21,7 +22,7 @@
       
         if(message != null) alert(message);
     </script>
-    <script src = "/js/board/signup.js"></script>
+    <script src = "/js/board/findPw.js"></script>
 
 </body>
 </html>

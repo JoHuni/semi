@@ -41,9 +41,9 @@ let clickCount = 0;
 const obj = {
     "memberEmail" : false,
     "checkEmail"  : false,
+    "memberNickname" : false, 
     "memberPw" : false,
     "checkPass" : false,
-    "memberNickname" : false, 
     "memberTel" : false
 };
 
@@ -107,15 +107,19 @@ inputEmail.addEventListener("input", () => {
 //----------------------------------------------------------이메일 인증 기능 구현-------------------------------------
 
 //이메일 인증 기능 구현
-checkEmail.addEventListener("input", () => {
+
+checkEmail.addEventListener("input",() => {
     if(checkEmail.value.trim().length === 0){
-        authKeyMessage.innerText = "인증키 입력을 해주세요";
-        authKeyMessage.classList.add("red");
-        obj.checkEmail = false;
+        authKeyMessage.innerText = "인증번호를 입력해주세요"
+        authKeyMessage.classList.add("fail");
+        authKeyMessage.classList.remove("success");
+        
         checkEmail.value = "";
-        return;
+        obj.checkEmail = false;
+  
     }
-    obj.checkEmail = true;
+
+  
 });
 
 //----------------------------------------------------------비밀번호 유효성 검사-----------------------------------------
@@ -177,6 +181,7 @@ memberNickname.addEventListener("input", () => {
         nickAlert.innerText = "영어,숫자,특수문자(!,@,#,-,_) 6~20글자 사이로 입력해주세요.";
         nickAlert.classList.remove("success", "fail");
         memberNickname.value = "";
+        obj.memberNickname = false;
         return;
     }
 
@@ -245,12 +250,12 @@ signUpForm.addEventListener("submit", e => {
         if(!obj[key]){
             let str;
             switch(key){
-                case "memberEmail": str = "이메일을 입력해 주세요";return;
-                case "checkEmail" : str = "이메일이 인증이 되지 않았습니다";return;
-                case "memberPw": str = "비밀번호를  입력해 주세요";return;
-                case "checkPass": str = "비밀번호가 인증이 되지 않았습니다";return;
-                case "memberNickname": str = "닉네임을 입력해 주세요";return;
-                case "memberTel": str = "전화번호를 입력해 주세요";return;
+                case "memberEmail": str = "이메일을 입력해 주세요";break;
+                case "checkEmail" : str = "이메일이 인증이 되지 않았습니다";break
+                case "memberNickname": str = "닉네임을 입력해 주세요";break;
+                case "memberPw": str = "비밀번호를  입력해 주세요";break;
+                case "checkPass": str = "비밀번호가 인증이 되지 않았습니다";break;
+                case "memberTel": str = "전화번호를 입력해 주세요";break;
             }
             
             alert(str);
@@ -262,12 +267,8 @@ signUpForm.addEventListener("submit", e => {
         }
 
         document.getElementById(key).style.border = "1px solid green";
-        
-        
-
     }
 });
-
 
 
 
@@ -318,6 +319,7 @@ otpBtn.addEventListener("click" , () => {
     .then(result => {
         if(result == 1){
             console.log("인증 번호 발송 성공");
+            console.log(result);
             
         }else{
             console.log("인증 번호 발송 실패");
@@ -336,9 +338,6 @@ otpBtn.addEventListener("click" , () => {
     authKeyMessage.innerText = initTime; // 05:00 세팅
     authKeyMessage.classList.remove("success", "fail"); // 검정 글씨
 
-    
-
-    
     authTimer = setInterval(() =>{
         authKeyMessage.innerText = `${addZero(min)}:${addZero(sec)}`;
 
@@ -367,15 +366,7 @@ function addZero(number){
     else              return number;
 }
 
-checkEmail.addEventListener("input",() => {
-    if(checkEmail.value.trim().length === 0){
-        authKeyMessage.innerText = "인증번호를 입력해주세요"
-        authKeyMessage.classList.add("fail");
-        authKeyMessage.classList.remove("success");
-        checkEmail.value = "";
-        return;
-    }
-});
+
 
 checkAuthKeyBtn.addEventListener("click",e => {
     clickCount++;
@@ -402,6 +393,7 @@ checkAuthKeyBtn.addEventListener("click",e => {
         
         if(result == 0){
             alert("인증번호가 일치하지 않습니다");
+            console.log(result);
             obj.checkEmail=false;
             return;
         }
@@ -418,8 +410,6 @@ checkAuthKeyBtn.addEventListener("click",e => {
         alert("이미 입력한 인증 번호 이거나 인증 번호가 올바르지 않습니다") ;   
         clickCount = 0;  
         return; 
-           
-       
        }
        console.log(result);
         
@@ -427,3 +417,19 @@ checkAuthKeyBtn.addEventListener("click",e => {
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

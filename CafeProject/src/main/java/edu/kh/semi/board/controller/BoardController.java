@@ -139,7 +139,8 @@ public class BoardController {
 		        if(board.getImageList() != null&&!board.getImageList().isEmpty()) {
 
 		        	model.addAttribute("start", 0);
-		        	model.addAttribute("memberNo", board.getMemberNo());
+		        	model.addAttribute("memberNo", loginMember.getMemberNo());
+		        	model.addAttribute("memberNo", board.getMemberNo() );
 		        }
 		       
 		        
