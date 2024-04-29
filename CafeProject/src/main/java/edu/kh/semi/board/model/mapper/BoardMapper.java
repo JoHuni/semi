@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.semi.board.model.dto.Board;
+import edu.kh.semi.board.model.dto.Image;
 
 @Mapper
 public interface BoardMapper {
@@ -26,13 +27,17 @@ public interface BoardMapper {
 	 * @param map
 	 * @return
 	 */
-	Board selectOne(Map<String, Integer> map);
+	Board selectOne(Map<String, Object> map);
 
 	/**게시판 수 세기
 	 * @param boardType
 	 * @return
 	 */
 	int getListCount(String boardType);
+
+	int insertUploadList(List<Image> uploadList);
+
+
 
 
 }

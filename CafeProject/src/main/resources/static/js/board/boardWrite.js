@@ -114,7 +114,5 @@ boardForm.addEventListener("submit",e=>{
         return;
     }
 
-    alert("게시글 작성이 완료되었습니다.");
-    return;
 
 })
