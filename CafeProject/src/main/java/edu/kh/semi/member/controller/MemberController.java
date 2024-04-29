@@ -48,6 +48,11 @@ public class MemberController {
 		return "board/signup";
 	}
 	
+	@GetMapping("findPw")
+	public String findPw() {
+		return "board/findPw";
+	}
+	
 	@PostMapping("register")
 	public String signup( 
 			Member member,
@@ -187,5 +192,10 @@ public class MemberController {
 		return "member/changePw";
 	}
 
-
+	@PostMapping("findPw")
+	public String findPw(@RequestBody String entity) {
+		
+		return null;
+	}
+	
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/signup.css">
+</head>
+<body>
+    <div id="parentContainer">
+        <div id = "heading"><h1>아이디 찾기</h1></div>
+        <form action="/member/findPw" method="POST">
+            <div id="container">
+                <input type="number" name="memberTel"  id="inputPass"  placeholder="전화번호">
+                <button id="registerBtn"><b>비밀번호 찾기</b></button>
+        </form>
+    </div>
+    <script th:inline="javascript">
+        const message =  /*[[${message}]]*/ "전달 받은 message";
+      
+        if(message != null) alert(message);
+    </script>
+</body>
+</html>
