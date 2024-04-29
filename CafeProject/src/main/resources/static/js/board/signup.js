@@ -26,7 +26,7 @@ const authKeyMessage =document.querySelector("#authKeyMessage");
 const registerBtn= document.querySelector("#registerBtn");
 
 const signUpForm = document.querySelector("#signUpForm");
-=======
+
 const signUpBtn = document.querySelector("signUpBtn");
 
 
@@ -111,6 +111,7 @@ checkEmail.addEventListener("input", () => {
     if(checkEmail.value.trim().length === 0){
         authKeyMessage.innerText = "인증키 입력을 해주세요";
         authKeyMessage.classList.add("red");
+        obj.checkEmail = false;
         checkEmail.value = "";
         return;
     }
@@ -244,12 +245,12 @@ signUpForm.addEventListener("submit", () => {
         if(!obj[key]){
             let str;
             switch(key){
-                case "memberEmail": str = "이메일을 입력해 주세요";break;
-                case "checkEmail" : str = "이메일이 인증이 되지 않았습니다";break
-                case "memberPw": str = "비밀번호를  입력해 주세요";break;
-                case "checkPass": str = "비밀번호가 인증이 되지 않았습니다";break;
-                case "memberNickname": str = "닉네임을 입력해 주세요";break;
-                case "memberTel": str = "전화번호를 입력해 주세요";break;
+                case "memberEmail": str = "이메일을 입력해 주세요";return;
+                case "checkEmail" : str = "이메일이 인증이 되지 않았습니다";return;
+                case "memberPw": str = "비밀번호를  입력해 주세요";return;
+                case "checkPass": str = "비밀번호가 인증이 되지 않았습니다";return;
+                case "memberNickname": str = "닉네임을 입력해 주세요";return;
+                case "memberTel": str = "전화번호를 입력해 주세요";return;
             }
             alert(str);
             document.getElementById(key).focus();
@@ -262,6 +263,7 @@ signUpForm.addEventListener("submit", () => {
         
         
     }
+})
 
 
 
@@ -369,7 +371,6 @@ checkEmail.addEventListener("input",() => {
         checkEmail.value = "";
         return;
     }
-  
 });
 
 checkAuthKeyBtn.addEventListener("click",e => {
@@ -422,9 +423,8 @@ checkAuthKeyBtn.addEventListener("click",e => {
 });
 
 signUpForm.addEventListener("submit", e => {
-   
     for(let key in obj){
-     
+
         if(!obj[key]){
             let str;
             switch(key){
@@ -439,30 +439,10 @@ signUpForm.addEventListener("submit", e => {
             document.getElementById(key).focus();
             document.getElementById(key).style.border = "1px solid red";
             e.preventDefault();
-            return;
-            
-            
+            return; 
         }
-
         document.getElementById(key).style.border = "1px solid green";
-        
-        
     }
-
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
