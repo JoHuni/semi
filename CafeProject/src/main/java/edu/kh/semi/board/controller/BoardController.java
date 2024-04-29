@@ -131,29 +131,36 @@ public class BoardController {
 	
 	
 	
-	/**게시판 조회
-	 * @param boardType
-	 * @param cp
-	 * @param model
-	 * @return
-	 */
-	@GetMapping("/{boardType}Board")
-	public String boardList(
-	        @PathVariable("boardType") String boardType,
-	        @RequestParam(value="cp", required = false, defaultValue = "1") int cp,
-	        Model model) {
+		/**게시판 조회
+		 * @param boardType
+		 * @param cp
+		 * @param model
+		 * @return
+		 */
+		@GetMapping("/{boardType}Board")
+		public String boardList(
+		        @PathVariable("boardType") String boardType,
+		        @RequestParam(value="cp", required = false, defaultValue = "1") int cp,
+		        Model model,
+				@RequestParam Map<String, Object> paramMap) {
+	
+			Map<String, Object> map = null;
 
-	    if (!Arrays.asList("member", "public", "notice").contains(boardType)) {
-	        return "/";
-	    }
-
-	    List<Board> boardList = service.selectBoardList(boardType,cp);
-	   
-	    model.addAttribute("boardList", boardList);
-	    model.addAttribute("boardType", boardType);
-
-	    return "board/boardList";
-	}
+			if(paramMap.get("key") == null) {
+				map = service.selectBoardList(boardType, cp);
+			}
+			
+		    if (!Arrays.asList("member", "public", "notice").contains(boardType)) {
+		        return "/";
+		    }
+	
+		    Map<String, Object> boardList = service.selectBoardList(boardType,cp);
+		   
+		    model.addAttribute("boardList", boardList);
+		    model.addAttribute("boardType", boardType);
+	
+		    return "board/boardList";
+		}
 
 	
 

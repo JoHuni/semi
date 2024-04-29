@@ -1,10 +1,12 @@
 package edu.kh.semi.board.model.service;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
 import edu.kh.semi.board.model.dto.Board;
@@ -80,7 +82,7 @@ public class BoardServiceImpl implements BoardService{
 	
 	//게시글 리스트 조회
 	@Override
-	public List<Board> selectBoardList(String boardType, int cp) {
+	public Map<String, Object> selectBoardList(String boardType, int cp) {
 
 		
 		//페이지네이션
@@ -95,10 +97,17 @@ public class BoardServiceImpl implements BoardService{
 		
 		int limit = pagination.getLimit();
 		
-		//보드 리스트 조회
-		List<Board> boardList = mapper.selectBoard(boardType);
+		int offset = (cp-1) * limit;
 		
-		return boardList;
+		RowBounds bounds = new RowBounds(offset, limit);
+		
+		List<Board> boardList = mapper.selectBoard(boardType, bounds);
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("pagination", pagination);
+		map.put("boardList", boardList);
+		
+		return map;
 	}
 
 }
