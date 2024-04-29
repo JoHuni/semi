@@ -1,7 +1,5 @@
 package edu.kh.semi.member.controller;
 
-import java.io.IOException;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,15 +8,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.semi.member.model.dto.Member;
 import edu.kh.semi.member.model.service.MemberService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @RequestMapping("member")
@@ -30,7 +25,7 @@ public class MemberController {
 	
 	@GetMapping("login")
 	public String login() {
-		return "/board/Login";
+		return "board/Login";
 	}
 	
 
@@ -115,10 +110,11 @@ public class MemberController {
 		return "board/findId";
 	}
 	
-	@GetMapping("myPage")
-	public String myPage() {
-		return "member/myPage";
-	}
+//    @GetMapping("moveToLogin")
+//    public String moveLogin() {
+//    	return "board/Login";
+//    }
+	
 	@PostMapping("findId")
 	public String findId(
 	        @RequestParam("memberTel") String memberTel,
@@ -156,10 +152,7 @@ public class MemberController {
 			@RequestParam("memberNickname") String memberNickanme,
 			RedirectAttributes ra,
 			HttpSession session)  throws IllegalStateException, IOException {
-		
-		// 서비스 호출
-		// -> /myPage/test/변경된 파일명 형태의 문자열
-		// 	  현재 로그인한 회원의 PROFILE_IMG 컬럼 값으로 수정
+
 		
 		int result = service.profile(loginMember, profileImg, memberNickanme);
 		
