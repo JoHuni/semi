@@ -115,6 +115,7 @@ public class BoardController {
 			@SessionAttribute(value = "loginMember", required = false) Member loginMember,
 			RedirectAttributes ra ) {
 		
+		
 		Map<String, Object> map = new HashMap<>();
 		map.put("boardNo", boardNo);
 		map.put("boardType", boardType);
@@ -136,7 +137,10 @@ public class BoardController {
 		        log.debug("board : " + board);
 		        
 		        if(board.getImageList() != null&&!board.getImageList().isEmpty()) {
+
 		        	model.addAttribute("start", 0);
+		        	model.addAttribute("memberNo", loginMember.getMemberNo());
+		        	model.addAttribute("memberNo", board.getMemberNo() );
 		        }
 		       
 		        
@@ -208,4 +212,140 @@ public class BoardController {
 
 	    return "board/boardList";
 	}
+	
+	/** 게시물 삭제
+	 * @param boardType
+	 * @param boardNo
+	 * @param loginMember
+	 * @param ra
+	 * @return
+	 */
+	@PostMapping("{boardType}Board/boardDetail/{boardNo:[0-9]+}/delete")
+	public String deleteBoard(
+			@PathVariable("boardType") String boardType,
+			@PathVariable("boardNo") int boardNo,
+			@SessionAttribute("loginMember") Member loginMember,
+			RedirectAttributes ra) {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("boardType", boardType);
+		map.put("boardNo", boardNo);
+		map.put("memberNo", loginMember.getMemberNo());
+		
+		int result = service.deleteBoard(map);
+		
+		String path=null;
+		String message = null;
+		
+		log.debug("result : " + result);
+		
+		if(result>0) {
+			path=String.format("/board/%s", boardType + "Board");
+			message="삭제되었습니다";
+			
+		}
+		else {
+			path=String.format("/board/%s/boardDetail/%d", boardType + "Board",boardNo);
+			message="삭제 실패되었습니다";
+		}
+		
+		ra.addFlashAttribute("message", message);
+		
+		
+		return "redirect:"+ path;
+		
+	}
+	
+	
+	
+	
+	@GetMapping("{boardType}Board/boardDetail/{boardNo:[0-9]+}/update")
+	public String updateBoard(
+			@PathVariable("boardType") String boardType,
+			@PathVariable("boardNo") int boardNo,
+			@SessionAttribute("loginMember") Member loginMember,
+			Model model,
+			RedirectAttributes ra) {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("boardType", boardType);
+		map.put("boardNo", boardNo);
+		
+		Board board = service.selectOne(map);
+		
+		String path=null;
+		String message = null;
+		
+		if(board ==null) {
+			message="해당 게시물이 존재하지 않습니다";
+			path="redirect:";
+			
+			ra.addFlashAttribute("message", message);
+		}
+		else
+		{
+			path="board/boardUpdate";
+			model.addAttribute("board", board);
+					
+		}
+		
+		return path;		
+	}
+	
+	
+	
+	/** 게시물 수정하기
+	 * @param boardType
+	 * @param boardNo
+	 * @param boardTitle
+	 * @param boardContent
+	 * @param images
+	 * @param loginMember
+	 * @param model
+	 * @param ra
+	 * @return
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	@PostMapping("{boardType}Board/boardDetail/{boardNo:[0-9]+}/update")
+	public String updateBoard(
+			@PathVariable("boardType") String boardType,
+			@PathVariable("boardNo") int boardNo,
+			@RequestParam("boardTitle") String boardTitle, 
+	        @RequestParam("boardContent") String boardContent, 
+			@RequestParam(value="images", required = false) List<MultipartFile> images,
+			@RequestParam(value = "deleteOrder", required=false) String deleteOrder, 
+			@SessionAttribute("loginMember") Member loginMember,
+			Model model,
+			RedirectAttributes ra
+			) throws IllegalStateException, IOException {
+		
+		Board board = new Board();
+		
+		board.setBoardTitle(boardTitle);
+		board.setBoardContent(boardContent);
+		board.setBoardNo(boardNo);
+		
+		int memberNo = loginMember.getMemberNo();
+		board.setMemberNo(memberNo);
+		
+		int result = service.updateBoard(board,images,memberNo,deleteOrder);
+		
+		String path =null;
+		String message=null;
+		
+		if(result > 0) {
+			message="게시물 수정이 완료되었습니다.";
+			path=String.format("/board/%s/boardDetail/%d", boardType + "Board",boardNo);
+		}else {
+			message="게시물 수정이 실패했습니다.";
+			path="update";
+		}
+		
+		ra.addFlashAttribute("message", message);
+		model.addAttribute("board", board);
+		
+		return "redirect:"+path;
+	}
+	
 }

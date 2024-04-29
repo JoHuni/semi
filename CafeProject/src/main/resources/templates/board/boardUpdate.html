@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시물 수정</title>
+
+    <link rel="stylesheet" href="/css/board/boardWrite.css">
+</head>
+
+<body>
+    <!-- /board/${boardType}Board/boardDetail/${boardNo}/update} -->
+    <form th:action="@{update}" method="POST" id="boardForm" enctype="multipart/form-data">
+
+
+        <div class="writeHeader">
+            <h2>카페 글쓰기</h2>
+
+            <div class="btnArea">
+                <button id="submitBtn" class="btn">등록</button>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="writeContent">
+
+            <div class="writeWrap">
+
+                <div class="titleArea">
+                    <input type="text" placeholder="제목을 입력해 주세요." id="boardTitle" name="boardTitle"
+                        th:value="${board.boardTitle}">
+                </div>
+
+
+                <div class="contentArea">
+                    <textarea name="boardContent" id="boardContent" cols="50" rows="100"
+                        th:value="${board.boardContent}" th:text="${board.boardContent}"
+                        placeholder="내용을 입력해주세요"></textarea>
+                </div>
+
+                <div class="imgArea">
+
+                    <div class="boardImg">
+                        <label for="img1">
+                            <img class="preview" src="">
+                        </label>
+                        <input type="file" name="images" class="inputImage" id="img1" accept="image/*">
+                        <span class="delete-image">&times;</span>
+                    </div>
+
+                    <div class="boardImg">
+                        <label for="img2">
+                            <img class="preview" src="">
+                        </label>
+                        <input type="file" name="images" class="inputImage" id="img2" accept="image/*">
+                        <span class="delete-image">&times;</span>
+                    </div>
+
+                    <div class="boardImg">
+                        <label for="img3">
+                            <img class="preview" src="">
+                        </label>
+                        <input type="file" name="images" class="inputImage" id="img3" accept="image/*">
+                        <span class="delete-image">&times;</span>
+                    </div>
+
+                    <div class="boardImg">
+                        <label for="img4">
+                            <img class="preview" src="">
+                        </label>
+                        <input type="file" name="images" class="inputImage" id="img4" accept="image/*">
+                        <span class="delete-image">&times;</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- 기존 이미지가 있다가 삭제된 이미지의 순서를 기록 -->
+        <input type="hidden" name="deleteOrder" value="">
+
+    </form>
+
+    <!-- 이미지 미리보기 설정 -->
+    <script th:inline="javascript">
+
+        const imageList = /*[[${board.imageList}]]*/[];
+
+        const previewList = document.querySelectorAll('img.preview');
+
+        const orderList = [];  //기존에 존재하던 이미지 순서를 기록
+
+        for (let img of imageList) {
+            previewList[img.imgOrder].src = img.imgPath + img.imgName;
+
+            orderList.push(img.imgOrder);
+        }
+    </script>
+
+    <script src="/js/board/boardUpdate.js"></script>
+
+
+    <script th:inline="javascript">
+        const message =  /*[[${message}]]*/ "전달 받은 message";
+
+        if (message != null) alert(message);
+    </script>
+</body>
+
+</html>
