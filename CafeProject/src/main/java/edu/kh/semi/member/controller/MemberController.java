@@ -193,7 +193,7 @@ public class MemberController {
 	}
 
 	@PostMapping("findPw")
-	public String findPw(@RequestBody String entity) {
+	public String findPw(@RequestParam("memberPw") String memberPw) {
 		
 		return null;
 	}
