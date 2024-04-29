@@ -18,8 +18,22 @@ const telAlert = document.querySelector("#alertMessage7");
 
 const otpBtn = document.createElement("button"); // 이메일 인증번호 받기 버튼
 const checkEmail =  document.querySelector("#checkEmail"); // 이메일 인증번호 입력 창 
+
 const checkAuthKeyBtn = document.querySelector("#checkBtn");
 const authKeyMessage =document.querySelector("#authKeyMessage");
+
+
+const registerBtn= document.querySelector("#registerBtn");
+
+const signUpForm = document.querySelector("#signUpForm");
+
+const signUpBtn = document.querySelector("signUpBtn");
+
+
+let min;
+let sec;
+
+let clickCount = 0;
 
 
 
@@ -74,8 +88,10 @@ inputEmail.addEventListener("input", () => {
 
             otpBtn.textContent = "인증요청 보내기";
             otpBtn.classList.add("btn");
+            otpBtn.setAttribute("type","button")
             emailAlert.append(otpBtn);
             return;
+           
         }
 
         emailAlert.innerText = "이미 존재하는 이메일 입니다";
@@ -84,26 +100,19 @@ inputEmail.addEventListener("input", () => {
         obj.memberEmail = false;
 
     })
-
-    
-    
-
-    
-
-    
 });
 
-otpBtn.addEventListener("click", () => {
-    checkEmail.style.display = "block";
-    checkBtn.style.display = "block";
-})
+
 
 //----------------------------------------------------------이메일 인증 기능 구현-------------------------------------
 
 //이메일 인증 기능 구현
 checkEmail.addEventListener("input", () => {
     if(checkEmail.value.trim().length === 0){
+        authKeyMessage.innerText = "인증키 입력을 해주세요";
+        authKeyMessage.classList.add("red");
         obj.checkEmail = false;
+        checkEmail.value = "";
         return;
     }
     obj.checkEmail = true;
@@ -227,7 +236,7 @@ inputTel.addEventListener("input", () => {
     obj.memberTel = true;
 });
 
-const signUpForm = document.querySelector("#signUpForm");
+
 
 signUpForm.addEventListener("submit", e => {
    
@@ -236,25 +245,32 @@ signUpForm.addEventListener("submit", e => {
         if(!obj[key]){
             let str;
             switch(key){
-                case "memberEmail": str = "이메일을 입력해 주세요";break;
-                case "checkEmail" : str = "이메일이 인증이 되지 않았습니다";break
-                case "memberPw": str = "비밀번호를  입력해 주세요";break;
-                case "checkPass": str = "비밀번호가 인증이 되지 않았습니다";break;
-                case "memberNickname": str = "닉네임을 입력해 주세요";break;
-                case "memberTel": str = "전화번호를 입력해 주세요";break;
+                case "memberEmail": str = "이메일을 입력해 주세요";return;
+                case "checkEmail" : str = "이메일이 인증이 되지 않았습니다";return;
+                case "memberPw": str = "비밀번호를  입력해 주세요";return;
+                case "checkPass": str = "비밀번호가 인증이 되지 않았습니다";return;
+                case "memberNickname": str = "닉네임을 입력해 주세요";return;
+                case "memberTel": str = "전화번호를 입력해 주세요";return;
             }
+            
             alert(str);
             document.getElementById(key).focus();
             document.getElementById(key).style.border = "1px solid red";
-           
             e.preventDefault();
             return;
+            
         }
-        
-        
-    }
 
+        document.getElementById(key).style.border = "1px solid green";
+        
+        
+
+    }
 });
+
+
+
+
 
 
 //-------------------------------------------------------이메일 인증 번호 발송------------------------------------------------------
@@ -266,13 +282,16 @@ const initSec = 59;   //타이머 초기 값(초)
 const initTime = "05:00"; 
 
 // 실제 줄어드는 시간을 저장할 변수
-let min = initMin;
-let sec = initSec;
+min = initMin;
+sec = initSec;
 
 //인증 번호 받기 버튼 클릭 시
 otpBtn.addEventListener("click" , () => {
 
-    obj.checkEmail = false;
+    checkEmail.style.display = "block";
+    checkBtn.style.display = "block";
+
+ 
     document.querySelector("#authKeyMessage").innerText = "";
 
     //중복되지 않은 유효한 이메일을 입력한 경우가 아니면
@@ -282,16 +301,13 @@ otpBtn.addEventListener("click" , () => {
     }
 
     //클릭 시 타이머 숫자 초기화
-    let min = initMin;
-    let sec = initSec;
+     min = initMin;
+    sec = initSec;
 
     //이전 동작중인 인터벌 클리어
     clearInterval(authTimer);
 
-    obj.checkEmail = false; // 인증 유효성 검사 여부 false
-
-    //*************************************************
-    //비동기로 서버에서 메일 보내기
+    obj.checkEmail = false; 
 
     fetch("/email/signup", {
         method : "POST",
@@ -302,6 +318,7 @@ otpBtn.addEventListener("click" , () => {
     .then(result => {
         if(result == 1){
             console.log("인증 번호 발송 성공");
+            
         }else{
             console.log("인증 번호 발송 실패");
         }
@@ -314,13 +331,14 @@ otpBtn.addEventListener("click" , () => {
 
     //메일은 비동기로 서버에서 보내라고 하고
     // 화면에서는 타이머 시작하기
-
+    alert("인증 번호가 발송되었습니다.")
+    obj.checkEmail = true;
     authKeyMessage.innerText = initTime; // 05:00 세팅
     authKeyMessage.classList.remove("success", "fail"); // 검정 글씨
 
-    alert("인증 번호가 발송되었습니다.")
+    
 
-   
+    
     authTimer = setInterval(() =>{
         authKeyMessage.innerText = `${addZero(min)}:${addZero(sec)}`;
 
@@ -330,6 +348,7 @@ otpBtn.addEventListener("click" , () => {
             clearInterval(authTimer); //interval 멈춤
             authKeyMessage.classList.add("fail");
             authKeyMessage.classList.remove("success");
+            obj.checkEmail = false;
             return;
         }
        
@@ -356,10 +375,10 @@ checkEmail.addEventListener("input",() => {
         checkEmail.value = "";
         return;
     }
-  
 });
 
-checkAuthKeyBtn.addEventListener("click",() => {
+checkAuthKeyBtn.addEventListener("click",e => {
+    clickCount++;
     if(min === 0 && sec === 0){
         alert("시간을 초과하였습니다");
         return;
@@ -380,6 +399,7 @@ checkAuthKeyBtn.addEventListener("click",() => {
     })
     .then(response => response.text())
     .then(result => {
+        
         if(result == 0){
             alert("인증번호가 일치하지 않습니다");
             obj.checkEmail=false;
@@ -392,11 +412,18 @@ checkAuthKeyBtn.addEventListener("click",() => {
         authKeyMessage.classList.add("success");
         authKeyMessage.classList.remove("fail");
         obj.checkEmail = true;
+        
+
+       if(clickCount > 1 ){
+        alert("이미 입력한 인증 번호 이거나 인증 번호가 올바르지 않습니다") ;   
+        clickCount = 0;  
+        return; 
+           
+       
+       }
+       console.log(result);
+        
     })
 });
 
 
-
-
-
-    
