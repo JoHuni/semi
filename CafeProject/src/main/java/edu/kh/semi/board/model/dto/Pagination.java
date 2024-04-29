@@ -5,18 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/* Pagination : 목록을 일정 페이지로 분할해서
- * 				원하는 페이지를 볼 수 있게 하는 것
- *				== 페이징 처리
- *
- * Pagination 객체 : 페이징 처리에 필요한 값을 모아두고, 계산하는 객체
- * 
- *
- */
-
-/**
- * 
- */
 @AllArgsConstructor
 public class Pagination {
 	private int currentPage;		// 현재 페이지 번호
