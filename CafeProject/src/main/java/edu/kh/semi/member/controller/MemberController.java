@@ -34,11 +34,6 @@ public class MemberController {
 		return "board/signup";
 	}
 	
-	@GetMapping("withdrawal")
-	public String withdrawal() {
-		return "member/withdrawal";
-	}
-	
 	@PostMapping("register")
 	public String signup( 
 			Member member,
@@ -72,7 +67,7 @@ public class MemberController {
 			Model model) {
 		
 		Member loginMember = service.login(inputMember); 
-		
+
 		String message = null;
 		if(loginMember == null) {
 			message = "아이디 또는 비밀번호가 일치하지 않습니다";
@@ -145,6 +140,7 @@ public class MemberController {
 	public int nickNameRedundancy(@RequestBody String memberNickname) {
 		return service.nickNameRedundancy(memberNickname);
 	}
+
   
 	@PostMapping("profile")
 	public String profile(@RequestParam("profileImg") MultipartFile profileImg,
@@ -177,59 +173,5 @@ public class MemberController {
 		return "member/changePw";
 	}
 
-	@PostMapping("changePw")
-	public String changePw(
-			@RequestParam("currentPassword") String currentPassword,
-			@RequestParam("newPassword") String newPassword,
-			@SessionAttribute("loginMember") Member loginMember,
-			RedirectAttributes ra) {
-		
-		
-		int result = service.changePw(currentPassword, newPassword, loginMember);
-		
-		String message = null;
-		
-		if(currentPassword.equals(newPassword)) {
-			message = "현재 비밀번호와 다른 비밀번호를 입력해주세요.";
-			ra.addFlashAttribute("message", message);
-			return "redirect:changePw";
-		}
-		
-		if(result == 0) {
-			message = "현재 비밀번호가 올바르지 않습니다.";
-			ra.addFlashAttribute("message", message);
-			return "redirect:changePw";
-		}
-		else {
-			message = "비밀번호가 변경되었습니다.";
-			ra.addFlashAttribute("message", message);
-			return "redirect:myPage";
-		}
-	}
-	
-	@PostMapping("withdrawal")
-	public String withdrawal(
-			@RequestParam("currentPassword") String currentPassword,
-			@SessionAttribute("loginMember") Member loginMember,
-			SessionStatus status,
-			RedirectAttributes ra) {
-		
-		int memberNo = loginMember.getMemberNo();
-		
-		int result = service.withdrawalMember(currentPassword, memberNo);
-		
-		String message = null;
-		
-		if(result > 0) {
-			message = "탈퇴가 완료되었습니다.";
-			ra.addFlashAttribute("message", message);
-			status.setComplete();
-			return "redirect:/";
-		}
-		else {
-			message = "탈퇴가 안 돼";
-			ra.addFlashAttribute("message", message);
-			return "redirect:/";
-		}
-	}
+
 }
