@@ -9,19 +9,23 @@
 <body>
     <div id="parentContainer">
         <div id = "heading"><h1>비밀번호 찾기</h1></div>
-        <form action="/member/findPw" method="POST">
+        <form action="/member/findPw" method="POST" id = findPwdForm>
             <div id="container">
                 <h3>이메일 인증 후 찾기 가능합니다.</h3>
                 <input type="text" name="memberEmail"  id="inputPass"  placeholder="이메일 입력">
-                <button id="registerBtn"><b>비밀번호 찾기</b></button>
-        </form>
+                <div id = "alertMessage"></div>
+                <input type="text" name="checkEmail" id = "checkEmail">
+                <div id = "authKeyAlert"></div>
+                <button id = "checkBtn" type = "button">인증하기</button>
+                <button id="registerBtn" type = "button"><b>비밀번호 찾기</b></button>
+            </form>
     </div>
     <script th:inline="javascript">
         const message =  /*[[${message}]]*/ "전달 받은 message";
       
         if(message != null) alert(message);
     </script>
-    <script src = "/js/board/signup.js"></script>
+    <script src = "/js/board/findPw.js"></script>
 
 </body>
 </html>

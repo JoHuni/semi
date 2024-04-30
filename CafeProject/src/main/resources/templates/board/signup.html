@@ -7,58 +7,54 @@
     <link rel="stylesheet" href="/css/signup.css">
 </head>
 <body>
-
-    <div id="parentContainer">
-        <div id = "heading"><h1>회원 가입</h1></div>
-        <div id = "rowContainer">
-
+    
+    
+       
+            <div id="parentContainer">
+                <div id = "heading"><h1>회원 가입</h1></div>
+                <div id= "rowContainer">
+                    <form action="register" method ="POST"  id = "signUpForm">
+                    <div id = "container">
+                            <input type="text"     name="memberEmail" id="memberEmail" placeholder="이메일"> 
+                            <div id = "alertMessage1"></div>
             
+                            <input type="text"     name="checkEmail" id="checkEmail" placeholder="이메일 인증번호"> 
+                              <span class="signUp-message" id="authKeyMessage"></span>
+                            <button id = "checkBtn" type = "button">인증하기</button> 
+                            <div id = "alertMessage2"></div>
             
-        <form  action = "register" method="POST" id = "signUpForm">
-            <div id="container">
-                
-
-                <input type="text"     name="memberEmail" id="memberEmail" placeholder="이메일"> 
-                <div id = "alertMessage1"></div>
-
-                <input type="text"     name="checkEmail" id="checkEmail" placeholder="이메일 인증번호"> 
-                    <span class="signUp-message" id="authKeyMessage"></span>
-
-                <button id = "checkBtn" type = "button">인증하기</button> 
-
-                <div id = "alertMessage2"></div>
-
-                <input type="text"  name="memberNickname" id="memberNickname" placeholder="닉네임">
-                <div id = "alertMessage3"></div>
-
-                <input type="password" name="memberPw"  id="memberPw"  placeholder="비밀번호">
-                <div id = "alertMessage4"></div>
-
-                <input type="password" name="checkPass"  id="checkPass"  placeholder="비밀번호 확인">
-                <div id = "alertMessage6"></div>
-                
-                <input type="text"     name="memberTel"   id="memberTel"   placeholder="휴대폰 번호. '-' 제외" maxlength="11">
-                <div id = "alertMessage7"></div>
-                <button id="registerBtn"><b>가입하기</b></button>
+                            <input type="text"  name="memberNickname" id="memberNickname" placeholder="닉네임">
+                            <div id = "alertMessage3"></div>
             
-            </div>
-        </form>
-
-
+                            <input type="password" name="memberPw"  id="memberPw"  placeholder="비밀번호">
+                            <div id = "alertMessage4"></div>
             
-
-        <form action = "login" method = "GET" >
-                <div id = "parentContainer2">
-
-                    
-                    <button id = "signUpBtn" >sign up</button>
-                
-                    </div>
+                            <input type="password" name="checkPass"  id="checkPass"  placeholder="비밀번호 확인">
+                            <div id = "alertMessage6"></div>
+                            
+                            <input type="text"     name="memberTel"   id="memberTel"   placeholder="휴대폰 번호. '-' 제외">
+                            <div id = "alertMessage7"></div>
+                            <button id="registerBtn"><b>가입하기</b></button>
+                      
+                        </div>
                     </form>
+
+                    <form action = "login" method = "GET" >
+                        <div id = "parentContainer2">
+                            
+                            <button id = "signUpBtn" >sign up</button>
+                        
+                         </div>
+                </form>
+                    </div>
+                    
+                </div>
+                  
+            </div>
             
-        </div>
-            
-    </div>
+        
+    
+    
     <script src = "/js/board/signup.js"></script>
 </body>
 </html>

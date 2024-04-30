@@ -16,8 +16,6 @@ import javax.management.RuntimeErrorException;
 
 import org.springframework.beans.factory.annotation.Value;
 
-import org.springframework.context.annotation.PropertySource;
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,7 +33,6 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@PropertySource("classpath:/config.properties")
 public class BoardServiceImpl implements BoardService {
 
 	private final BoardMapper mapper;

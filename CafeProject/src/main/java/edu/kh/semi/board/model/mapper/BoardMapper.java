@@ -32,6 +32,7 @@ public interface BoardMapper {
 	 */
 	int getListCount(String boardType);
 
+
 	/** 게시물 삭제
 	 * @param map
 	 * @return
@@ -63,7 +64,9 @@ public interface BoardMapper {
 	 */
 	int deleteImage(Map<String, Object> map);
 
+
 	List<Board> selectBoard(String boardType, RowBounds bounds);
+
 
 	int insertUploadList(List<Image> uploadList);
 	
