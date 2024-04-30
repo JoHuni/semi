@@ -55,5 +55,19 @@ if(updateBtn!= null){
 
 
 
-/*  */
+/* 목록으로 가기 */
+const goListBtn = document.querySelector("#goListBtn");
+
+// location.pathname+location.search='/board/memberBoard?cp=1' => 이런 결과를 만들어야함
+//'/board/memberBoard/boardDetail/313'
+// location.pathname :   /board/memberBoard/boardDetail/313
+//location.pathname.substring(0,location.pathname.indexOf("/boardDetail/"))
+//location.pathname.substring(0,location.pathname.indexOf("/boardDetail/"))+location.search : '/board/memberBoard?cp=1'
+goListBtn.addEventListener("click",()=>{
+
+    let url = location.pathname;
+    url = url.substring(0,url.indexOf("/boardDetail/"));
+    
+    location.href=url+location.search;
+})
 
