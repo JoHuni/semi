@@ -142,6 +142,7 @@ const selectCommentList = () => {
     // 로그인이 되어있지 않은 경우
     if(loginMemberNo == null){
       alert("로그인 후 이용해 주세요");
+      window.location.href = "/member/login"
       return; // early return;
     }
   
