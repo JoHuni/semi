@@ -38,4 +38,6 @@ public class EmailController {
 			@RequestBody Map<String, Object> map) {
 			return service.checkAuthKey(map);	
 	}
+	
+	
 }
