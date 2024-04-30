@@ -433,4 +433,5 @@ public class BoardController {
 		return "redirect:"+path;
 	}
 	
+
 }
