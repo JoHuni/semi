@@ -32,7 +32,8 @@ public class Board {
 	
 	private List<Image> imageList;
 	
+	private List<Comment> commentList;
 	
-	
+	private int commentCount;
 
 }
