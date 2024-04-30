@@ -1,4 +1,4 @@
-package edu.kh.semi.member.controller;
+      package edu.kh.semi.member.controller;
 
 import java.io.IOException;
 
@@ -42,41 +42,10 @@ public class MemberController {
 	public String withdrawal() {
 		return "/member/withdrawal";
 	}
-	
-    @PostMapping("withdrawal")
-    public String withdrawal(
-            @RequestParam("currentPassword") String currentPassword,
-            @SessionAttribute("loginMember") Member loginMember,
-            SessionStatus status,
-            RedirectAttributes ra) {
-        
-        int memberNo = loginMember.getMemberNo();
-        
-        int result = service.withdrawalMember(currentPassword, memberNo);
-        
-        String message = null;
-        
-        if(result > 0) {
-            message = "탈퇴가 완료되었습니다.";
-            ra.addFlashAttribute("message", message);
-            status.setComplete();
-            return "redirect:/";
-        }
-        else {
-            message = "비밀번호가 일치하지 않습니다.";
-            ra.addFlashAttribute("message", message);
-            return "redirect:/member/withdrawal";
-        }
-    }
 
 	@GetMapping("signup")
 	public String register() {
-		return "/board/signup";
-	}
-	
-	@GetMapping("findPw")
-	public String findPw() {
-		return "/board/findPw";
+		return "board/signup";
 	}
 	
 	@PostMapping("register")
@@ -165,10 +134,10 @@ public class MemberController {
 		return "board/findId";
 	}
 	
-//    @GetMapping("moveToLogin")
-//    public String moveLogin() {
-//    	return "board/Login";
-//    }
+    @GetMapping("moveToLogin")
+    public String moveLogin() {
+    	return "board/Login";
+    }
 	
 	@PostMapping("findId")
 	public String findId(
@@ -185,120 +154,63 @@ public class MemberController {
 	    	return "board/successFindId";
 	    }
 	}
-
-  
-	@PostMapping("profile")
-	public String profile(@RequestParam("profileImg") MultipartFile profileImg,
-			@SessionAttribute("loginMember") Member loginMember,
-			@RequestParam("memberNickname") String memberNickanme,
-			RedirectAttributes ra,
-			HttpSession session)  throws IllegalStateException, IOException {
-
-		
-		int result = service.profile(loginMember, profileImg, memberNickanme);
-		
-		String message = null;
-		
-		if(result > 0) {
-			message = "변경 성공!";
-			loginMember.setMemberNickname(memberNickanme);
-		}
-		else {
-			message = "변경 실패...";
-		}
-		
-		ra.addFlashAttribute("message", message);
-		
-		return "redirect:myPage";
-	}
-	
-	@GetMapping("changePw")
-	public String changePw() {
-		return "member/changePw";
-	}
-
-	@PostMapping("findPw")
-	public String findPw(
-			@RequestParam("memberEmail") String memberEmail,
-			RedirectAttributes ra,
-			Model model,
-			HttpSession session) {
-		
-		int result = service.findPw(memberEmail);
-		String message = null;
-		
-		if(result > 0) {
-			session.setAttribute("memberEmail", memberEmail);
-			return "board/successFindPw";
-		}
-		else {
-			message = "일치하는 회원 정보가 없습니다.";
-			ra.addFlashAttribute("message", message);
-			return "redirect:/member/findPw";
-		}
-	}
 	
 	
-	@GetMapping("updatePw")
-	public String updatePw() {
-		return "/board/successFindPw";
+	@GetMapping("findPw")
+	public String findPw() {
+		return "board/findPw";
 	}
 	
-	@PostMapping("updatePw")
-	public String updatePw(
-			@RequestParam("memberPw") String memberPw,
-			@RequestParam("memberPwCheck") String memberPwCheck,
-			@SessionAttribute("memberEmail") String memberEmail,
-			RedirectAttributes ra) {
-		String message = null;
-
-		if(!memberPw.equals(memberPwCheck)) {
-			message = "비밀번호를 제대로 입력해주세요.";
-			ra.addFlashAttribute("message", message);
-			return "redirect:/member/updatePw";
-		}
-		
-		int result = service.updatePw(memberPw, memberEmail);
-		
-		if(result > 0) {
-			message = "비밀번호가 변경되었습니다.";
-			ra.addFlashAttribute("message", message);
-			return "redirect:/";
-		}
-		else{
-			return "redirect:/";
-		}
-	}
-
-	
-	
-	@PostMapping("changePw")
-	public String changePw(
-			@RequestParam("currentPassword") String currentPassword,
-			@RequestParam("newPassword") String newPassword,
-			@SessionAttribute("loginMember") Member loginMember,
-			RedirectAttributes ra) {
-		
-		
-		int result = service.changePw(currentPassword, newPassword, loginMember);
-		
-		String message = null;
-		
-		if(currentPassword.equals(newPassword)) {
-			message = "현재 비밀번호와 다른 비밀번호를 입력해주세요.";
-			ra.addFlashAttribute("message", message);
-			return "redirect:changePw";
-		}
-		
-		if(result == 0) {
-			message = "현재 비밀번호가 올바르지 않습니다.";
-			ra.addFlashAttribute("message", message);
-			return "redirect:changePw";
-		}
-		else {
-			message = "비밀번호가 변경되었습니다.";
-			ra.addFlashAttribute("message", message);
-			return "redirect:myPage";
-		}
-	}
+    @PostMapping("findPw")
+     public String findPw(
+             @RequestParam("memberEmail") String memberEmail,
+                          RedirectAttributes ra,
+             Model model,
+             HttpSession session) {
+         
+         int result = service.findPw(memberEmail);
+         String message = null;
+        
+         if(result > 0) {
+             session.setAttribute("memberEmail", memberEmail);
+             return "board/successFindPw";
+         }
+         else {
+             message = "일치하는 회원 정보가 없습니다.";
+             ra.addFlashAttribute("message", message);
+             return "redirect:/member/findPw";
+         }
+     }
+     
+     
+     @GetMapping("updatePw")
+     public String updatePw() {
+         return "/board/successFindPw";
+    }
+    
+	 @PostMapping("updatePw")
+	 public String updatePw(
+	         @RequestParam("memberPw") String memberPw,
+	         @RequestParam("memberPwCheck") String memberPwCheck,
+	         @SessionAttribute("memberEmail") String memberEmail,
+	             RedirectAttributes ra) {
+	         String message = null;
+	 
+	         if(!memberPw.equals(memberPwCheck)) {
+	             message = "비밀번호를 제대로 입력해주세요.";
+	         ra.addFlashAttribute("message", message);
+	         return "redirect:/member/updatePw";
+	     }
+	     
+	     int result = service.updatePw(memberPw, memberEmail);
+	     
+	     if(result > 0) {
+	         message = "비밀번호가 변경되었습니다.";
+	         ra.addFlashAttribute("message", message);
+	         return "redirect:/";
+	     }
+	     else{
+	         return "redirect:/";
+	     }
+	 }
 }
