@@ -108,9 +108,10 @@
 		<foreach collection="list" item="img" open="(" close=")" separator="UNION">
 			SELECT NEXT_IMG_NO(),
 					#{img.imgPath},
-					#{img.imgName},
+					#{img.imgOriginalName},
 					#{img.imgOrder},
-					#{img.boardNo}
+					#{img.boardNo},
+					#{img.imgReName}
 			FROM DUAL
 					
 		</foreach>
@@ -148,7 +149,8 @@
 	<!-- 이미지 수정 -->
 	<update id="updateImage">
 		UPDATE "IMAGE" SET
-		IMG_NAME=#{imgName}
+		IMG_ORIGINALNAME=#{imgOriginalName},
+		IMG_RENAME=#{imgReName}
 		WHERE BOARD_NO=#{boardNo}
 		AND IMG_ORDER=#{imgOrder}
 	</update>
@@ -158,9 +160,10 @@
 		INSERT INTO "IMAGE"
 		VALUES(NEXT_IMG_NO(),
 				#{imgPath},
-				#{imgName},
+				#{imgOriginalName},
 				#{imgOrder},
-				#{boardNo}
+				#{boardNo},
+				#{imgReName}
 				)
 	</insert>
 	
