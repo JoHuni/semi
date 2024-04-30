@@ -42,6 +42,7 @@
                                 th:text="*{boardTitle}">
                                 게시글 제목
                             </a>
+                            <th:block th:text="|[*{commentCount}]|">댓글 수</th:block>
                         </td>
                         <td th:text="*{memberNickname}">작성자</td>
                         <td th:text="*{boardWriteDate}">작성일</td>
