@@ -10,9 +10,11 @@
                 <button>내 정보</button>
             </form>
         </th:block>
-        <form action="/member/login" method="GET">
-            <button>내 정보</button>
-        </form>
+        <th:block th:unless="${session.loginMember != null}">
+            <form action="/member/login" method="GET">
+                <button>내 정보</button>
+            </form>
+        </th:block>
     </div>
 
     <div class="profileArea">
