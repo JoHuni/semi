@@ -36,7 +36,7 @@
 	
 	
 	<select id="selectOne" resultMap="Board_rm">
-		SELECT BOARD_NO, BOARD_TITLE ,BOARD_CONTENT, MEMBER_NO,
+		SELECT BOARD_NO, BOARD_TITLE ,BOARD_CONTENT, MEMBER_NO,READ_COUNT,
 			TO_CHAR(BOARD_WRITE_DATE, 'YYYY"년" MM"월" DD"일" HH24:MI:SS') BOARD_WRITE_DATE,
 			MEMBER_NICKNAME
 			
@@ -169,4 +169,20 @@
 		WHERE IMG_ORDER IN (${deleteOrder})
 		AND BOARD_NO = #{boardNo}
 	</delete>
+	
+	
+	
+	<!-- 조회수 1증가 -->
+	<update id="updateReadCount">
+		UPDATE "BOARD" SET
+		READ_COUNT = READ_COUNT + 1
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<!-- 조회수 조회 -->
+	<select id="selectReadCount">
+		SELECT READ_COUNT
+		FROM "BOARD"
+		WHERE BOARD_NO=#{boardNo}
+	</select>
 </mapper>

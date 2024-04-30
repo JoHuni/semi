@@ -66,5 +66,12 @@ public interface BoardMapper {
 	List<Board> selectBoard(String boardType, RowBounds bounds);
 
 	int insertUploadList(List<Image> uploadList);
+	
+	
+	
+	/* 조회수 관련 mapper*/
+	int updateReadCount(int boardNo);
+
+	int selectReadCount(int boardNo);
 }
 
