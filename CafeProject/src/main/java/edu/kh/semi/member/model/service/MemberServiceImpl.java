@@ -1,5 +1,8 @@
 package edu.kh.semi.member.model.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,7 +59,25 @@ public class MemberServiceImpl implements MemberService{
 
 	}
 	
-	
+    
+    @Override
+    public int findPw(String memberEmail) {
+        return mapper.findPw(memberEmail);
+    }
+    
+    @Override
+    public int updatePw(String memberPw, String memberEmail) {
+        String encPw = bcrypt.encode(memberPw);
+        
+        Map<String, Object> map = new HashMap<>();
+        
+        map.put("encPw", encPw);
+        map.put("memberEmail", memberEmail);
+        
+        
+        return mapper.updatePw(map);
+    
+    }
 
 
 

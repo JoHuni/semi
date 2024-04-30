@@ -37,4 +37,14 @@ public interface MemberService {
 	int emailRedundancy(String memberEmail);
 
 
+    int findPw(String memberEmail);
+  
+  
+  
+    int updatePw(String memberPw, String memberEmail);
+	  
+	  
+	  
+
+
 }
