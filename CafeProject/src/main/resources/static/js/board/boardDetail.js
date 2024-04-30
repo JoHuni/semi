@@ -23,6 +23,16 @@ if(deleteBtn!=null){
         form.action=url;
         form.method="POST";
 
+        //cp저장
+        const input = document.createElement("input");
+        input.type="hidden";
+        input.name="cp";
+
+        //쿼리스트링에서 원하는 파라미터 얻어오기
+        const param = new URLSearchParams(location.search)
+        const cp = param.get("cp");
+        input.value=cp;
+
         document.querySelector("body").append(form);
         form.submit();
 
@@ -43,4 +53,7 @@ if(updateBtn!= null){
     })
 }
 
+
+
+/*  */
 

@@ -235,5 +235,18 @@ public class BoardServiceImpl implements BoardService {
 
 		return result;
 	}
+	
+	
+	// 조회수 
+	@Override
+	public int updateReadCount(int boardNo) {
+
+		int result = mapper.updateReadCount(boardNo);
+		
+		if(result>0) {
+			return mapper.selectReadCount(boardNo);
+		}
+		return -1;
+	}
 
 }

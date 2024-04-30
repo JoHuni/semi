@@ -2,13 +2,19 @@ package edu.kh.semi.board.controller;
 
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import java.util.HashMap;
 
 import java.util.Map;
 
+import java.util.Date;
+
+import org.apache.ibatis.javassist.Loader.Simple;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +29,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import edu.kh.semi.board.model.dto.Board;
 import edu.kh.semi.board.model.service.BoardService;
 import edu.kh.semi.member.model.dto.Member;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -103,6 +112,7 @@ public class BoardController {
 	 * @param model
 	 * @param loginMember
 	 * @return
+	 * @throws ParseException 
 	 */
 
 	
@@ -113,7 +123,10 @@ public class BoardController {
 			@PathVariable("boardType") String boardType,
 			Model model,
 			@SessionAttribute(value = "loginMember", required = false) Member loginMember,
-			RedirectAttributes ra ) {
+			RedirectAttributes ra,
+			HttpServletRequest req, //요청에 담긴 쿠키 얻어오기
+			HttpServletResponse resp //새로운 쿠키 만들어서 응답
+			) throws ParseException {
 		
 		
 		Map<String, Object> map = new HashMap<>();
@@ -130,7 +143,84 @@ public class BoardController {
 		String message=null;
 		String path=null;
 		
+		
+		
 		 if (board != null) {
+			 
+			 
+			  if(loginMember==null) {
+			        if(boardType.equals("member")) {
+			        	message="로그인 후 이용해주세요";
+			        	ra.addFlashAttribute("message",message);
+			        	return "redirect:/member/login";
+			        }
+		        }
+			 
+			 /* 쿠키를 이용한 조회 수 증가 */
+			 if(loginMember == null || 
+					 loginMember.getMemberNo()!=board.getMemberNo()) {
+				 
+				 //요청에 담겨있는 모든 쿠기 얻어오기
+				 Cookie[] cookies = req.getCookies();
+				 
+				 Cookie c =null;
+				 
+				 for(Cookie temp : cookies) {
+					 if(temp.getName().equals("readBoardNo")) {
+						 c=temp;
+						 break;
+					 }
+				 }
+				 
+				 int result = 0; //조회수 증가 결과를 저장할 변수
+				 
+				 if(c==null) {
+					 //readCount 가 요청 받은 쿠키에 없을 때
+					 c= new Cookie("readBoardNo", "[" + boardNo + "]");
+					 result= service.updateReadCount(boardNo);
+					 
+				 }
+				 else {
+					 
+					 // 현재 글을 처음 읽는 경우
+					 if(c.getValue().indexOf("["+boardNo+"]")==-1) {
+						 
+						 //해당 글 번호를 쿠키에 누적하기
+						 c.setValue(c.getValue()+"["+boardNo+"]");
+						 result=service.updateReadCount(boardNo);
+					 }
+				 }
+				 
+				 if(result>0) {
+					 
+					 board.setReadCount(result);
+					 
+					 c.setPath("/");
+					 
+					 //쿠키 수명 지정
+					 Calendar cal = Calendar.getInstance();
+					 cal.add(cal.DATE, 1);
+					 
+					 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					 
+					 Date a =new Date(); //현재 시간
+					 
+					 Date temp = new Date(cal.getTimeInMillis());// 24시간 후
+					 
+					 Date b = sdf.parse(sdf.format(temp)); // 다음날 0시0분0초
+					 
+					 long diff =(b.getTime()-a.getTime())/1000;
+					 
+					 c.setMaxAge((int)diff);
+					 
+					 resp.addCookie(c); //응답 객체를 이용해서 클라이언트에게 전달
+							 
+							 
+				 }
+				 
+			 }
+			 
+			 /* 쿠키를 이용한 조회 수 증가 끝 */
 			 
 		        model.addAttribute("board", board);
 		        log.debug("boardType : " + boardType);
@@ -143,13 +233,6 @@ public class BoardController {
 		        }
 		       
 		        
-		        if(loginMember==null) {
-			        if(boardType.equals("member")) {
-			        	message="로그인 후 이용해주세요";
-			        	ra.addFlashAttribute("message",message);
-			        	return "redirect:/member/login";
-			        }
-		        }
 
 		        path= "/board/boardDetail";
 		        
@@ -223,6 +306,7 @@ public class BoardController {
 	public String deleteBoard(
 			@PathVariable("boardType") String boardType,
 			@PathVariable("boardNo") int boardNo,
+			@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
 			@SessionAttribute("loginMember") Member loginMember,
 			RedirectAttributes ra) {
 		
@@ -244,7 +328,9 @@ public class BoardController {
 			
 		}
 		else {
-			path=String.format("/board/%s/boardDetail/%d", boardType + "Board",boardNo);
+			
+//			http://localhost/board/noticeBoard/boardDetail/281?cp=1
+			path=String.format("/board/%s/boardDetail/%d?cp=%d", boardType + "Board",boardNo,cp);
 			message="삭제 실패되었습니다";
 		}
 		
