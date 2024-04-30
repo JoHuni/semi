@@ -160,4 +160,8 @@ public class MemberController {
 	public String findPw() {
 		return "board/findPw";
 	}
+	@GetMapping("successFindPw")
+	public String successFindPw() {
+		return "board/successFindPw";
+	}
 }
