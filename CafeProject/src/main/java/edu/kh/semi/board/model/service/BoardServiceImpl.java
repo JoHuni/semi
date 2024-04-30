@@ -21,12 +21,14 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import edu.kh.semi.board.model.dto.Board;
 import edu.kh.semi.board.model.dto.Image;
 import edu.kh.semi.board.model.dto.Pagination;
 import edu.kh.semi.board.model.exception.ImageDeleteException;
 import edu.kh.semi.board.model.exception.ImageUpdateException;
 import edu.kh.semi.board.model.mapper.BoardMapper;
+import edu.kh.semi.common.util.Utility;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -79,9 +81,16 @@ public class BoardServiceImpl implements BoardService {
 
 		for (int i = 0; i < images.size(); i++) {
 			if (!images.get(i).isEmpty()) {
-				String imgName = images.get(i).getOriginalFilename();
+				String imgOriginalName = images.get(i).getOriginalFilename();
+				
+				String imgReName= Utility.fileRename(imgOriginalName);
 
-				Image img = Image.builder().imgName(imgName).imgOrder(i).imgPath(webPath).boardNo(boardNo)
+				Image img = Image.builder()
+						.imgOriginalName(imgOriginalName)
+						.imgOrder(i)
+						.imgPath(webPath)
+						.boardNo(boardNo)
+						.imgReName(imgReName)
 						.uploadFile(images.get(i)).build();
 				uploadList.add(img);
 			}
@@ -96,7 +105,7 @@ public class BoardServiceImpl implements BoardService {
 		if (result == uploadList.size()) {
 
 			for (Image img : uploadList) {
-				img.getUploadFile().transferTo(new File(folderPath + img.getImgName()));
+				img.getUploadFile().transferTo(new File(folderPath + img.getImgReName()));
 			}
 		} else {
 
@@ -182,16 +191,18 @@ public class BoardServiceImpl implements BoardService {
 
 		for (int i = 0; i < images.size(); i++) {
 			if (!images.get(i).isEmpty()) {
-				String imgName = images.get(i).getOriginalFilename();
+				
+				String imgOriginalName = images.get(i).getOriginalFilename();
+				
+				String imgReName= Utility.fileRename(imgOriginalName);
 
 				Image img = Image.builder()
-						.imgName(imgName)
+						.imgOriginalName(imgOriginalName)
 						.imgOrder(i)
 						.imgPath(webPath)
 						.boardNo(boardNo)
-						.uploadFile(images.get(i))
-						.build();
-				
+						.imgReName(imgReName)
+						.uploadFile(images.get(i)).build();
 				uploadList.add(img);
 				
 				// 기존 이미지 -> 새 이미지로 변경
@@ -217,7 +228,7 @@ public class BoardServiceImpl implements BoardService {
 		// 서버에 파일 저장
 		for(Image img : uploadList) {
 			img.getUploadFile()
-			.transferTo(new File(folderPath + img.getImgName()));
+			.transferTo(new File(folderPath + img.getImgReName()));
 		}
 		
 		

@@ -20,10 +20,12 @@ public class Image {
 
 	private int imgNo;
 	private String imgPath;
-	private String imgName;
+	private String imgOriginalName;
 	private int imgOrder;
 	
 	private int boardNo;
+	
+	private String imgReName;
 	
 	
 	private MultipartFile uploadFile;
