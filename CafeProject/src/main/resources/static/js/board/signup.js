@@ -51,6 +51,11 @@ const obj = {
 
 //이메일 유효성 검사
 inputEmail.addEventListener("input", () => {
+
+    if(inputEmail.value.trim().length === 0){
+        obj.memberEmail= false;
+        inputEmail.value = "";
+    }
     if(!regExp.test(inputEmail.value)){
         emailAlert.innerText = "이메일 형식이 맞지 않습니다";   
         emailAlert.classList.add("fail");
@@ -99,6 +104,8 @@ inputEmail.addEventListener("input", () => {
         emailAlert.classList.remove("success");
         obj.memberEmail = false;
 
+    
+
     })
 });
 
@@ -113,9 +120,10 @@ checkEmail.addEventListener("input",() => {
         authKeyMessage.innerText = "인증번호를 입력해주세요"
         authKeyMessage.classList.add("fail");
         authKeyMessage.classList.remove("success");
-        
         checkEmail.value = "";
-        obj.checkEmail = false;
+        return;
+        
+       
   
     }
 
@@ -347,7 +355,7 @@ otpBtn.addEventListener("click" , () => {
             clearInterval(authTimer); //interval 멈춤
             authKeyMessage.classList.add("fail");
             authKeyMessage.classList.remove("success");
-            obj.checkEmail = false;
+            
             return;
         }
        

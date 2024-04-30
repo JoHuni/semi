@@ -33,9 +33,14 @@
 		</select>
 		
 		<select id="emailRedundancy" resultType="_int">
-			SELECT MEMBER_EMAIL 
+			SELECT COUNT(*) 
 			FROM "MEMBER"
 			WHERE MEMBER_EMAIL = #{memberEmail}
+		</select>
+		<select id="nickNameRedundancy" resultType="_int">
+			SELECT COUNT(*) 
+			FROM "MEMBER"
+			WHERE MEMBER_NICKNAME = #{memberNickname}
 		</select>
 	<select id="findId" resultType="String">
 		SELECT "MEMBER_EMAIL"
