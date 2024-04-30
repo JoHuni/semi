@@ -39,7 +39,7 @@
                         <td>
                             <a th:unless="${param.key}"
                                 th:href="@{/board/{boardType}/boardDetail/{boardNo}(boardType=${boardType} + 'Board',boardNo=*{boardNo}, cp=${pagination.currentPage})}"
-                                th:text="*{boardTitle}">
+                                th:text="*{boardTitle}" th:class="${boardType.equals('notice')} ? 'noticeColor' : ''">
                                 게시글 제목
                             </a>
                         </td>
