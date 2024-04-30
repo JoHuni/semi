@@ -1,5 +1,12 @@
 package edu.kh.semi.member.model.service;
 
+import java.util.Map;
+
+import java.io.IOException;
+
+import org.springframework.web.multipart.MultipartFile;
+
+
 import edu.kh.semi.member.model.dto.Member;
 
 public interface MemberService {
@@ -29,12 +36,8 @@ public interface MemberService {
 	String findId(String memberTel);
 
 
-
-	int nickNameRedundancy(String memberNickname);
-
-
-
 	int emailRedundancy(String memberEmail);
+
 
 
     int findPw(String memberEmail);
@@ -45,6 +48,22 @@ public interface MemberService {
 	  
 	  
 	  
+
+
+	int nickNameRedundancy(String memberNickname);
+
+
+	int profile(Member loginMember, MultipartFile profileImg, String memberNickanme) throws IllegalStateException, IOException;
+
+
+
+	int changePw(String currentPassword, String newPassword, Member loginMember);
+
+
+
+	int withdrawalMember(String currentPassword, int memberNo);
+
+
 
 
 }

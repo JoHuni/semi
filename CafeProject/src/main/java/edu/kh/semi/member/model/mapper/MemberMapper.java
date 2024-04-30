@@ -22,6 +22,7 @@ public interface MemberMapper {
     */
    int countMember();
 
+
    /** 아이디 찾기
     * @param memberTel
     * @return
@@ -34,6 +35,7 @@ public interface MemberMapper {
     */
    int profile(Member mem);
 
+	
 
    String getEncryptedPass(String memberEmail);
 

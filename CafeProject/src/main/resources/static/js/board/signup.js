@@ -117,9 +117,15 @@ inputEmail.addEventListener("input", () => {
 
 checkEmail.addEventListener("input",() => {
     if(checkEmail.value.trim().length === 0){
+
         authKeyMessage.innerText = "인증번호를 입력해주세요"
         authKeyMessage.classList.add("fail");
         authKeyMessage.classList.remove("success");
+
+        authKeyMessage.innerText = "인증키 입력을 해주세요";
+        authKeyMessage.classList.add("red");
+        obj.checkEmail = false;
+
         checkEmail.value = "";
         return;
         
@@ -258,12 +264,13 @@ signUpForm.addEventListener("submit", e => {
         if(!obj[key]){
             let str;
             switch(key){
-                case "memberEmail": str = "이메일을 입력해 주세요";break;
-                case "checkEmail" : str = "이메일이 인증이 되지 않았습니다";break
-                case "memberNickname": str = "닉네임을 입력해 주세요";break;
-                case "memberPw": str = "비밀번호를  입력해 주세요";break;
-                case "checkPass": str = "비밀번호가 인증이 되지 않았습니다";break;
-                case "memberTel": str = "전화번호를 입력해 주세요";break;
+
+                case "memberEmail": str = "이메일을 입력해 주세요";return;
+                case "checkEmail" : str = "이메일이 인증이 되지 않았습니다";return;
+                case "memberPw": str = "비밀번호를  입력해 주세요";return;
+                case "checkPass": str = "비밀번호가 인증이 되지 않았습니다";return;
+                case "memberNickname": str = "닉네임을 입력해 주세요";return;
+                case "memberTel": str = "전화번호를 입력해 주세요";return;
             }
             
             alert(str);
@@ -277,8 +284,6 @@ signUpForm.addEventListener("submit", e => {
         document.getElementById(key).style.border = "1px solid green";
     }
 });
-
-
 
 
 
@@ -327,7 +332,6 @@ otpBtn.addEventListener("click" , () => {
     .then(result => {
         if(result == 1){
             console.log("인증 번호 발송 성공");
-            console.log(result);
             
         }else{
             console.log("인증 번호 발송 실패");
@@ -355,7 +359,7 @@ otpBtn.addEventListener("click" , () => {
             clearInterval(authTimer); //interval 멈춤
             authKeyMessage.classList.add("fail");
             authKeyMessage.classList.remove("success");
-            
+
             return;
         }
        
@@ -374,7 +378,15 @@ function addZero(number){
     else              return number;
 }
 
-
+checkEmail.addEventListener("input",() => {
+    if(checkEmail.value.trim().length === 0){
+        authKeyMessage.innerText = "인증번호를 입력해주세요"
+        authKeyMessage.classList.add("fail");
+        authKeyMessage.classList.remove("success");
+        checkEmail.value = "";
+        return;
+    }
+});
 
 checkAuthKeyBtn.addEventListener("click",e => {
     clickCount++;
@@ -424,20 +436,3 @@ checkAuthKeyBtn.addEventListener("click",e => {
     })
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
