@@ -270,6 +270,7 @@ public class BoardController {
     * @param boardType
     * @param cp
     * @param model
+    * @param paramMap 제출된 파라미터가 모두 저장된 Map(검색 시 key, query 담음)
     * @return
     */
    @GetMapping("/{boardType}Board")
@@ -280,14 +281,24 @@ public class BoardController {
          @RequestParam Map<String, Object> paramMap) {
 
       Map<String, Object> map = null;
-
-      if(paramMap.get("key") == null) {
-         map = service.selectBoardList(boardType, cp);
-      }
       
        if (!Arrays.asList("member", "public", "notice").contains(boardType)) {
            return "/";
        }
+       
+       if(paramMap.get("key") == null) {
+    	   //검색이 아닌 경우
+    	   
+           map = service.selectBoardList(boardType, cp);
+           
+        }else {
+        	//검색인 경우
+        	//boardType을 paramMap에 추가
+        	paramMap.put(boardType, "boardType");
+        	
+        	//검색 서브스 호출
+        	map = service.searchList(paramMap,cp);
+        }
       
       model.addAttribute("pagination", map.get("pagination"));
       model.addAttribute("boardList", map.get("boardList"));
