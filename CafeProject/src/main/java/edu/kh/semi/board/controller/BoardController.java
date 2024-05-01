@@ -132,6 +132,7 @@ public class BoardController {
       
       if (loginMember != null) {
 
+
          map.put("memberNo", loginMember.getMemberNo());
       }
       
