@@ -83,6 +83,14 @@
     border: none;
 }
 
+button{
+    background-color: white;
+    font-weight: bold;
+    padding: 3px 10px;
+    cursor: pointer;
+    border: none;
+}
+
 .btnClass button:hover {
     cursor: pointer;
     text-decoration: underline;

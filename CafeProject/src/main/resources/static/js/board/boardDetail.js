@@ -23,6 +23,16 @@ if(deleteBtn!=null){
         form.action=url;
         form.method="POST";
 
+        //cp저장
+        const input = document.createElement("input");
+        input.type="hidden";
+        input.name="cp";
+
+        //쿼리스트링에서 원하는 파라미터 얻어오기
+        const param = new URLSearchParams(location.search)
+        const cp = param.get("cp");
+        input.value=cp;
+
         document.querySelector("body").append(form);
         form.submit();
 
@@ -43,4 +53,21 @@ if(updateBtn!= null){
     })
 }
 
+
+
+/* 목록으로 가기 */
+const goListBtn = document.querySelector("#goListBtn");
+
+// location.pathname+location.search='/board/memberBoard?cp=1' => 이런 결과를 만들어야함
+//'/board/memberBoard/boardDetail/313'
+// location.pathname :   /board/memberBoard/boardDetail/313
+//location.pathname.substring(0,location.pathname.indexOf("/boardDetail/"))
+//location.pathname.substring(0,location.pathname.indexOf("/boardDetail/"))+location.search : '/board/memberBoard?cp=1'
+goListBtn.addEventListener("click",()=>{
+
+    let url = location.pathname;
+    url = url.substring(0,url.indexOf("/boardDetail/"));
+    
+    location.href=url+location.search;
+})
 

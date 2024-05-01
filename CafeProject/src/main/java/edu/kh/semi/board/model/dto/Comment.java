@@ -15,18 +15,16 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Builder
-public class Image {
-	
-
-	private int imgNo;
-	private String imgPath;
-	private String imgOriginalName;
-	private int imgOrder;
-	
+public class Comment {
+	private int commentNo;
+	private String commentContent;
+	private String commentWriteDate;
+	private String commentDelFl;
 	private int boardNo;
-	
-	private String imgReName;
-	
-	
-	private MultipartFile uploadFile;
+	private int memberNo;
+	private int parentCommentNo;
+
+	// 댓글 조회 시 회원 프로필, 닉네임
+	private String memberNickname;
+	private String profileImg;
 }

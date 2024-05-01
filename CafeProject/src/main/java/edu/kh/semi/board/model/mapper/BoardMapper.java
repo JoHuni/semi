@@ -69,5 +69,12 @@ public interface BoardMapper {
 
 
 	int insertUploadList(List<Image> uploadList);
+	
+	
+	
+	/* 조회수 관련 mapper*/
+	int updateReadCount(int boardNo);
+
+	int selectReadCount(int boardNo);
 }
 

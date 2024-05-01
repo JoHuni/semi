@@ -1,4 +1,4 @@
-package edu.kh.semi.member.controller;
+      package edu.kh.semi.member.controller;
 
 import java.io.IOException;
 
@@ -160,8 +160,57 @@ public class MemberController {
 	public String findPw() {
 		return "board/findPw";
 	}
-	@GetMapping("successFindPw")
-	public String successFindPw() {
-		return "board/successFindPw";
-	}
+	
+    @PostMapping("findPw")
+     public String findPw(
+             @RequestParam("memberEmail") String memberEmail,
+                          RedirectAttributes ra,
+             Model model,
+             HttpSession session) {
+         
+         int result = service.findPw(memberEmail);
+         String message = null;
+        
+         if(result > 0) {
+             session.setAttribute("memberEmail", memberEmail);
+             return "board/successFindPw";
+         }
+         else {
+             message = "일치하는 회원 정보가 없습니다.";
+             ra.addFlashAttribute("message", message);
+             return "redirect:/member/findPw";
+         }
+     }
+     
+     
+     @GetMapping("updatePw")
+     public String updatePw() {
+         return "/board/successFindPw";
+    }
+    
+	 @PostMapping("updatePw")
+	 public String updatePw(
+	         @RequestParam("memberPw") String memberPw,
+	         @RequestParam("memberPwCheck") String memberPwCheck,
+	         @SessionAttribute("memberEmail") String memberEmail,
+	             RedirectAttributes ra) {
+	         String message = null;
+	 
+	         if(!memberPw.equals(memberPwCheck)) {
+	             message = "비밀번호를 제대로 입력해주세요.";
+	         ra.addFlashAttribute("message", message);
+	         return "redirect:/member/updatePw";
+	     }
+	     
+	     int result = service.updatePw(memberPw, memberEmail);
+	     
+	     if(result > 0) {
+	         message = "비밀번호가 변경되었습니다.";
+	         ra.addFlashAttribute("message", message);
+	         return "redirect:/";
+	     }
+	     else{
+	         return "redirect:/";
+	     }
+	 }
 }

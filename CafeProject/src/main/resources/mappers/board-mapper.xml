@@ -36,7 +36,7 @@
 	
 	
 	<select id="selectOne" resultMap="Board_rm">
-		SELECT BOARD_NO, BOARD_TITLE ,BOARD_CONTENT, MEMBER_NO,
+		SELECT BOARD_NO, BOARD_TITLE ,BOARD_CONTENT, MEMBER_NO,READ_COUNT,
 			TO_CHAR(BOARD_WRITE_DATE, 'YYYY"년" MM"월" DD"일" HH24:MI:SS') BOARD_WRITE_DATE,
 			MEMBER_NICKNAME
 			
@@ -48,8 +48,13 @@
 	
 	
 	<select id="selectBoard">
-		SELECT BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, READ_COUNT, BOARD_WRITE_DATE
-		FROM BOARD
+		SELECT BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, READ_COUNT, BOARD_WRITE_DATE,
+		(
+			SELECT COUNT(*)
+			FROM "COMMENT" C
+			WHERE C.BOARD_NO = B.BOARD_NO
+		) COMMENT_COUNT
+		FROM BOARD B
 		JOIN "MEMBER" USING(MEMBER_NO)
 		WHERE BOARD_DEL_FL='N'
 		<choose>
@@ -103,9 +108,10 @@
 		<foreach collection="list" item="img" open="(" close=")" separator="UNION">
 			SELECT NEXT_IMG_NO(),
 					#{img.imgPath},
-					#{img.imgName},
+					#{img.imgOriginalName},
 					#{img.imgOrder},
-					#{img.boardNo}
+					#{img.boardNo},
+					#{img.imgReName}
 			FROM DUAL
 					
 		</foreach>
@@ -143,7 +149,8 @@
 	<!-- 이미지 수정 -->
 	<update id="updateImage">
 		UPDATE "IMAGE" SET
-		IMG_NAME=#{imgName}
+		IMG_ORIGINALNAME=#{imgOriginalName},
+		IMG_RENAME=#{imgReName}
 		WHERE BOARD_NO=#{boardNo}
 		AND IMG_ORDER=#{imgOrder}
 	</update>
@@ -153,9 +160,10 @@
 		INSERT INTO "IMAGE"
 		VALUES(NEXT_IMG_NO(),
 				#{imgPath},
-				#{imgName},
+				#{imgOriginalName},
 				#{imgOrder},
-				#{boardNo}
+				#{boardNo},
+				#{imgReName}
 				)
 	</insert>
 	
@@ -166,4 +174,20 @@
 		WHERE IMG_ORDER IN (${deleteOrder})
 		AND BOARD_NO = #{boardNo}
 	</delete>
+	
+	
+	
+	<!-- 조회수 1증가 -->
+	<update id="updateReadCount">
+		UPDATE "BOARD" SET
+		READ_COUNT = READ_COUNT + 1
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<!-- 조회수 조회 -->
+	<select id="selectReadCount">
+		SELECT READ_COUNT
+		FROM "BOARD"
+		WHERE BOARD_NO=#{boardNo}
+	</select>
 </mapper>

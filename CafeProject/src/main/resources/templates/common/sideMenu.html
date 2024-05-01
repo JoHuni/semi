@@ -3,16 +3,18 @@
 <section id="sideMenu">
 
     <div class="menuBtnArea">
+        <button>카페정보</button>
+        |
         <th:block th:if="${session.loginMember != null}">
             <form action="/member/myPage">
                 <button>내 정보</button>
             </form>
         </th:block>
-        <th:block th:if="${session.loginMember == null}">
-            <form><button>하이</button></form>
+        <th:block th:unless="${session.loginMember != null}">
+            <form action="/member/login" method="GET">
+                <button>내 정보</button>
+            </form>
         </th:block>
-        |
-        <form><button>나의활동</button></form>
     </div>
 
     <div class="profileArea">
@@ -65,7 +67,6 @@
 
     <div class="menuList">
         <ul>
-            <li><a href="/board/writeBoard">글쓰기</a> </li>
             <li><a href="/board/memberBoard?cp=1"> 회원 전용 게시판</a></li>
             <li><a href="/board/publicBoard?cp=1">전체 공개 게시판</a></li>
             <li><a href="/board/noticeBoard?cp=1">공지사항</a></li>

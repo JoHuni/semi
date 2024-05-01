@@ -76,11 +76,15 @@ tr td:last-child{
 }
 
 .current{
+    border: solid 1px;
     font-weight: bold;
-    background-color: #455ba8;
-    border-radius: 50%;
-    color: white !important;
+    background-color: #fff;
+    color: #6CABDD !important;
     letter-spacing: 0 !important;
+}
+
+.noticeColor{
+    color: red;
 }
 
 

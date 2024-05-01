@@ -58,6 +58,9 @@ public interface BoardService {
 	int updateBoard(Board board, List<MultipartFile> images,int memberNo, String deleteOrder) throws IllegalStateException, IOException;
 
 
+	int updateReadCount(int boardNo);
+
+
 
 
 
