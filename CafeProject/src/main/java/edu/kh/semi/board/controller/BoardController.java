@@ -142,9 +142,7 @@ public class BoardController {
 		
 		
 		
-		 if (board != null) {
-			 
-			 
+		 if (board != null) {	 
 			  if(loginMember==null) {
 			        if(boardType.equals("member")) {
 			        	message="로그인 후 이용해주세요";

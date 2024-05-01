@@ -10,15 +10,19 @@
     
     <div id="parentContainer">
         <div id = "heading"><h1>비밀번호 찾기</h1></div>
-        <form action="/member/updatePw" method="POST">
+        <form action="/member/updatePw" method="POST" id="pwChangeForm">
             <div id="container">
                 <h1>비밀번호 변경하기</h1>
-                <input type="password" name="memberPw" id="inputPass" placeholder="새로운 비밀번호" required>  
-                <input type="password" name="memberPwCheck"  id="inputPass"  placeholder="새로운 비밀번호 확인" required>
+                <p>영어,숫자,특수문자(!,@,#,-,_) 6~20글자 사이로 입력해주세요.</p>
+
+                <input type="password" name="memberPw" id="inputPass" placeholder="새로운 비밀번호" required maxlength="20">  
+                <input type="password" name="memberPwCheck"  id="inputPass"  placeholder="새로운 비밀번호 확인" required maxlength="20">
                 <button id="registerBtn"><b>변경하기</b></button>
             </div>
         </form>
     </div>
+    <script src="/js/board/updatePw.js"></script>
+
     <script th:inline="javascript">
         const message =  /*[[${message}]]*/ "전달 받은 message";
         if(message != null) alert(message);

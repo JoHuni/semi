@@ -263,13 +263,14 @@ public class MemberController {
 			return "redirect:changePw";
 		}
 
-		if(result == 0) {
-			message = "현재 비밀번호가 올바르지 않습니다.";
+		if(!confirmPassword.equals(newPassword)) {
+			message = "비밀번호 확인이 올바르지 않습니다.";
 			ra.addFlashAttribute("message", message);
 			return "redirect:changePw";
-		}
-		else if(!confirmPassword.equals(currentPassword)) {
-			message = "비밀번호 확인이 올바르지 않습니다.";
+		}	
+		
+		if(result == 0) {
+			message = "현재 비밀번호가 올바르지 않습니다.";
 			ra.addFlashAttribute("message", message);
 			return "redirect:changePw";
 		}

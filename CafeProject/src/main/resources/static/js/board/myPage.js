@@ -6,7 +6,7 @@ const profile = document.querySelector("#profile");
 
 let statusCheck = -1;
 
-
+const memberNickname = document.querySelector("#memberNickname");
 // input type="file" 태그가의 값이 변경 되었을 때
 // 변경된 상태를 백업해서 저장할 변수
 // -> 파일이 선택/취소된 input을 복제해서 저장
@@ -179,29 +179,83 @@ if(profile != null){
 
 
 
-// ------------ #profile (form) 제출 시 -----------------
+  // ------------ #profile (form) 제출 시 -----------------
+
+
+let memberNicknameCheck = false;
+
+
+
+const nicknameP = document.querySelector("#nicknameP");
+memberNickname.addEventListener("input", e => {
+  const regExp = /^[a-zA-Z0-9!@#_-]{2,10}$/;
+
+  if(memberNickname.value.trim().length === 0){
+    nicknameP.innerText = "영어,숫자,특수문자(!,@,#,-,_) 6~20글자 사이로 입력해주세요.";
+    nicknameP.classList.remove("success", "fail");
+    memberNickname.value = "";
+    memberNicknameCheck = false;
+    return;
+}
+
+  if(!regExp.test(memberNickname.value)){
+    nicknameP.innerText = "닉네임 형식이 올바르지 않습니다";
+    nicknameP.classList.add("fail");
+    nicknameP.classList.remove("success");
+    memberNicknameCheck = false;
+   
+    return;
+  }
+
+  fetch("/member/checkNicknameRedundancy",{
+    method : "POST",
+    headers : {"Content-Type" : "application/json"},
+    body : memberNickname.value
+  })
+  .then(resp => resp.text())
+  .then(result => {
+      if(result != 0){
+          nicknameP.innerText = "이미 존재하는 닉네임 입니다"
+          nicknameP.classList.add("fail");
+          nicknameP.classList.remove("sucess");
+          memberNicknameCheck = false;
+          return;
+      }
+      nicknameP.innerText = "유효한 닉네임 형식입니다";
+      nicknameP.classList.add("success");
+      nicknameP.classList.remove("fail");
+      memberNicknameCheck = true;
+  });
+})
+
   profile.addEventListener("submit", e => {
     let flag = true;
 
     // 기존 프로필 이미지가 없다가 새 이미지가 선택된 경우
-    if (loginMemberProfileImg == null && statusCheck == 1) {
+    if(loginMemberProfileImg == null && statusCheck == 1){
       flag = false;
     }
 
-    // 기존 이미지가 있는 경우
-    if (loginMemberProfileImg != null) {
-      // 새 이미지가 선택되지 않은 경우
-      if (statusCheck == -1) {
-        flag = false;
-      } else if (statusCheck == 0) { // 이미지가 삭제된 경우
-        flag = false;
-      }
+    if(loginMemberProfileImg != null && statusCheck == 0){
+      flag = false;
     }
 
-    if (flag) {
+    if(loginMemberProfileImg != null && statusCheck == 1){
+      flag = false;
+    }
+
+    if(flag){
       // flag 값이 true일 때
       e.preventDefault();
       alert("이미지 변경 후 클릭해주세요.");
     }
+
+    if (!memberNicknameCheck) {
+      alert("닉네임을 제대로 입력해주세요.");
+      e.preventDefault();
+    }
   });
 }
+
+
+

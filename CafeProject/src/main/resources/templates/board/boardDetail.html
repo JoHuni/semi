@@ -70,7 +70,7 @@
 
                 <div class="btnArea">
                     <button type="button" id="goListBtn">목록으로</button>
-                    <th:block th:if="${board.memberNo == session.loginMember?.memberNo or session.loginMember.memberNo == 3}">
+                    <th:block th:if="${board.memberNo == session.loginMember?.memberNo}">
                         <button type="button" id="deleteBtn">삭제</button>
                         <button type="button" id="updateBtn">수정</button>
                     </th:block>
