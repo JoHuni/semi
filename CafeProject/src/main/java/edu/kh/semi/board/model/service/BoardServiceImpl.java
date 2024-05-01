@@ -112,12 +112,16 @@ public class BoardServiceImpl implements BoardService {
 
 		return boardNo;
 	}
+	
+	
 
 	// 글 상세조회
 	@Override
 	public Board selectOne(Map<String, Object> map) {
 		return mapper.selectOne(map);
 	}
+	
+	
 
 	// 게시글 리스트 조회
 	@Override
