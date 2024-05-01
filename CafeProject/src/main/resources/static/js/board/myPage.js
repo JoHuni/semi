@@ -58,9 +58,6 @@ if(profile != null){
 
     // ------------업로드된 파일이 없다면(취소한 경우)------------
     if(file == undefined){
-      console.log("파일 선택 후 취소됨");
-
-      
       // 파일 선택 후 취소 -> value == ''
       // -> 선택한 파일 없음으로 기록됨
       // -> backupInput으로 교체 시켜서
@@ -182,30 +179,29 @@ if(profile != null){
 
 
 
-  // ------------ #profile (form) 제출 시 -----------------
+// ------------ #profile (form) 제출 시 -----------------
   profile.addEventListener("submit", e => {
     let flag = true;
 
     // 기존 프로필 이미지가 없다가 새 이미지가 선택된 경우
-    if(loginMemberProfileImg == null && statusCheck == 1){
+    if (loginMemberProfileImg == null && statusCheck == 1) {
       flag = false;
     }
 
-    if(loginMemberProfileImg != null && statusCheck == 0){
-      flag = false;
+    // 기존 이미지가 있는 경우
+    if (loginMemberProfileImg != null) {
+      // 새 이미지가 선택되지 않은 경우
+      if (statusCheck == -1) {
+        flag = false;
+      } else if (statusCheck == 0) { // 이미지가 삭제된 경우
+        flag = false;
+      }
     }
 
-    if(loginMemberProfileImg != null && statusCheck == 1){
-      flag = false;
-    }
-
-    if(flag){
+    if (flag) {
       // flag 값이 true일 때
       e.preventDefault();
       alert("이미지 변경 후 클릭해주세요.");
     }
-
   });
-
-
 }

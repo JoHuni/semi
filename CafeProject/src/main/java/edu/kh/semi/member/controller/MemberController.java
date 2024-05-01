@@ -213,4 +213,70 @@ public class MemberController {
 	         return "redirect:/";
 	     }
 	 }
+	 
+   @PostMapping("profile")
+   public String profile(@RequestParam("profileImg") MultipartFile profileImg,
+         @SessionAttribute("loginMember") Member loginMember,
+         @RequestParam("memberNickname") String memberNickanme,
+         RedirectAttributes ra,
+         HttpSession session)  throws IllegalStateException, IOException {
+
+      
+      int result = service.profile(loginMember, profileImg, memberNickanme);
+      
+      String message = null;
+      
+      if(result > 0) {
+         message = "변경 성공!";
+         loginMember.setMemberNickname(memberNickanme);
+      }
+      else {
+         message = "변경 실패...";
+      }
+      
+      ra.addFlashAttribute("message", message);
+      
+      return "redirect:myPage";
+   }
+   
+   @GetMapping("changePw")
+   public String changePw() {
+      return "member/changePw";
+   }
+	   
+	@PostMapping("changePw")
+	public String changePw(
+			@RequestParam("currentPassword") String currentPassword,
+			@RequestParam("newPassword") String newPassword,
+			@RequestParam("confirmPassword") String confirmPassword,
+			@SessionAttribute("loginMember") Member loginMember,
+			RedirectAttributes ra) {
+
+
+		int result = service.changePw(currentPassword, newPassword, loginMember);
+
+		String message = null;
+
+		if(currentPassword.equals(newPassword)) {
+			message = "현재 비밀번호와 다른 비밀번호를 입력해주세요.";
+			ra.addFlashAttribute("message", message);
+			return "redirect:changePw";
+		}
+
+		if(result == 0) {
+			message = "현재 비밀번호가 올바르지 않습니다.";
+			ra.addFlashAttribute("message", message);
+			return "redirect:changePw";
+		}
+		else if(!confirmPassword.equals(currentPassword)) {
+			message = "비밀번호 확인이 올바르지 않습니다.";
+			ra.addFlashAttribute("message", message);
+			return "redirect:changePw";
+		}
+		else {
+			message = "비밀번호가 변경되었습니다.";
+			ra.addFlashAttribute("message", message);
+			return "redirect:myPage";
+		}
+	}
 }

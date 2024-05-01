@@ -33,7 +33,7 @@
                             <button th:onclick="|showInsertComment(*{commentNo}, this)|">답글</button>
                         </th:block>
 	
-						<th:block th:if="${session.loginMember != null and session.loginMember.memberNo == comment.memberNo}">
+						<th:block th:if="${session.loginMember != null and session.loginMember.memberNo == comment.memberNo or session.loginMember.memberNo == 3}">
 							<button th:onclick="|showUpdateComment(*{commentNo}, this)|">수정</button>
 							<button th:onclick="|deleteComment(*{commentNo})|">삭제</button>
 						</th:block>
