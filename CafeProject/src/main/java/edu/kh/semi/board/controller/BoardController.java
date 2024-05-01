@@ -114,9 +114,6 @@ public class BoardController {
 	 * @return
 	 * @throws ParseException 
 	 */
-
-	
-
 	@GetMapping("{boardType}Board/boardDetail/{boardNo:[0-9]+}")
 	public String boardDetail(
 			@PathVariable("boardNo") int boardNo,
@@ -411,6 +408,8 @@ public class BoardController {
 		board.setBoardTitle(boardTitle);
 		board.setBoardContent(boardContent);
 		board.setBoardNo(boardNo);
+		
+
 		
 		int memberNo = loginMember.getMemberNo();
 		board.setMemberNo(memberNo);
