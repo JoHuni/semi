@@ -1,5 +1,6 @@
 package edu.kh.semi.board.model.dto;
 
+import java.util.Date;
 import java.util.List;
 
 import lombok.AllArgsConstructor;

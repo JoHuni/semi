@@ -29,9 +29,16 @@
 
                 <hr>
                 <div class="writer-date">
-                    <h5 th:text="${board.memberNickname}">작성자</h5>
-                    <h5 th:text="${board.boardWriteDate}">작성일</h5>
+                    <span>
+                        작성자 : [[${board.memberNickname}]]
+                    </span>
+
+                    <span>
+                        작성일 : [[${board.boardWriteDate}]]
+                    </span>
+
                 </div>
+
 
                 <hr>
 
@@ -54,6 +61,11 @@
                         </div>
                     </th:block>
                 </th:block>
+
+
+                <span th:if="${board.boardUpdateDate!=null}" id="udpateDate">
+                    수정일 : [[${board.boardUpdateDate}]]
+                </span>
 
 
                 <div class="btnArea">
