@@ -121,8 +121,7 @@ checkEmail.addEventListener("input",() => {
         authKeyMessage.innerText = "인증번호를 입력해주세요"
         authKeyMessage.classList.add("fail");
         authKeyMessage.classList.remove("success");
-
-
+        
         authKeyMessage.innerText = "인증키 입력을 해주세요";
         authKeyMessage.classList.add("red");
         obj.checkEmail = false;
