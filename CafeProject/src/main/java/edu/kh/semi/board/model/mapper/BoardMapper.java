@@ -15,6 +15,9 @@ import org.apache.ibatis.session.RowBounds;
 import edu.kh.semi.board.model.dto.Board;
 import edu.kh.semi.board.model.dto.Image;
 
+/**
+ * 
+ */
 @Mapper
 public interface BoardMapper {
 
@@ -76,5 +79,20 @@ public interface BoardMapper {
 	int updateReadCount(int boardNo);
 
 	int selectReadCount(int boardNo);
+
+	
+	
+	/** 검색 조건에 맞는 게시글 수 조회
+	 * @param paramMap
+	 * @return
+	 */
+	int getSearchCount(Map<String, Object> paramMap);
+
+	/** 검색 결과 목록 조회
+	 * @param paramMap
+	 * @param bounds
+	 * @return
+	 */
+	List<Board> selectSearchBoard(Map<String, Object> paramMap, RowBounds bounds);
 }
 
