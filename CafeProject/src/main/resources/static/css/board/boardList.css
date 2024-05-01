@@ -88,3 +88,26 @@ tr td:last-child{
 }
 
 
+#boardSearch{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    padding: 5px;
+}
+
+
+
+#boardSearch>input{
+    margin: 3px;
+}
+
+#searchKey{
+    margin: 3px;
+}
+
+#boardSearch>button{
+    border: 1px solid black;
+    padding: 3px;
+    margin: 3px;
+    border-radius: 5px;
+}

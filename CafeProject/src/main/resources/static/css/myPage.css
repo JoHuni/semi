@@ -78,11 +78,19 @@ form{
 
 .nickname-area{
     display: flex; 
-    align-items: center;
+    align-items: flex-start;
+    flex-direction: column;
+    
 }
 
 .nickname-area > input{
-    margin-left: 10px;
+    margin-top: 20px;
+    margin-left: 3px;
+    margin-bottom: 5px;
+}
+
+.nickname-area > p{
+    size: 5px;
 }
 
 .submit-area{
@@ -237,4 +245,11 @@ form{
 
 .form-password{
     width: 60%;
+}
+
+.success{
+    color:green;
+}
+.fail{
+    color : red;
 }
