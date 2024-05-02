@@ -52,8 +52,7 @@ public class EmailServiceImpl implements EmailService {
 			helper.setSubject(subject); // 이메일 제목 지정
 			helper.setText( loadHtml(authKey, htmlName),true );
 			
-			helper.addInline("logo",  
-					new ClassPathResource("static/images/logo.jpg"));
+		
 			
 			mailSender.send(mimeMessage);
 			
