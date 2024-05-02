@@ -70,7 +70,7 @@
 
                 <div class="btnArea">
                     <button type="button" id="goListBtn">목록으로</button>
-                    <th:block th:if="${board.memberNo == session.loginMember?.memberNo}">
+                    <th:block th:if="${board.memberNo == session.loginMember?.memberNo or session.loginMember.authority == 1}">
                         <button type="button" id="deleteBtn">삭제</button>
                         <button type="button" id="updateBtn">수정</button>
                     </th:block>
@@ -89,8 +89,7 @@
     <script th:inline="javascript">
         const boardNo = /*[[${board.boardNo}]]*/ "게시글 번호";
         const loginMemberNo = /*[[${session.loginMember?.memberNo}]]*/ "로그인 회원 번호";
-
-        if (message != null) alert(message);
+        const authority = /*[[${session.loginMember?.authority}]]*/ "로그인 회원 권한";
     </script>
 </body>
 
