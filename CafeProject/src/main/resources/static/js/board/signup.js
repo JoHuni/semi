@@ -361,7 +361,7 @@ checkEmail.addEventListener("input",() => {
         checkEmail.value = "";
         return;
     }
-    obj.checkEmail = true;
+
 });
 
 checkAuthKeyBtn.addEventListener("click",e => {
@@ -375,27 +375,23 @@ checkAuthKeyBtn.addEventListener("click",e => {
         return;
     }
 
-    const obj = {
+    const memberObj = {
         "email":inputEmail.value,
         "authKey": checkEmail.value
     }
+    obj.checkEmail = false;
 
-    fetch("/email/checkAuthKey",{
+    fetch("/email/checkAuthKey",{   
         method : "POST",
         headers : {"Content-Type" : "application/json"},
-        body : JSON.stringify(obj)
+        body : JSON.stringify(memberObj)
     })
     .then(response => response.text())
     .then(result => {
         
-        if(result == 0 && checkEmail.value.trim().length != 0){
-            alert("인증번호가 일치하지 않습니다");
-            console.log(result);
-            obj.checkEmail=false;
-            return;
-        }
-        if(result == 0 && checkEmail.value.trim().length == 0){
-            alert("인증번호를 입력해주세요");
+       
+        if(result == 0 ){
+            alert("인증번호를 다시 입력해주세요");
             console.log(result);
             obj.checkEmail=false;
             return;
@@ -407,6 +403,12 @@ checkAuthKeyBtn.addEventListener("click",e => {
         authKeyMessage.classList.add("success");
         authKeyMessage.classList.remove("fail");
         obj.checkEmail = true;
+
+     
+
+        
+        
+        
         
 
     //    if(clickCount > 1 ){
