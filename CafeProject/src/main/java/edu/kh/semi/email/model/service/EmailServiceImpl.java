@@ -37,7 +37,7 @@ public class EmailServiceImpl implements EmailService {
 		try {
 			String subject = null;
 			switch(htmlName) {
-				case "signup": subject = "[boardProject] 회원가입 인증번호 입니다";break;
+				case "signup": subject = "회원가입 인증번호 입니다";break;
 			}
 			
 			//인증 메일 보내기
