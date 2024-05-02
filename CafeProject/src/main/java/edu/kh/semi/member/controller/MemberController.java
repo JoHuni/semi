@@ -42,6 +42,33 @@ public class MemberController {
 	public String withdrawal() {
 		return "/member/withdrawal";
 	}
+	
+	@PostMapping("withdrawal")
+	public String withdrawal(
+			@RequestParam("currentPassword") String currentPassword,
+			@SessionAttribute("loginMember") Member loginMember,
+			SessionStatus status,
+			RedirectAttributes ra) {
+
+		int memberNo = loginMember.getMemberNo();
+
+		int result = service.withdrawalMember(currentPassword, memberNo);
+
+		String message = null;
+
+		if(result > 0) {
+			message = "탈퇴가 완료되었습니다.";
+			ra.addFlashAttribute("message", message);
+			status.setComplete();
+			return "redirect:/";
+		}
+		else {
+			message = "탈퇴가 안 돼";
+			ra.addFlashAttribute("message", message);
+			return "redirect:/";
+		}
+	}
+	
 
 	@GetMapping("signup")
 	public String register() {

@@ -228,7 +228,7 @@ public class BoardController {
               if(board.getImageList() != null&&!board.getImageList().isEmpty()) {
 
                  model.addAttribute("start", 0);
-              //   model.addAttribute("memberNo", loginMember.getMemberNo());
+                 
                  model.addAttribute("memberNo", board.getMemberNo() );
               }
              
@@ -440,8 +440,8 @@ public class BoardController {
          path="update";
       }
       
-      ra.addFlashAttribute("message", message);
       model.addAttribute("board", board);
+      ra.addFlashAttribute("message", message);
       
       return "redirect:"+path;
    }
