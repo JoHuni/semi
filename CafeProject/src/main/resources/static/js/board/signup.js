@@ -361,16 +361,18 @@ checkEmail.addEventListener("input",() => {
         checkEmail.value = "";
         return;
     }
+    obj.checkEmail = true;
 });
 
 checkAuthKeyBtn.addEventListener("click",e => {
-    clickCount++;
+    
     if(min === 0 && sec === 0){
         alert("시간을 초과하였습니다");
         return;
     }
     if(checkEmail.value.length < 6){
         alert("인증번호를 정확히 입력해주세요");
+        return;
     }
 
     const obj = {
@@ -386,8 +388,14 @@ checkAuthKeyBtn.addEventListener("click",e => {
     .then(response => response.text())
     .then(result => {
         
-        if(result == 0){
+        if(result == 0 && checkEmail.value.trim().length != 0){
             alert("인증번호가 일치하지 않습니다");
+            console.log(result);
+            obj.checkEmail=false;
+            return;
+        }
+        if(result == 0 && checkEmail.value.trim().length == 0){
+            alert("인증번호를 입력해주세요");
             console.log(result);
             obj.checkEmail=false;
             return;
@@ -401,12 +409,12 @@ checkAuthKeyBtn.addEventListener("click",e => {
         obj.checkEmail = true;
         
 
-       if(clickCount > 1 ){
-        alert("이미 입력한 인증 번호 이거나 인증 번호가 올바르지 않습니다") ;   
-        clickCount = 0;  
-        return; 
-       }
-       console.log(result);
+    //    if(clickCount > 1 ){
+    //     alert("이미 입력한 인증 번호 이거나 인증 번호가 올바르지 않습니다") ;   
+    //     clickCount = 0;  
+    //     return; 
+    //    }
+    //    console.log(result);
         
     })
 });
