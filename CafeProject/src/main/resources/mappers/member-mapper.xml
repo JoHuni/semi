@@ -43,7 +43,7 @@
 
    <select id="emailRedundancy" resultType="_int">
       SELECT COUNT(*) FROM "MEMBER"
-      WHERE MEMBER_EMAIL = #{memberEmail} AND MEMBER_DEL_FL = 'N'
+      WHERE MEMBER_EMAIL = #{memberEmail}
    </select>
    
    <select id="nickNameRedundancy" resultType="_int">
