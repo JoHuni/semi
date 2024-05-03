@@ -1,8 +1,6 @@
-const images = document.querySelectorAll(".image");
 const container = document.querySelector("#container");
 
 document.addEventListener("DOMContentLoaded", () => {
-    images[0].style.display = "block";
     const memberCount = document.querySelector("#memberCount");
     function updateMemberCount() {
         fetch("/member/countMember")
@@ -15,17 +13,3 @@ document.addEventListener("DOMContentLoaded", () => {
     updateMemberCount();
     setInterval(updateMemberCount, 30000);
 });
-
- 
-let slideIndex = 0;
-setInterval(() => {
- 
-    for(let i = 0; i<images.length; i++){
-        images[i].style.display = "none";
-    }
-    slideIndex++;
-    if(slideIndex > images.length){
-        slideIndex=1;
-    }
-   images[slideIndex-1].style.display = "block";
-}, 2000)
