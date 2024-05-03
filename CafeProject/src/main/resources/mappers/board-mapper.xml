@@ -57,6 +57,56 @@
 	
 	
 	<select id="selectBoard">
+		SELECT * FROM (
+			SELECT BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, READ_COUNT, BOARD_WRITE_DATE, BOARD_CHECK_NOTICE,
+			(
+				SELECT COUNT(*)
+				FROM "COMMENT" C
+				WHERE C.BOARD_NO = B.BOARD_NO
+				AND COMMENT_DEL_FL = 'N'
+			) COMMENT_COUNT
+			FROM BOARD B
+			JOIN "MEMBER" USING(MEMBER_NO)
+			WHERE BOARD_DEL_FL='N'
+				AND BOARD_CHECK_NOTICE='Y'
+			ORDER BY BOARD_NO DESC
+		)
+		WHERE 4 >= ROWNUM
+		
+		UNION ALL
+	
+		SELECT * FROM (
+			SELECT BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, READ_COUNT, BOARD_WRITE_DATE, BOARD_CHECK_NOTICE,
+			(
+				SELECT COUNT(*)
+				FROM "COMMENT" C
+				WHERE C.BOARD_NO = B.BOARD_NO
+				AND COMMENT_DEL_FL = 'N'
+			) COMMENT_COUNT
+			FROM BOARD B
+			JOIN "MEMBER" USING(MEMBER_NO)
+			WHERE BOARD_DEL_FL='N'
+			<choose>
+				<when test='boardType=="member"'>
+				AND BOARD_CHECK_NOTICE='N'
+				AND BOARD_CHECK_PUBLIC='N'
+				</when>
+				
+				<when test='boardType=="public"'>
+				AND BOARD_CHECK_NOTICE='N'
+				AND BOARD_CHECK_PUBLIC='Y'
+				</when>
+				
+				<when test='boardType=="notice"'>
+				AND BOARD_CHECK_NOTICE='Y'
+				</when>
+			</choose>
+			ORDER BY BOARD_NO DESC
+		)
+	</select>
+	
+<!-- 	
+	<select id="selectBoard">
 		SELECT BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, READ_COUNT, BOARD_WRITE_DATE,
 		(
 			SELECT COUNT(*)
@@ -84,7 +134,7 @@
 		</choose>
 		ORDER BY BOARD_NO DESC
 	</select>
-	
+	 -->
 	
 	
 
