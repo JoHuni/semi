@@ -161,10 +161,6 @@ public class MemberController {
 		return "board/findId";
 	}
 	
-<<<<<<< HEAD
-    
-=======
->>>>>>> 83d277a0708fb04e3c60878b181ecd8a0d395eb7
 	@PostMapping("findId")
 	public String findId(
 	        @RequestParam("memberTel") String memberTel,
