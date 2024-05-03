@@ -5,6 +5,10 @@
     margin-top: 30px;
 }
 
+#sideMenu{
+    margin-top: -30px;
+}
+
 .boardTable{
     width: 100%;
     height: 100%;
