@@ -28,10 +28,11 @@
 
 .boardContent{
     clear: both;
-    padding: 30px 0;
+    padding: 30px 7px;
     margin: 30px 0;
-    height: 300px;
-    border : 1px solid #ccc;
+    height: auto;
+    border-top: 1px solid #ccc;
+    border-bottom : 1px solid #ccc;
 
     font-size: 20px;
     white-space: pre-wrap;
