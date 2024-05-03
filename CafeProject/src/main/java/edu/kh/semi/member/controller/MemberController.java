@@ -161,27 +161,6 @@ public class MemberController {
 		return "board/findId";
 	}
 	
-<<<<<<< HEAD
-    
-=======
->>>>>>> 83d277a0708fb04e3c60878b181ecd8a0d395eb7
-	@PostMapping("findId")
-	public String findId(
-	        @RequestParam("memberTel") String memberTel,
-	        RedirectAttributes ra,
-	        Model model) {
-	    String memberId = service.findId(memberTel);
-	    if(memberId.isEmpty()) {
-	        ra.addFlashAttribute("message", "일치하는 회원 정보가 없습니다.");
-	        return "redirect:/member/findId";
-	    }
-	    else {
-	    	model.addAttribute("memberId", memberId);
-	    	return "board/successFindId";
-	    }
-	}
-	
-	
 	@GetMapping("findPw")
 	public String findPw() {
 		return "board/findPw";
