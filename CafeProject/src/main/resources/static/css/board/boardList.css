@@ -115,3 +115,13 @@ tr td:last-child{
     margin: 3px;
     border-radius: 5px;
 }
+
+
+
+/* .notice > td, .notice > th{
+    background-color: #DBDDDE;
+} */
+
+.notice > td > a{
+    color: red;
+}
