@@ -87,7 +87,7 @@ public class MemberController {
 		if(result > 0) {
 			message = "가입 성공!";
 			ra.addFlashAttribute("message", message);
-			return "redirect:/";
+			return "redirect:/member/login";
 		}else {
 			message = "가입 실패";
 			return "board/signup";

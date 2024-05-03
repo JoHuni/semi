@@ -1,4 +1,8 @@
+const images = document.querySelectorAll(".image");
+const container = document.querySelector("#container");
+
 document.addEventListener("DOMContentLoaded", () => {
+    images[0].style.display = "block";
     const memberCount = document.querySelector("#memberCount");
     function updateMemberCount() {
         fetch("/member/countMember")
@@ -9,14 +13,10 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     }
     updateMemberCount();
-
-
     setInterval(updateMemberCount, 30000);
 });
 
  
-const images = document.querySelectorAll(".image");
-const container = document.querySelector("#container");
 let slideIndex = 0;
 setInterval(() => {
  
