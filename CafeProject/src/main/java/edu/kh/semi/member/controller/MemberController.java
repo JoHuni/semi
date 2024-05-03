@@ -161,11 +161,7 @@ public class MemberController {
 		return "board/findId";
 	}
 	
-    @GetMapping("moveToLogin")
-    public String moveLogin() {
-    	return "board/Login";
-    }
-	
+    
 	@PostMapping("findId")
 	public String findId(
 	        @RequestParam("memberTel") String memberTel,
