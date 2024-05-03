@@ -7,7 +7,7 @@
 
 .container{
     width: 70%;
-    height: 750px;
+    height: auto;
     display: block;
     margin: auto;
 }
@@ -78,11 +78,13 @@
     justify-content: center;
     width: auto;
     height: 300px;
+    margin: 5px;
 }
 .contentArea>textarea{
     border: 1px solid #eee;
     background-color: #ffffff;
     margin: 10px;
+    padding: 10px;
     width: 95%;
     height: 70%;
     color: #323232;
@@ -127,23 +129,22 @@
 .imgArea{
     display: flex;
     justify-content: space-between;
-    height: 100px;
+    height: 150px;
 }
 
 
 /* 이미지를 감싸는 div */
 .boardImg{
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: auto;
     display: inline-block;
     text-align: center;
-
     position: relative;
 }
 
 .boardImg img{
-    max-width: 90%;
-    max-height: 90%;
+    max-width: 100%;
+    height: 100%;
 }
 .boardImg > label{
     width: 100%;
